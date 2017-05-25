@@ -1,0 +1,125 @@
+
+state 0
+	$accept: .start $end 
+	top_statement_list: .    (3)
+
+	.  reduce 3 (src line 280)
+
+	start  goto 1
+	top_statement_list  goto 2
+
+state 1
+	$accept:  start.$end 
+
+	$end  accept
+	.  error
+
+
+state 2
+	start:  top_statement_list.    (1)
+	top_statement_list:  top_statement_list.top_statement 
+
+	T_ECHO  shift 5
+	.  reduce 1 (src line 245)
+
+	top_statement  goto 3
+	statement  goto 4
+
+state 3
+	top_statement_list:  top_statement_list top_statement.    (2)
+
+	.  reduce 2 (src line 278)
+
+
+state 4
+	top_statement:  statement.    (4)
+
+	.  reduce 4 (src line 296)
+
+
+state 5
+	statement:  T_ECHO.echo_expr_list ';' 
+
+	T_LNUMBER  shift 11
+	.  error
+
+	expr  goto 8
+	expr_without_variable  goto 9
+	echo_expr  goto 7
+	scalar  goto 10
+	echo_expr_list  goto 6
+
+state 6
+	statement:  T_ECHO echo_expr_list.';' 
+	echo_expr_list:  echo_expr_list.',' echo_expr 
+
+	','  shift 13
+	';'  shift 12
+	.  error
+
+
+state 7
+	echo_expr_list:  echo_expr.    (7)
+
+	.  reduce 7 (src line 828)
+
+
+state 8
+	echo_expr:  expr.    (8)
+
+	.  reduce 8 (src line 830)
+
+
+state 9
+	expr:  expr_without_variable.    (11)
+
+	.  reduce 11 (src line 1092)
+
+
+state 10
+	expr_without_variable:  scalar.    (9)
+
+	.  reduce 9 (src line 862)
+
+
+state 11
+	scalar:  T_LNUMBER.    (10)
+
+	.  reduce 10 (src line 1063)
+
+
+state 12
+	statement:  T_ECHO echo_expr_list ';'.    (5)
+
+	.  reduce 5 (src line 410)
+
+
+state 13
+	echo_expr_list:  echo_expr_list ','.echo_expr 
+
+	T_LNUMBER  shift 11
+	.  error
+
+	expr  goto 8
+	expr_without_variable  goto 9
+	echo_expr  goto 14
+	scalar  goto 10
+
+state 14
+	echo_expr_list:  echo_expr_list ',' echo_expr.    (6)
+
+	.  reduce 6 (src line 826)
+
+
+158 terminals, 10 nonterminals
+12 grammar rules, 15/8000 states
+0 shift/reduce, 0 reduce/reduce conflicts reported
+59 working sets used
+memory: parser 12/120000
+0 extra closures
+5 shift entries, 1 exceptions
+10 goto entries
+3 entries saved by goto default
+Optimizer space used: output 150/120000
+150 table entries, 136 zero
+maximum spread: 158, maximum offset: 91
