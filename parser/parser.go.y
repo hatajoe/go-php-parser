@@ -1061,8 +1061,8 @@ dereferencable_scalar:
 ;
 */
 scalar:
-		T_LNUMBER 	{ $$ = ast.NewIntegerLiteral($1, $1.Literal); }/*
-	|	T_DNUMBER 	{ $$ = $1; }
+		T_LNUMBER 	{ $$ = ast.NewIntegerLiteral($1, $1.Literal); }
+	|	T_DNUMBER 	{ $$ = ast.NewDoubleLiteral($1, $1.Literal); }/*
 	|	T_LINE 		{ $$ = zend_ast_create_ex(ZEND_AST_MAGIC_CONST, T_LINE); }
 	|	T_FILE 		{ $$ = zend_ast_create_ex(ZEND_AST_MAGIC_CONST, T_FILE); }
 	|	T_DIR   	{ $$ = zend_ast_create_ex(ZEND_AST_MAGIC_CONST, T_DIR); }

@@ -41,6 +41,7 @@ state 5
 	statement:  T_ECHO.echo_expr_list ';' 
 
 	T_LNUMBER  shift 11
+	T_DNUMBER  shift 12
 	.  error
 
 	expr  goto 8
@@ -53,8 +54,8 @@ state 6
 	statement:  T_ECHO echo_expr_list.';' 
 	echo_expr_list:  echo_expr_list.',' echo_expr 
 
-	','  shift 13
-	';'  shift 12
+	','  shift 14
+	';'  shift 13
 	.  error
 
 
@@ -71,9 +72,9 @@ state 8
 
 
 state 9
-	expr:  expr_without_variable.    (11)
+	expr:  expr_without_variable.    (12)
 
-	.  reduce 11 (src line 1092)
+	.  reduce 12 (src line 1092)
 
 
 state 10
@@ -89,37 +90,44 @@ state 11
 
 
 state 12
+	scalar:  T_DNUMBER.    (11)
+
+	.  reduce 11 (src line 1065)
+
+
+state 13
 	statement:  T_ECHO echo_expr_list ';'.    (5)
 
 	.  reduce 5 (src line 410)
 
 
-state 13
+state 14
 	echo_expr_list:  echo_expr_list ','.echo_expr 
 
 	T_LNUMBER  shift 11
+	T_DNUMBER  shift 12
 	.  error
 
 	expr  goto 8
 	expr_without_variable  goto 9
-	echo_expr  goto 14
+	echo_expr  goto 15
 	scalar  goto 10
 
-state 14
+state 15
 	echo_expr_list:  echo_expr_list ',' echo_expr.    (6)
 
 	.  reduce 6 (src line 826)
 
 
 158 terminals, 10 nonterminals
-12 grammar rules, 15/8000 states
+13 grammar rules, 16/8000 states
 0 shift/reduce, 0 reduce/reduce conflicts reported
 59 working sets used
 memory: parser 12/120000
 0 extra closures
-5 shift entries, 1 exceptions
+7 shift entries, 1 exceptions
 10 goto entries
 3 entries saved by goto default
 Optimizer space used: output 150/120000
-150 table entries, 136 zero
+150 table entries, 135 zero
 maximum spread: 158, maximum offset: 91

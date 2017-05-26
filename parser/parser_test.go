@@ -25,6 +25,18 @@ echo 1;`,
 			`<?php echo 1,2,3,4;`,
 			`echo 1, 2, 3, 4;`,
 		},
+		{
+			`<?php echo 1.0;`,
+			`echo 1.0;`,
+		},
+		{
+			`<?php echo 1.2;`,
+			`echo 1.2;`,
+		},
+		{
+			`<?php echo 1.2,3;`,
+			`echo 1.2, 3;`,
+		},
 	}
 
 	for idx, test := range tests {
