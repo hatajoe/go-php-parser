@@ -91,69 +91,69 @@ const T_CONSTANT_ENCAPSED_STRING = 57411
 const T_STRING_VARNAME = 57412
 const T_NUM_STRING = 57413
 const T_ECHO = 57414
-const T_EXIT = 57415
-const T_IF = 57416
-const T_DO = 57417
-const T_WHILE = 57418
-const T_ENDWHILE = 57419
-const T_FOR = 57420
-const T_ENDFOR = 57421
-const T_FOREACH = 57422
-const T_ENDFOREACH = 57423
-const T_DECLARE = 57424
-const T_ENDDECLARE = 57425
-const T_AS = 57426
-const T_SWITCH = 57427
-const T_ENDSWITCH = 57428
-const T_CASE = 57429
-const T_DEFAULT = 57430
-const T_BREAK = 57431
-const T_CONTINUE = 57432
-const T_GOTO = 57433
-const T_FUNCTION = 57434
-const T_CONST = 57435
-const T_RETURN = 57436
-const T_TRY = 57437
-const T_CATCH = 57438
-const T_FINALLY = 57439
-const T_THROW = 57440
-const T_USE = 57441
-const T_INSTEADOF = 57442
-const T_GLOBAL = 57443
-const T_VAR = 57444
-const T_UNSET = 57445
-const T_ISSET = 57446
-const T_EMPTY = 57447
-const T_HALT_COMPILER = 57448
-const T_CLASS = 57449
-const T_TRAIT = 57450
-const T_INTERFACE = 57451
-const T_EXTENDS = 57452
-const T_IMPLEMENTS = 57453
-const T_OBJECT_OPERATOR = 57454
-const T_LIST = 57455
-const T_ARRAY = 57456
-const T_CALLABLE = 57457
-const T_LINE = 57458
-const T_FILE = 57459
-const T_DIR = 57460
-const T_CLASS_C = 57461
-const T_TRAIT_C = 57462
-const T_METHOD_C = 57463
-const T_FUNC_C = 57464
-const T_COMMENT = 57465
-const T_DOC_COMMENT = 57466
-const T_OPEN_TAG = 57467
-const T_OPEN_TAG_WITH_ECHO = 57468
-const T_CLOSE_TAG = 57469
-const T_WHITESPACE = 57470
-const T_START_HEREDOC = 57471
-const T_END_HEREDOC = 57472
-const T_DOLLAR_OPEN_CURLY_BRACES = 57473
-const T_CURLY_OPEN = 57474
-const T_PAAMAYIM_NEKUDOTAYIM = 57475
-const T_NAMESPACE = 57476
-const T_NS_C = 57477
+const T_LINE = 57415
+const T_FILE = 57416
+const T_DIR = 57417
+const T_CLASS_C = 57418
+const T_TRAIT_C = 57419
+const T_METHOD_C = 57420
+const T_FUNC_C = 57421
+const T_NS_C = 57422
+const T_EXIT = 57423
+const T_IF = 57424
+const T_DO = 57425
+const T_WHILE = 57426
+const T_ENDWHILE = 57427
+const T_FOR = 57428
+const T_ENDFOR = 57429
+const T_FOREACH = 57430
+const T_ENDFOREACH = 57431
+const T_DECLARE = 57432
+const T_ENDDECLARE = 57433
+const T_AS = 57434
+const T_SWITCH = 57435
+const T_ENDSWITCH = 57436
+const T_CASE = 57437
+const T_DEFAULT = 57438
+const T_BREAK = 57439
+const T_CONTINUE = 57440
+const T_GOTO = 57441
+const T_FUNCTION = 57442
+const T_CONST = 57443
+const T_RETURN = 57444
+const T_TRY = 57445
+const T_CATCH = 57446
+const T_FINALLY = 57447
+const T_THROW = 57448
+const T_USE = 57449
+const T_INSTEADOF = 57450
+const T_GLOBAL = 57451
+const T_VAR = 57452
+const T_UNSET = 57453
+const T_ISSET = 57454
+const T_EMPTY = 57455
+const T_HALT_COMPILER = 57456
+const T_CLASS = 57457
+const T_TRAIT = 57458
+const T_INTERFACE = 57459
+const T_EXTENDS = 57460
+const T_IMPLEMENTS = 57461
+const T_OBJECT_OPERATOR = 57462
+const T_LIST = 57463
+const T_ARRAY = 57464
+const T_CALLABLE = 57465
+const T_COMMENT = 57466
+const T_DOC_COMMENT = 57467
+const T_OPEN_TAG = 57468
+const T_OPEN_TAG_WITH_ECHO = 57469
+const T_CLOSE_TAG = 57470
+const T_WHITESPACE = 57471
+const T_START_HEREDOC = 57472
+const T_END_HEREDOC = 57473
+const T_DOLLAR_OPEN_CURLY_BRACES = 57474
+const T_CURLY_OPEN = 57475
+const T_PAAMAYIM_NEKUDOTAYIM = 57476
+const T_NAMESPACE = 57477
 const T_NS_SEPARATOR = 57478
 const T_ELLIPSIS = 57479
 const T_ERROR = 57480
@@ -250,6 +250,14 @@ var yyToknames = [...]string{
 	"T_STRING_VARNAME",
 	"T_NUM_STRING",
 	"T_ECHO",
+	"T_LINE",
+	"T_FILE",
+	"T_DIR",
+	"T_CLASS_C",
+	"T_TRAIT_C",
+	"T_METHOD_C",
+	"T_FUNC_C",
+	"T_NS_C",
 	"T_EXIT",
 	"T_IF",
 	"T_DO",
@@ -293,13 +301,6 @@ var yyToknames = [...]string{
 	"T_LIST",
 	"T_ARRAY",
 	"T_CALLABLE",
-	"T_LINE",
-	"T_FILE",
-	"T_DIR",
-	"T_CLASS_C",
-	"T_TRAIT_C",
-	"T_METHOD_C",
-	"T_FUNC_C",
 	"T_COMMENT",
 	"T_DOC_COMMENT",
 	"T_OPEN_TAG",
@@ -312,7 +313,6 @@ var yyToknames = [...]string{
 	"T_CURLY_OPEN",
 	"T_PAAMAYIM_NEKUDOTAYIM",
 	"T_NAMESPACE",
-	"T_NS_C",
 	"T_NS_SEPARATOR",
 	"T_ELLIPSIS",
 	"T_ERROR",
@@ -324,7 +324,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyInitialStackSize = 16
 
-//line parser.go.y:1280
+//line parser.go.y:1288
 
 type LexerWrapper struct {
 	l         *lexer.Lexer
@@ -369,8 +369,9 @@ const yyLast = 150
 
 var yyAct = [...]int{
 
-	14, 5, 11, 12, 7, 6, 2, 10, 9, 8,
-	4, 3, 1, 0, 0, 0, 0, 0, 0, 15,
+	22, 11, 12, 5, 7, 6, 2, 10, 9, 8,
+	4, 13, 14, 15, 20, 16, 17, 18, 19, 3,
+	1, 0, 0, 0, 0, 0, 0, 23, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -382,37 +383,41 @@ var yyAct = [...]int{
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 13,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 21,
 }
 var yyPact = [...]int{
 
-	-1000, -1000, -90, -1000, -1000, -80, -9, -1000, -1000, -1000,
-	-1000, -1000, -1000, -1000, -80, -1000,
+	-1000, -1000, -88, -1000, -1000, -81, -9, -1000, -1000, -1000,
+	-1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000,
+	-1000, -1000, -81, -1000,
 }
 var yyPgo = [...]int{
 
-	0, 12, 11, 10, 9, 8, 4, 7, 6, 5,
+	0, 20, 19, 10, 9, 8, 4, 7, 6, 5,
 }
 var yyR1 = [...]int{
 
 	0, 1, 8, 8, 2, 3, 9, 9, 6, 5,
-	7, 7, 4,
+	7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+	4,
 }
 var yyR2 = [...]int{
 
 	0, 1, 2, 0, 1, 3, 3, 1, 1, 1,
-	1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1,
 }
 var yyChk = [...]int{
 
 	-1000, -1, -8, -2, -3, 91, -9, -6, -4, -5,
-	-7, 82, 83, 158, 9, -6,
+	-7, 82, 83, 92, 93, 94, 96, 97, 98, 99,
+	95, 158, 9, -6,
 }
 var yyDef = [...]int{
 
-	3, -2, 1, 2, 4, 0, 0, 7, 8, 12,
-	9, 10, 11, 5, 0, 6,
+	3, -2, 1, 2, 4, 0, 0, 7, 8, 20,
+	9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+	19, 5, 0, 6,
 }
 var yyTok1 = [...]int{
 
@@ -790,7 +795,7 @@ yydefault:
 
 	case 1:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:246
+		//line parser.go.y:254
 		{
 			yyVAL.program = &ast.Program{Statements: yyDollar[1].stmts}
 			if l, ok := yylex.(*LexerWrapper); ok {
@@ -799,67 +804,115 @@ yydefault:
 		}
 	case 2:
 		yyDollar = yyS[yypt-2 : yypt+1]
-		//line parser.go.y:279
+		//line parser.go.y:287
 		{
 			yyVAL.stmts = append(yyDollar[1].stmts, yyDollar[2].stmt)
 		}
 	case 3:
 		yyDollar = yyS[yypt-0 : yypt+1]
-		//line parser.go.y:280
+		//line parser.go.y:288
 		{
 			yyVAL.stmts = []ast.Statement{}
 		}
 	case 4:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:297
+		//line parser.go.y:305
 		{
 			yyVAL.stmt = yyDollar[1].stmt
 		}
 	case 5:
 		yyDollar = yyS[yypt-3 : yypt+1]
-		//line parser.go.y:427
+		//line parser.go.y:435
 		{
 			yyVAL.stmt = ast.NewEchoStatement(yyDollar[1].tok, yyDollar[2].exprs)
 		}
 	case 6:
 		yyDollar = yyS[yypt-3 : yypt+1]
-		//line parser.go.y:827
+		//line parser.go.y:835
 		{
 			yyVAL.exprs = append(yyDollar[1].exprs, yyDollar[3].expr)
 		}
 	case 7:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:828
+		//line parser.go.y:836
 		{
 			yyVAL.exprs = append(yyVAL.exprs, yyDollar[1].expr)
 		}
 	case 8:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:831
+		//line parser.go.y:839
 		{
 			yyVAL.expr = yyDollar[1].expr
 		}
 	case 9:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:964
+		//line parser.go.y:972
 		{
 			yyVAL.expr = yyDollar[1].expr
 		}
 	case 10:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:1064
+		//line parser.go.y:1072
 		{
 			yyVAL.expr = ast.NewIntegerLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
 		}
 	case 11:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:1065
+		//line parser.go.y:1073
 		{
 			yyVAL.expr = ast.NewDoubleLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
 		}
 	case 12:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:1094
+		//line parser.go.y:1074
+		{
+			yyVAL.expr = ast.NewMagicConstLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
+		}
+	case 13:
+		yyDollar = yyS[yypt-1 : yypt+1]
+		//line parser.go.y:1075
+		{
+			yyVAL.expr = ast.NewMagicConstLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
+		}
+	case 14:
+		yyDollar = yyS[yypt-1 : yypt+1]
+		//line parser.go.y:1076
+		{
+			yyVAL.expr = ast.NewMagicConstLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
+		}
+	case 15:
+		yyDollar = yyS[yypt-1 : yypt+1]
+		//line parser.go.y:1077
+		{
+			yyVAL.expr = ast.NewMagicConstLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
+		}
+	case 16:
+		yyDollar = yyS[yypt-1 : yypt+1]
+		//line parser.go.y:1078
+		{
+			yyVAL.expr = ast.NewMagicConstLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
+		}
+	case 17:
+		yyDollar = yyS[yypt-1 : yypt+1]
+		//line parser.go.y:1079
+		{
+			yyVAL.expr = ast.NewMagicConstLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
+		}
+	case 18:
+		yyDollar = yyS[yypt-1 : yypt+1]
+		//line parser.go.y:1080
+		{
+			yyVAL.expr = ast.NewMagicConstLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
+		}
+	case 19:
+		yyDollar = yyS[yypt-1 : yypt+1]
+		//line parser.go.y:1081
+		{
+			yyVAL.expr = ast.NewMagicConstLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
+		}
+	case 20:
+		yyDollar = yyS[yypt-1 : yypt+1]
+		//line parser.go.y:1102
 		{
 			yyVAL.expr = yyDollar[1].expr
 		}
