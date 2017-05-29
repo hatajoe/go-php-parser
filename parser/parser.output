@@ -3,7 +3,7 @@ state 0
 	$accept: .start $end 
 	top_statement_list: .    (3)
 
-	.  reduce 3 (src line 288)
+	.  reduce 3 (src line 269)
 
 	start  goto 1
 	top_statement_list  goto 2
@@ -20,7 +20,7 @@ state 2
 	top_statement_list:  top_statement_list.top_statement 
 
 	T_ECHO  shift 5
-	.  reduce 1 (src line 253)
+	.  reduce 1 (src line 234)
 
 	top_statement  goto 3
 	statement  goto 4
@@ -28,13 +28,13 @@ state 2
 state 3
 	top_statement_list:  top_statement_list top_statement.    (2)
 
-	.  reduce 2 (src line 286)
+	.  reduce 2 (src line 267)
 
 
 state 4
 	top_statement:  statement.    (4)
 
-	.  reduce 4 (src line 304)
+	.  reduce 4 (src line 285)
 
 
 state 5
@@ -50,6 +50,7 @@ state 5
 	T_METHOD_C  shift 17
 	T_FUNC_C  shift 18
 	T_NS_C  shift 19
+	T_START_HEREDOC  shift 21
 	.  error
 
 	expr  goto 8
@@ -62,102 +63,111 @@ state 6
 	statement:  T_ECHO echo_expr_list.';' 
 	echo_expr_list:  echo_expr_list.',' echo_expr 
 
-	','  shift 22
-	';'  shift 21
+	','  shift 23
+	';'  shift 22
 	.  error
 
 
 state 7
 	echo_expr_list:  echo_expr.    (7)
 
-	.  reduce 7 (src line 836)
+	.  reduce 7 (src line 817)
 
 
 state 8
 	echo_expr:  expr.    (8)
 
-	.  reduce 8 (src line 838)
+	.  reduce 8 (src line 819)
 
 
 state 9
-	expr:  expr_without_variable.    (20)
+	expr:  expr_without_variable.    (22)
 
-	.  reduce 20 (src line 1100)
+	.  reduce 22 (src line 1080)
 
 
 state 10
 	expr_without_variable:  scalar.    (9)
 
-	.  reduce 9 (src line 870)
+	.  reduce 9 (src line 851)
 
 
 state 11
 	scalar:  T_LNUMBER.    (10)
 
-	.  reduce 10 (src line 1071)
+	.  reduce 10 (src line 1052)
 
 
 state 12
 	scalar:  T_DNUMBER.    (11)
 
-	.  reduce 11 (src line 1073)
+	.  reduce 11 (src line 1054)
 
 
 state 13
 	scalar:  T_LINE.    (12)
 
-	.  reduce 12 (src line 1074)
+	.  reduce 12 (src line 1055)
 
 
 state 14
 	scalar:  T_FILE.    (13)
 
-	.  reduce 13 (src line 1075)
+	.  reduce 13 (src line 1056)
 
 
 state 15
 	scalar:  T_DIR.    (14)
 
-	.  reduce 14 (src line 1076)
+	.  reduce 14 (src line 1057)
 
 
 state 16
 	scalar:  T_TRAIT_C.    (15)
 
-	.  reduce 15 (src line 1077)
+	.  reduce 15 (src line 1058)
 
 
 state 17
 	scalar:  T_METHOD_C.    (16)
 
-	.  reduce 16 (src line 1078)
+	.  reduce 16 (src line 1059)
 
 
 state 18
 	scalar:  T_FUNC_C.    (17)
 
-	.  reduce 17 (src line 1079)
+	.  reduce 17 (src line 1060)
 
 
 state 19
 	scalar:  T_NS_C.    (18)
 
-	.  reduce 18 (src line 1080)
+	.  reduce 18 (src line 1061)
 
 
 state 20
 	scalar:  T_CLASS_C.    (19)
 
-	.  reduce 19 (src line 1081)
+	.  reduce 19 (src line 1062)
 
 
 state 21
-	statement:  T_ECHO echo_expr_list ';'.    (5)
+	scalar:  T_START_HEREDOC.T_ENCAPSED_AND_WHITESPACE T_END_HEREDOC 
+	scalar:  T_START_HEREDOC.T_END_HEREDOC 
 
-	.  reduce 5 (src line 418)
+	T_ENCAPSED_AND_WHITESPACE  shift 24
+	T_END_HEREDOC  shift 25
+	.  error
 
 
 state 22
+	statement:  T_ECHO echo_expr_list ';'.    (5)
+
+	.  reduce 5 (src line 399)
+
+
+state 23
 	echo_expr_list:  echo_expr_list ','.echo_expr 
 
 	T_LNUMBER  shift 11
@@ -170,28 +180,48 @@ state 22
 	T_METHOD_C  shift 17
 	T_FUNC_C  shift 18
 	T_NS_C  shift 19
+	T_START_HEREDOC  shift 21
 	.  error
 
 	expr  goto 8
 	expr_without_variable  goto 9
-	echo_expr  goto 23
+	echo_expr  goto 26
 	scalar  goto 10
 
-state 23
+state 24
+	scalar:  T_START_HEREDOC T_ENCAPSED_AND_WHITESPACE.T_END_HEREDOC 
+
+	T_END_HEREDOC  shift 27
+	.  error
+
+
+state 25
+	scalar:  T_START_HEREDOC T_END_HEREDOC.    (21)
+
+	.  reduce 21 (src line 1064)
+
+
+state 26
 	echo_expr_list:  echo_expr_list ',' echo_expr.    (6)
 
-	.  reduce 6 (src line 834)
+	.  reduce 6 (src line 815)
+
+
+state 27
+	scalar:  T_START_HEREDOC T_ENCAPSED_AND_WHITESPACE T_END_HEREDOC.    (20)
+
+	.  reduce 20 (src line 1063)
 
 
 158 terminals, 10 nonterminals
-21 grammar rules, 24/8000 states
+23 grammar rules, 28/8000 states
 0 shift/reduce, 0 reduce/reduce conflicts reported
 59 working sets used
 memory: parser 12/120000
 0 extra closures
-23 shift entries, 1 exceptions
+28 shift entries, 1 exceptions
 10 goto entries
 3 entries saved by goto default
-Optimizer space used: output 150/120000
-150 table entries, 127 zero
-maximum spread: 158, maximum offset: 91
+Optimizer space used: output 152/120000
+152 table entries, 125 zero
+maximum spread: 158, maximum offset: 150

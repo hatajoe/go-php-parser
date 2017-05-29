@@ -53,16 +53,6 @@ import (
 %left T_ENDIF
 %right T_STATIC T_ABSTRACT T_FINAL T_PRIVATE T_PROTECTED T_PUBLIC
 
-%token T_LNUMBER
-%token T_DNUMBER
-%token T_STRING
-%token T_VARIABLE
-%token T_INLINE_HTML
-%token T_ENCAPSED_AND_WHITESPACE
-%token T_CONSTANT_ENCAPSED_STRING
-%token T_STRING_VARNAME
-%token T_NUM_STRING
-
 %token <tok> T_ECHO
 %token <tok> T_LNUMBER
 %token <tok> T_DNUMBER
@@ -132,7 +122,6 @@ import (
 %token T_ELSEIF
 %token T_ELSE
 %token T_ENDIF
-%token T_ECHO
 %token T_DO
 %token T_WHILE
 %token T_ENDWHILE
@@ -181,26 +170,18 @@ import (
 %token T_LIST
 %token T_ARRAY
 %token T_CALLABLE
-%token T_LINE
-%token T_FILE
-%token T_DIR
-%token T_CLASS_C
-%token T_TRAIT_C
-%token T_METHOD_C
-%token T_FUNC_C
 %token T_COMMENT
 %token T_DOC_COMMENT
 %token T_OPEN_TAG
 %token T_OPEN_TAG_WITH_ECHO
 %token T_CLOSE_TAG
 %token T_WHITESPACE
-%token T_START_HEREDOC
-%token T_END_HEREDOC
+%token <tok> T_START_HEREDOC
+%token <tok> T_END_HEREDOC
 %token T_DOLLAR_OPEN_CURLY_BRACES
 %token T_CURLY_OPEN
 %token T_PAAMAYIM_NEKUDOTAYIM
 %token T_NAMESPACE
-%token T_NS_C
 %token T_NS_SEPARATOR
 %token T_ELLIPSIS
 %token T_COALESCE
@@ -1078,11 +1059,10 @@ scalar:
 	|	T_METHOD_C	{ $$ = ast.NewMagicConstLiteral($1, $1.Literal); }
 	|	T_FUNC_C	{ $$ = ast.NewMagicConstLiteral($1, $1.Literal); }
 	|	T_NS_C		{ $$ = ast.NewMagicConstLiteral($1, $1.Literal); }
-	|	T_CLASS_C	{ $$ = ast.NewMagicConstLiteral($1, $1.Literal); }/*
-	|	T_START_HEREDOC T_ENCAPSED_AND_WHITESPACE T_END_HEREDOC { $$ = $2; }
-	|	T_START_HEREDOC T_END_HEREDOC
-			{ $$ = zend_ast_create_zval_from_str(ZSTR_EMPTY_ALLOC()); }
-	|	'"' encaps_list '"' 	{ $$ = $2; }
+	|	T_CLASS_C	{ $$ = ast.NewMagicConstLiteral($1, $1.Literal); }
+	|	T_START_HEREDOC T_ENCAPSED_AND_WHITESPACE T_END_HEREDOC { $$ = ast.NewHeredocExpression($1, $3, ast.NewStringLiteral($2, $2.Literal)); }
+	|	T_START_HEREDOC T_END_HEREDOC { $$ = ast.NewHeredocExpression($1, $2); }
+	|	'"' encaps_list '"' 	{ $$ = $2; }/*
 	|	T_START_HEREDOC encaps_list T_END_HEREDOC { $$ = $2; }
 	|	dereferencable_scalar	{ $$ = $1; }
 	|	constant			{ $$ = $1; }*/

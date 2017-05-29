@@ -69,6 +69,26 @@ echo 1;`,
 			`<?php echo __CLASS__;`,
 			`echo __CLASS__;`,
 		},
+		{
+			`<?php echo <<<EOL
+foo
+bar
+bars
+	hoge
+EOL;`,
+			`echo <<<EOL
+foo
+bar
+bars
+	hoge
+EOL;`,
+		},
+		{
+			`<?php echo <<<EOL
+EOL;`,
+			`echo <<<EOL
+EOL;`,
+		},
 	}
 
 	for idx, test := range tests {

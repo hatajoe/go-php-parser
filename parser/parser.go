@@ -81,16 +81,16 @@ const T_FINAL = 57401
 const T_PRIVATE = 57402
 const T_PROTECTED = 57403
 const T_PUBLIC = 57404
-const T_LNUMBER = 57405
-const T_DNUMBER = 57406
-const T_STRING = 57407
-const T_VARIABLE = 57408
-const T_INLINE_HTML = 57409
-const T_ENCAPSED_AND_WHITESPACE = 57410
-const T_CONSTANT_ENCAPSED_STRING = 57411
-const T_STRING_VARNAME = 57412
-const T_NUM_STRING = 57413
-const T_ECHO = 57414
+const T_ECHO = 57405
+const T_LNUMBER = 57406
+const T_DNUMBER = 57407
+const T_STRING = 57408
+const T_VARIABLE = 57409
+const T_INLINE_HTML = 57410
+const T_ENCAPSED_AND_WHITESPACE = 57411
+const T_CONSTANT_ENCAPSED_STRING = 57412
+const T_STRING_VARNAME = 57413
+const T_NUM_STRING = 57414
 const T_LINE = 57415
 const T_FILE = 57416
 const T_DIR = 57417
@@ -240,6 +240,7 @@ var yyToknames = [...]string{
 	"T_PRIVATE",
 	"T_PROTECTED",
 	"T_PUBLIC",
+	"T_ECHO",
 	"T_LNUMBER",
 	"T_DNUMBER",
 	"T_STRING",
@@ -249,7 +250,6 @@ var yyToknames = [...]string{
 	"T_CONSTANT_ENCAPSED_STRING",
 	"T_STRING_VARNAME",
 	"T_NUM_STRING",
-	"T_ECHO",
 	"T_LINE",
 	"T_FILE",
 	"T_DIR",
@@ -324,7 +324,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyInitialStackSize = 16
 
-//line parser.go.y:1288
+//line parser.go.y:1268
 
 type LexerWrapper struct {
 	l         *lexer.Lexer
@@ -365,13 +365,17 @@ var yyExca = [...]int{
 
 const yyPrivate = 57344
 
-const yyLast = 150
+const yyLast = 152
 
 var yyAct = [...]int{
 
-	22, 11, 12, 5, 7, 6, 2, 10, 9, 8,
-	4, 13, 14, 15, 20, 16, 17, 18, 19, 3,
-	1, 0, 0, 0, 0, 0, 0, 23, 0, 0,
+	11, 12, 23, 24, 27, 5, 7, 6, 2, 13,
+	14, 15, 20, 16, 17, 18, 19, 10, 9, 8,
+	4, 3, 1, 0, 0, 0, 0, 0, 0, 0,
+	26, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 25, 21, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -380,44 +384,41 @@ var yyAct = [...]int{
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 21,
+	0, 22,
 }
 var yyPact = [...]int{
 
-	-1000, -1000, -88, -1000, -1000, -81, -9, -1000, -1000, -1000,
+	-1000, -1000, -77, -1000, -1000, -83, -7, -1000, -1000, -1000,
 	-1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000,
-	-1000, -1000, -81, -1000,
+	-1000, -85, -1000, -83, -146, -1000, -1000, -1000,
 }
 var yyPgo = [...]int{
 
-	0, 20, 19, 10, 9, 8, 4, 7, 6, 5,
+	0, 22, 21, 20, 19, 18, 6, 17, 8, 7,
 }
 var yyR1 = [...]int{
 
 	0, 1, 8, 8, 2, 3, 9, 9, 6, 5,
 	7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
-	4,
+	7, 7, 4,
 }
 var yyR2 = [...]int{
 
 	0, 1, 2, 0, 1, 3, 3, 1, 1, 1,
 	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1,
+	3, 2, 1,
 }
 var yyChk = [...]int{
 
-	-1000, -1, -8, -2, -3, 91, -9, -6, -4, -5,
-	-7, 82, 83, 92, 93, 94, 96, 97, 98, 99,
-	95, 158, 9, -6,
+	-1000, -1, -8, -2, -3, 82, -9, -6, -4, -5,
+	-7, 83, 84, 92, 93, 94, 96, 97, 98, 99,
+	95, 149, 158, 9, 88, 150, -6, 150,
 }
 var yyDef = [...]int{
 
-	3, -2, 1, 2, 4, 0, 0, 7, 8, 20,
+	3, -2, 1, 2, 4, 0, 0, 7, 8, 22,
 	9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-	19, 5, 0, 6,
+	19, 0, 5, 0, 0, 21, 6, 20,
 }
 var yyTok1 = [...]int{
 
@@ -795,7 +796,7 @@ yydefault:
 
 	case 1:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:254
+		//line parser.go.y:235
 		{
 			yyVAL.program = &ast.Program{Statements: yyDollar[1].stmts}
 			if l, ok := yylex.(*LexerWrapper); ok {
@@ -804,115 +805,127 @@ yydefault:
 		}
 	case 2:
 		yyDollar = yyS[yypt-2 : yypt+1]
-		//line parser.go.y:287
+		//line parser.go.y:268
 		{
 			yyVAL.stmts = append(yyDollar[1].stmts, yyDollar[2].stmt)
 		}
 	case 3:
 		yyDollar = yyS[yypt-0 : yypt+1]
-		//line parser.go.y:288
+		//line parser.go.y:269
 		{
 			yyVAL.stmts = []ast.Statement{}
 		}
 	case 4:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:305
+		//line parser.go.y:286
 		{
 			yyVAL.stmt = yyDollar[1].stmt
 		}
 	case 5:
 		yyDollar = yyS[yypt-3 : yypt+1]
-		//line parser.go.y:435
+		//line parser.go.y:416
 		{
 			yyVAL.stmt = ast.NewEchoStatement(yyDollar[1].tok, yyDollar[2].exprs)
 		}
 	case 6:
 		yyDollar = yyS[yypt-3 : yypt+1]
-		//line parser.go.y:835
+		//line parser.go.y:816
 		{
 			yyVAL.exprs = append(yyDollar[1].exprs, yyDollar[3].expr)
 		}
 	case 7:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:836
+		//line parser.go.y:817
 		{
 			yyVAL.exprs = append(yyVAL.exprs, yyDollar[1].expr)
 		}
 	case 8:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:839
+		//line parser.go.y:820
 		{
 			yyVAL.expr = yyDollar[1].expr
 		}
 	case 9:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:972
+		//line parser.go.y:953
 		{
 			yyVAL.expr = yyDollar[1].expr
 		}
 	case 10:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:1072
+		//line parser.go.y:1053
 		{
 			yyVAL.expr = ast.NewIntegerLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
 		}
 	case 11:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:1073
+		//line parser.go.y:1054
 		{
 			yyVAL.expr = ast.NewDoubleLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
 		}
 	case 12:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:1074
+		//line parser.go.y:1055
 		{
 			yyVAL.expr = ast.NewMagicConstLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
 		}
 	case 13:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:1075
+		//line parser.go.y:1056
 		{
 			yyVAL.expr = ast.NewMagicConstLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
 		}
 	case 14:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:1076
+		//line parser.go.y:1057
 		{
 			yyVAL.expr = ast.NewMagicConstLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
 		}
 	case 15:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:1077
+		//line parser.go.y:1058
 		{
 			yyVAL.expr = ast.NewMagicConstLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
 		}
 	case 16:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:1078
+		//line parser.go.y:1059
 		{
 			yyVAL.expr = ast.NewMagicConstLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
 		}
 	case 17:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:1079
+		//line parser.go.y:1060
 		{
 			yyVAL.expr = ast.NewMagicConstLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
 		}
 	case 18:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:1080
+		//line parser.go.y:1061
 		{
 			yyVAL.expr = ast.NewMagicConstLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
 		}
 	case 19:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:1081
+		//line parser.go.y:1062
 		{
 			yyVAL.expr = ast.NewMagicConstLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
 		}
 	case 20:
+		yyDollar = yyS[yypt-3 : yypt+1]
+		//line parser.go.y:1063
+		{
+			yyVAL.expr = ast.NewHeredocExpression(yyDollar[1].tok, yyDollar[3].tok, ast.NewStringLiteral(yyDollar[2].tok, yyDollar[2].tok.Literal))
+		}
+	case 21:
+		yyDollar = yyS[yypt-2 : yypt+1]
+		//line parser.go.y:1064
+		{
+			yyVAL.expr = ast.NewHeredocExpression(yyDollar[1].tok, yyDollar[2].tok)
+		}
+	case 22:
 		yyDollar = yyS[yypt-1 : yypt+1]
-		//line parser.go.y:1102
+		//line parser.go.y:1082
 		{
 			yyVAL.expr = yyDollar[1].expr
 		}
