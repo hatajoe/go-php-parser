@@ -89,6 +89,70 @@ EOL;`,
 			`echo <<<EOL
 EOL;`,
 		},
+		{
+			`<?php echo "hello $foo";`,
+			`echo "hello $foo";`,
+		},
+		{
+			`<?php echo "hello $foo world";`,
+			`echo "hello $foo world";`,
+		},
+		{
+			`<?php echo "hello $foo world $bar";`,
+			`echo "hello $foo world $bar";`,
+		},
+		{
+			`<?php echo "hello
+$foo
+world
+
+	$bar";`,
+			`echo "hello
+$foo
+world
+
+	$bar";`,
+		},
+		{
+			`<?php echo <<<EOL
+hello $foo
+EOL;`,
+			`echo <<<EOL
+hello $foo
+EOL;`,
+		},
+		{
+			`<?php echo <<<EOL
+hello $foo world
+EOL;`,
+			`echo <<<EOL
+hello $foo world
+EOL;`,
+		},
+		{
+			`<?php echo <<<EOL
+hello $foo world $bar
+EOL;`,
+			`echo <<<EOL
+hello $foo world $bar
+EOL;`,
+		},
+		{
+			`<?php echo <<<EOL
+hello
+$foo
+world
+
+	$bar
+EOL;`,
+			`echo <<<EOL
+hello
+$foo
+world
+
+	$bar
+EOL;`,
+		},
 	}
 
 	for idx, test := range tests {

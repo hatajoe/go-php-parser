@@ -207,16 +207,16 @@ import (
 %type <ast> internal_functions_in_yacc*/
 %type <expr> /*exit_expr*/ scalar /*backticks_expr lexical_var function_call member_name property_name
 %type <ast> variable_class_name dereferencable_scalar constant dereferencable
-%type <ast> callable_expr callable_variable static_member new_variable
-%type <ast> encaps_var encaps_var_offset isset_variables*/
+%type <ast> callable_expr callable_variable static_member new_variable*/
+%type <expr> encaps_var/* encaps_var_offset isset_variables*/
 %type <stmts> top_statement_list /*use_declarations const_list inner_statement_list if_stmt
 %type <ast> alt_if_stmt for_exprs switch_case_list global_var_list static_var_list*/
 %type <exprs> echo_expr_list /*unset_variables catch_name_list catch_list parameter_list class_statement_list
 %type <ast> implements_list case_list if_stmt_without_else
 %type <ast> non_empty_parameter_list argument_list non_empty_argument_list property_list
 %type <ast> class_const_list class_const_decl name_list trait_adaptations method_body non_empty_for_exprs
-%type <ast> ctor_arguments alt_if_stmt_without_else trait_adaptation_list lexical_vars
-%type <ast> lexical_var_list encaps_list
+%type <ast> ctor_arguments alt_if_stmt_without_else trait_adaptation_list lexical_vars*/
+%type <exprs> /*lexical_var_list*/ encaps_list/*
 %type <ast> array_pair non_empty_array_pair_list array_pair_list possible_array_pair
 %type <ast> isset_variable type return_type type_expr
 
@@ -1060,10 +1060,10 @@ scalar:
 	|	T_FUNC_C	{ $$ = ast.NewMagicConstLiteral($1, $1.Literal); }
 	|	T_NS_C		{ $$ = ast.NewMagicConstLiteral($1, $1.Literal); }
 	|	T_CLASS_C	{ $$ = ast.NewMagicConstLiteral($1, $1.Literal); }
-	|	T_START_HEREDOC T_ENCAPSED_AND_WHITESPACE T_END_HEREDOC { $$ = ast.NewHeredocExpression($1, $3, ast.NewStringLiteral($2, $2.Literal)); }
+	|	T_START_HEREDOC T_ENCAPSED_AND_WHITESPACE T_END_HEREDOC { $$ = ast.NewHeredocExpression($1, $3, ast.NewEncapsedAndWhitespaceLiteral($2, $2.Literal)); }
 	|	T_START_HEREDOC T_END_HEREDOC { $$ = ast.NewHeredocExpression($1, $2); }
-	|	'"' encaps_list '"' 	{ $$ = $2; }/*
-	|	T_START_HEREDOC encaps_list T_END_HEREDOC { $$ = $2; }
+	|	'"' encaps_list '"' 	{ $$ = ast.NewEncapsListExpression($2...); }
+	|	T_START_HEREDOC encaps_list T_END_HEREDOC { $$ = ast.NewHeredocExpression($1, $3, $2...); }/*
 	|	dereferencable_scalar	{ $$ = $1; }
 	|	constant			{ $$ = $1; }*/
 ;
@@ -1200,21 +1200,21 @@ array_pair:
 			{ $3->attr = ZEND_ARRAY_SYNTAX_LIST;
 			  $$ = zend_ast_create(ZEND_AST_ARRAY_ELEM, $3, NULL); }
 ;
-
+*/
 encaps_list:
 		encaps_list encaps_var
-			{ $$ = zend_ast_list_add($1, $2); }
+			{ $$ = append($1, $2); }
 	|	encaps_list T_ENCAPSED_AND_WHITESPACE
-			{ $$ = zend_ast_list_add($1, $2); }
+			{ $$ = append($1, ast.NewEncapsedAndWhitespaceLiteral($2, $2.Literal)); }
 	|	encaps_var
-			{ $$ = zend_ast_create_list(1, ZEND_AST_ENCAPS_LIST, $1); }
+			{ $$ = append($$, $1); }
 	|	T_ENCAPSED_AND_WHITESPACE encaps_var
-			{ $$ = zend_ast_create_list(2, ZEND_AST_ENCAPS_LIST, $1, $2); }
+			{ $$ = append($$, []ast.Expression{ast.NewEncapsedAndWhitespaceLiteral($1, $1.Literal), $2}...); }
 ;
 
 encaps_var:
 		T_VARIABLE
-			{ $$ = zend_ast_create(ZEND_AST_VAR, $1); }
+			{ $$ = ast.NewVariableExpression($1, $1.Literal); }/*
 	|	T_VARIABLE '[' encaps_var_offset ']'
 			{ $$ = zend_ast_create(ZEND_AST_DIM,
 			      zend_ast_create(ZEND_AST_VAR, $1), $3); }
@@ -1228,9 +1228,9 @@ encaps_var:
 	|	T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '[' expr ']' '}'
 			{ $$ = zend_ast_create(ZEND_AST_DIM,
 			      zend_ast_create(ZEND_AST_VAR, $2), $4); }
-	|	T_CURLY_OPEN variable '}' { $$ = $2; }
+	|	T_CURLY_OPEN variable '}' { $$ = $2; }*/
 ;
-
+/*
 encaps_var_offset:
 		T_STRING			{ $$ = $1; }
 	|	T_NUM_STRING		{ $$ = $1; }

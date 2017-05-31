@@ -51,6 +51,7 @@ state 5
 	T_FUNC_C  shift 18
 	T_NS_C  shift 19
 	T_START_HEREDOC  shift 21
+	'"'  shift 22
 	.  error
 
 	expr  goto 8
@@ -63,8 +64,8 @@ state 6
 	statement:  T_ECHO echo_expr_list.';' 
 	echo_expr_list:  echo_expr_list.',' echo_expr 
 
-	','  shift 23
-	';'  shift 22
+	','  shift 24
+	';'  shift 23
 	.  error
 
 
@@ -81,9 +82,9 @@ state 8
 
 
 state 9
-	expr:  expr_without_variable.    (22)
+	expr:  expr_without_variable.    (24)
 
-	.  reduce 22 (src line 1080)
+	.  reduce 24 (src line 1080)
 
 
 state 10
@@ -155,19 +156,33 @@ state 20
 state 21
 	scalar:  T_START_HEREDOC.T_ENCAPSED_AND_WHITESPACE T_END_HEREDOC 
 	scalar:  T_START_HEREDOC.T_END_HEREDOC 
+	scalar:  T_START_HEREDOC.encaps_list T_END_HEREDOC 
 
-	T_ENCAPSED_AND_WHITESPACE  shift 24
-	T_END_HEREDOC  shift 25
+	T_VARIABLE  shift 29
+	T_ENCAPSED_AND_WHITESPACE  shift 25
+	T_END_HEREDOC  shift 26
 	.  error
 
+	encaps_var  goto 28
+	encaps_list  goto 27
 
 state 22
+	scalar:  '\"'.encaps_list '\"' 
+
+	T_VARIABLE  shift 29
+	T_ENCAPSED_AND_WHITESPACE  shift 31
+	.  error
+
+	encaps_var  goto 28
+	encaps_list  goto 30
+
+state 23
 	statement:  T_ECHO echo_expr_list ';'.    (5)
 
 	.  reduce 5 (src line 399)
 
 
-state 23
+state 24
 	echo_expr_list:  echo_expr_list ','.echo_expr 
 
 	T_LNUMBER  shift 11
@@ -181,47 +196,125 @@ state 23
 	T_FUNC_C  shift 18
 	T_NS_C  shift 19
 	T_START_HEREDOC  shift 21
+	'"'  shift 22
 	.  error
 
 	expr  goto 8
 	expr_without_variable  goto 9
-	echo_expr  goto 26
+	echo_expr  goto 32
 	scalar  goto 10
 
-state 24
+state 25
 	scalar:  T_START_HEREDOC T_ENCAPSED_AND_WHITESPACE.T_END_HEREDOC 
+	encaps_list:  T_ENCAPSED_AND_WHITESPACE.encaps_var 
 
-	T_END_HEREDOC  shift 27
+	T_VARIABLE  shift 29
+	T_END_HEREDOC  shift 33
 	.  error
 
+	encaps_var  goto 34
 
-state 25
+state 26
 	scalar:  T_START_HEREDOC T_END_HEREDOC.    (21)
 
 	.  reduce 21 (src line 1064)
 
 
-state 26
+state 27
+	scalar:  T_START_HEREDOC encaps_list.T_END_HEREDOC 
+	encaps_list:  encaps_list.encaps_var 
+	encaps_list:  encaps_list.T_ENCAPSED_AND_WHITESPACE 
+
+	T_VARIABLE  shift 29
+	T_ENCAPSED_AND_WHITESPACE  shift 37
+	T_END_HEREDOC  shift 35
+	.  error
+
+	encaps_var  goto 36
+
+state 28
+	encaps_list:  encaps_var.    (27)
+
+	.  reduce 27 (src line 1209)
+
+
+state 29
+	encaps_var:  T_VARIABLE.    (29)
+
+	.  reduce 29 (src line 1215)
+
+
+state 30
+	scalar:  '\"' encaps_list.'\"' 
+	encaps_list:  encaps_list.encaps_var 
+	encaps_list:  encaps_list.T_ENCAPSED_AND_WHITESPACE 
+
+	T_VARIABLE  shift 29
+	T_ENCAPSED_AND_WHITESPACE  shift 37
+	'"'  shift 38
+	.  error
+
+	encaps_var  goto 36
+
+state 31
+	encaps_list:  T_ENCAPSED_AND_WHITESPACE.encaps_var 
+
+	T_VARIABLE  shift 29
+	.  error
+
+	encaps_var  goto 34
+
+state 32
 	echo_expr_list:  echo_expr_list ',' echo_expr.    (6)
 
 	.  reduce 6 (src line 815)
 
 
-state 27
+state 33
 	scalar:  T_START_HEREDOC T_ENCAPSED_AND_WHITESPACE T_END_HEREDOC.    (20)
 
 	.  reduce 20 (src line 1063)
 
 
-158 terminals, 10 nonterminals
-23 grammar rules, 28/8000 states
+state 34
+	encaps_list:  T_ENCAPSED_AND_WHITESPACE encaps_var.    (28)
+
+	.  reduce 28 (src line 1211)
+
+
+state 35
+	scalar:  T_START_HEREDOC encaps_list T_END_HEREDOC.    (23)
+
+	.  reduce 23 (src line 1066)
+
+
+state 36
+	encaps_list:  encaps_list encaps_var.    (25)
+
+	.  reduce 25 (src line 1204)
+
+
+state 37
+	encaps_list:  encaps_list T_ENCAPSED_AND_WHITESPACE.    (26)
+
+	.  reduce 26 (src line 1207)
+
+
+state 38
+	scalar:  '\"' encaps_list '\"'.    (22)
+
+	.  reduce 22 (src line 1065)
+
+
+159 terminals, 12 nonterminals
+30 grammar rules, 39/8000 states
 0 shift/reduce, 0 reduce/reduce conflicts reported
-59 working sets used
-memory: parser 12/120000
+61 working sets used
+memory: parser 18/120000
 0 extra closures
-28 shift entries, 1 exceptions
-10 goto entries
-3 entries saved by goto default
-Optimizer space used: output 152/120000
-152 table entries, 125 zero
-maximum spread: 158, maximum offset: 150
+41 shift entries, 1 exceptions
+17 goto entries
+4 entries saved by goto default
+Optimizer space used: output 153/120000
+153 table entries, 107 zero
+maximum spread: 159, maximum offset: 86
