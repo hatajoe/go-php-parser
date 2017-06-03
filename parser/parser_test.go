@@ -153,6 +153,26 @@ world
 	$bar
 EOL;`,
 		},
+		{
+			`<?php echo "hello $foo[true]";`,
+			`echo "hello $foo[true]";`,
+		},
+		{
+			`<?php echo "hello $foo->bar";`,
+			`echo "hello $foo->bar";`,
+		},
+		{
+			`<?php echo "hello ${1}";`,
+			`echo "hello ${1}";`,
+		},
+		{
+			`<?php echo "hello ${a}";`,
+			`echo "hello ${a}";`,
+		},
+		{
+			`<?php echo "hello ${a[1]}";`,
+			`echo "hello ${a[1]}";`,
+		},
 	}
 
 	for idx, test := range tests {

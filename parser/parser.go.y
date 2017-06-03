@@ -178,7 +178,7 @@ import (
 %token T_WHITESPACE
 %token <tok> T_START_HEREDOC
 %token <tok> T_END_HEREDOC
-%token T_DOLLAR_OPEN_CURLY_BRACES
+%token <tok> T_DOLLAR_OPEN_CURLY_BRACES
 %token T_CURLY_OPEN
 %token T_PAAMAYIM_NEKUDOTAYIM
 %token T_NAMESPACE
@@ -208,7 +208,7 @@ import (
 %type <expr> /*exit_expr*/ scalar /*backticks_expr lexical_var function_call member_name property_name
 %type <ast> variable_class_name dereferencable_scalar constant dereferencable
 %type <ast> callable_expr callable_variable static_member new_variable*/
-%type <expr> encaps_var/* encaps_var_offset isset_variables*/
+%type <expr> encaps_var encaps_var_offset/* isset_variables*/
 %type <stmts> top_statement_list /*use_declarations const_list inner_statement_list if_stmt
 %type <ast> alt_if_stmt for_exprs switch_case_list global_var_list static_var_list*/
 %type <exprs> echo_expr_list /*unset_variables catch_name_list catch_list parameter_list class_statement_list
@@ -1214,30 +1214,27 @@ encaps_list:
 
 encaps_var:
 		T_VARIABLE
-			{ $$ = ast.NewVariableExpression($1, $1.Literal); }/*
+			{ $$ = ast.NewVariableExpression($1, ast.Var, $1.Literal, nil); }
 	|	T_VARIABLE '[' encaps_var_offset ']'
-			{ $$ = zend_ast_create(ZEND_AST_DIM,
-			      zend_ast_create(ZEND_AST_VAR, $1), $3); }
+			{ $$ = ast.NewVariableExpression($1, ast.Dim, $1.Literal, $3); }
 	|	T_VARIABLE T_OBJECT_OPERATOR T_STRING
-			{ $$ = zend_ast_create(ZEND_AST_PROP,
-			      zend_ast_create(ZEND_AST_VAR, $1), $3); }
+			{ $$ = ast.NewVariableExpression($1, ast.Prop, $1.Literal, ast.NewStringLiteral($3, $3.Literal)); }
 	|	T_DOLLAR_OPEN_CURLY_BRACES expr '}'
-			{ $$ = zend_ast_create(ZEND_AST_VAR, $2); }
+			{ $$ = ast.NewVariableExpression($1, ast.DollarOpenCurlyBraces, $1.Literal, $2); }
 	|	T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '}'
-			{ $$ = zend_ast_create(ZEND_AST_VAR, $2); }
+			{ $$ = ast.NewVariableExpression($1, ast.DollarOpenCurlyBraces, $1.Literal, ast.NewStringLiteral($2, $2.Literal)); }
 	|	T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '[' expr ']' '}'
-			{ $$ = zend_ast_create(ZEND_AST_DIM,
-			      zend_ast_create(ZEND_AST_VAR, $2), $4); }
+			{ $$ = ast.NewVariableExpression($1, ast.DimInDollarOpenCurlyBraces, $1.Literal, []ast.Expression{ast.NewStringLiteral($2, $2.Literal), $4}...); }/*
 	|	T_CURLY_OPEN variable '}' { $$ = $2; }*/
 ;
-/*
+
 encaps_var_offset:
-		T_STRING			{ $$ = $1; }
+		T_STRING			{ $$ = ast.NewStringLiteral($1, $1.Literal); }/*
 	|	T_NUM_STRING		{ $$ = $1; }
 	|	'-' T_NUM_STRING 	{ $$ = zend_negate_num_string($2); }
-	|	T_VARIABLE			{ $$ = zend_ast_create(ZEND_AST_VAR, $1); }
+	|	T_VARIABLE			{ $$ = zend_ast_create(ZEND_AST_VAR, $1); }*/
 ;
-
+/*
 
 internal_functions_in_yacc:
 		T_ISSET '(' isset_variables ')' { $$ = $3; }

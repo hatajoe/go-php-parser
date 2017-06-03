@@ -318,6 +318,8 @@ var yyToknames = [...]string{
 	"T_ERROR",
 	"';'",
 	"'\"'",
+	"']'",
+	"'}'",
 }
 var yyStatenames = [...]string{}
 
@@ -325,7 +327,7 @@ const yyEofCode = 1
 const yyErrCode = 2
 const yyInitialStackSize = 16
 
-//line parser.go.y:1268
+//line parser.go.y:1265
 
 type LexerWrapper struct {
 	l         *lexer.Lexer
@@ -366,64 +368,73 @@ var yyExca = [...]int{
 
 const yyPrivate = 57344
 
-const yyLast = 153
+const yyLast = 170
 
 var yyAct = [...]int{
 
-	11, 12, 29, 24, 37, 29, 29, 37, 25, 13,
-	14, 15, 20, 16, 17, 18, 19, 29, 29, 29,
-	31, 5, 28, 27, 7, 6, 2, 10, 9, 8,
+	11, 12, 49, 53, 29, 47, 38, 42, 52, 13,
+	14, 15, 20, 16, 17, 18, 19, 11, 12, 50,
+	24, 29, 29, 38, 29, 39, 13, 14, 15, 20,
+	16, 17, 18, 19, 29, 29, 25, 32, 46, 45,
+	5, 8, 28, 6, 27, 2, 7, 44, 10, 9,
 	4, 3, 1, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 30, 0, 34, 32,
-	36, 0, 0, 36, 34, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 21, 0, 0, 35,
-	26, 0, 0, 0, 0, 38, 22, 0, 0, 0,
-	0, 33, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 21, 31, 35, 30,
+	37, 33, 41, 0, 37, 35, 22, 43, 0, 0,
+	0, 0, 0, 21, 0, 36, 30, 30, 34, 30,
+	0, 51, 0, 22, 48, 40, 0, 0, 26, 30,
+	30, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 23,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 23,
 }
 var yyPact = [...]int{
 
-	-1000, -1000, -61, -1000, -1000, -83, -6, -1000, -1000, -1000,
+	-1000, -1000, -42, -1000, -1000, -66, 11, -1000, -1000, -1000,
 	-1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000, -1000,
-	-1000, -80, -68, -1000, -83, -69, -1000, -81, -1000, -1000,
-	-84, -67, -1000, -1000, -1000, -1000, -1000, -1000, -1000,
+	-1000, -52, -51, -1000, -66, -62, -1000, -65, -1000, -44,
+	-83, -82, -64, -1000, -1000, -1000, -1000, -1000, -1000, -46,
+	-47, -156, -67, -1000, -141, -1000, -1000, -1000, -1000, -66,
+	-1000, -152, -158, -1000,
 }
 var yyPgo = [...]int{
 
-	0, 32, 31, 30, 29, 28, 24, 27, 22, 26,
-	25, 23,
+	0, 52, 51, 50, 41, 49, 46, 48, 42, 47,
+	45, 43, 44,
 }
 var yyR1 = [...]int{
 
-	0, 1, 9, 9, 2, 3, 10, 10, 6, 5,
+	0, 1, 10, 10, 2, 3, 11, 11, 6, 5,
 	7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
-	7, 7, 7, 7, 4, 11, 11, 11, 11, 8,
+	7, 7, 7, 7, 4, 12, 12, 12, 12, 8,
+	8, 8, 8, 8, 8, 9,
 }
 var yyR2 = [...]int{
 
 	0, 1, 2, 0, 1, 3, 3, 1, 1, 1,
 	1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 	3, 2, 3, 3, 1, 2, 2, 1, 2, 1,
+	4, 3, 3, 3, 6, 1,
 }
 var yyChk = [...]int{
 
-	-1000, -1, -9, -2, -3, 82, -10, -6, -4, -5,
+	-1000, -1, -10, -2, -3, 82, -11, -6, -4, -5,
 	-7, 83, 84, 92, 93, 94, 96, 97, 98, 99,
-	95, 149, 159, 158, 9, 88, 150, -11, -8, 86,
-	-11, 88, -6, 150, -8, 150, -8, 88, 159,
+	95, 149, 159, 158, 9, 88, 150, -12, -8, 86,
+	151, -12, 88, -6, 150, -8, 150, -8, 88, 69,
+	139, -4, 90, 159, -9, 85, 85, 161, 161, 69,
+	160, -4, 160, 161,
 }
 var yyDef = [...]int{
 
 	3, -2, 1, 2, 4, 0, 0, 7, 8, 24,
 	9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
 	19, 0, 0, 5, 0, 0, 21, 0, 27, 29,
-	0, 0, 6, 20, 28, 23, 25, 26, 22,
+	0, 0, 0, 6, 20, 28, 23, 25, 26, 0,
+	0, 0, 0, 22, 0, 35, 31, 32, 33, 0,
+	30, 0, 0, 34,
 }
 var yyTok1 = [...]int{
 
@@ -436,10 +447,10 @@ var yyTok1 = [...]int{
 	43, 17, 45, 30, 67, 3, 3, 3, 3, 3,
 	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
 	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-	3, 69, 3, 3, 36, 3, 3, 3, 3, 3,
+	3, 69, 3, 160, 36, 3, 3, 3, 3, 3,
 	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
 	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-	3, 3, 3, 3, 35, 3, 57,
+	3, 3, 3, 3, 35, 161, 57,
 }
 var yyTok2 = [...]int{
 
@@ -974,7 +985,43 @@ yydefault:
 		yyDollar = yyS[yypt-1 : yypt+1]
 		//line parser.go.y:1217
 		{
-			yyVAL.expr = ast.NewVariableExpression(yyDollar[1].tok, yyDollar[1].tok.Literal)
+			yyVAL.expr = ast.NewVariableExpression(yyDollar[1].tok, ast.Var, yyDollar[1].tok.Literal, nil)
+		}
+	case 30:
+		yyDollar = yyS[yypt-4 : yypt+1]
+		//line parser.go.y:1219
+		{
+			yyVAL.expr = ast.NewVariableExpression(yyDollar[1].tok, ast.Dim, yyDollar[1].tok.Literal, yyDollar[3].expr)
+		}
+	case 31:
+		yyDollar = yyS[yypt-3 : yypt+1]
+		//line parser.go.y:1221
+		{
+			yyVAL.expr = ast.NewVariableExpression(yyDollar[1].tok, ast.Prop, yyDollar[1].tok.Literal, ast.NewStringLiteral(yyDollar[3].tok, yyDollar[3].tok.Literal))
+		}
+	case 32:
+		yyDollar = yyS[yypt-3 : yypt+1]
+		//line parser.go.y:1223
+		{
+			yyVAL.expr = ast.NewVariableExpression(yyDollar[1].tok, ast.DollarOpenCurlyBraces, yyDollar[1].tok.Literal, yyDollar[2].expr)
+		}
+	case 33:
+		yyDollar = yyS[yypt-3 : yypt+1]
+		//line parser.go.y:1225
+		{
+			yyVAL.expr = ast.NewVariableExpression(yyDollar[1].tok, ast.DollarOpenCurlyBraces, yyDollar[1].tok.Literal, ast.NewStringLiteral(yyDollar[2].tok, yyDollar[2].tok.Literal))
+		}
+	case 34:
+		yyDollar = yyS[yypt-6 : yypt+1]
+		//line parser.go.y:1227
+		{
+			yyVAL.expr = ast.NewVariableExpression(yyDollar[1].tok, ast.DimInDollarOpenCurlyBraces, yyDollar[1].tok.Literal, []ast.Expression{ast.NewStringLiteral(yyDollar[2].tok, yyDollar[2].tok.Literal), yyDollar[4].expr}...)
+		}
+	case 35:
+		yyDollar = yyS[yypt-1 : yypt+1]
+		//line parser.go.y:1232
+		{
+			yyVAL.expr = ast.NewStringLiteral(yyDollar[1].tok, yyDollar[1].tok.Literal)
 		}
 	}
 	goto yystack /* stack new state and value */

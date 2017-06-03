@@ -161,6 +161,7 @@ state 21
 	T_VARIABLE  shift 29
 	T_ENCAPSED_AND_WHITESPACE  shift 25
 	T_END_HEREDOC  shift 26
+	T_DOLLAR_OPEN_CURLY_BRACES  shift 30
 	.  error
 
 	encaps_var  goto 28
@@ -170,11 +171,12 @@ state 22
 	scalar:  '\"'.encaps_list '\"' 
 
 	T_VARIABLE  shift 29
-	T_ENCAPSED_AND_WHITESPACE  shift 31
+	T_ENCAPSED_AND_WHITESPACE  shift 32
+	T_DOLLAR_OPEN_CURLY_BRACES  shift 30
 	.  error
 
 	encaps_var  goto 28
-	encaps_list  goto 30
+	encaps_list  goto 31
 
 state 23
 	statement:  T_ECHO echo_expr_list ';'.    (5)
@@ -201,7 +203,7 @@ state 24
 
 	expr  goto 8
 	expr_without_variable  goto 9
-	echo_expr  goto 32
+	echo_expr  goto 33
 	scalar  goto 10
 
 state 25
@@ -209,10 +211,11 @@ state 25
 	encaps_list:  T_ENCAPSED_AND_WHITESPACE.encaps_var 
 
 	T_VARIABLE  shift 29
-	T_END_HEREDOC  shift 33
+	T_END_HEREDOC  shift 34
+	T_DOLLAR_OPEN_CURLY_BRACES  shift 30
 	.  error
 
-	encaps_var  goto 34
+	encaps_var  goto 35
 
 state 26
 	scalar:  T_START_HEREDOC T_END_HEREDOC.    (21)
@@ -226,11 +229,12 @@ state 27
 	encaps_list:  encaps_list.T_ENCAPSED_AND_WHITESPACE 
 
 	T_VARIABLE  shift 29
-	T_ENCAPSED_AND_WHITESPACE  shift 37
-	T_END_HEREDOC  shift 35
+	T_ENCAPSED_AND_WHITESPACE  shift 38
+	T_END_HEREDOC  shift 36
+	T_DOLLAR_OPEN_CURLY_BRACES  shift 30
 	.  error
 
-	encaps_var  goto 36
+	encaps_var  goto 37
 
 state 28
 	encaps_list:  encaps_var.    (27)
@@ -240,81 +244,220 @@ state 28
 
 state 29
 	encaps_var:  T_VARIABLE.    (29)
+	encaps_var:  T_VARIABLE.'[' encaps_var_offset ']' 
+	encaps_var:  T_VARIABLE.T_OBJECT_OPERATOR T_STRING 
 
+	'['  shift 39
+	T_OBJECT_OPERATOR  shift 40
 	.  reduce 29 (src line 1215)
 
 
 state 30
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES.expr '}' 
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES.T_STRING_VARNAME '}' 
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES.T_STRING_VARNAME '[' expr ']' '}' 
+
+	T_LNUMBER  shift 11
+	T_DNUMBER  shift 12
+	T_STRING_VARNAME  shift 42
+	T_LINE  shift 13
+	T_FILE  shift 14
+	T_DIR  shift 15
+	T_CLASS_C  shift 20
+	T_TRAIT_C  shift 16
+	T_METHOD_C  shift 17
+	T_FUNC_C  shift 18
+	T_NS_C  shift 19
+	T_START_HEREDOC  shift 21
+	'"'  shift 22
+	.  error
+
+	expr  goto 41
+	expr_without_variable  goto 9
+	scalar  goto 10
+
+state 31
 	scalar:  '\"' encaps_list.'\"' 
 	encaps_list:  encaps_list.encaps_var 
 	encaps_list:  encaps_list.T_ENCAPSED_AND_WHITESPACE 
 
 	T_VARIABLE  shift 29
-	T_ENCAPSED_AND_WHITESPACE  shift 37
-	'"'  shift 38
+	T_ENCAPSED_AND_WHITESPACE  shift 38
+	T_DOLLAR_OPEN_CURLY_BRACES  shift 30
+	'"'  shift 43
 	.  error
 
-	encaps_var  goto 36
+	encaps_var  goto 37
 
-state 31
+state 32
 	encaps_list:  T_ENCAPSED_AND_WHITESPACE.encaps_var 
 
 	T_VARIABLE  shift 29
+	T_DOLLAR_OPEN_CURLY_BRACES  shift 30
 	.  error
 
-	encaps_var  goto 34
+	encaps_var  goto 35
 
-state 32
+state 33
 	echo_expr_list:  echo_expr_list ',' echo_expr.    (6)
 
 	.  reduce 6 (src line 815)
 
 
-state 33
+state 34
 	scalar:  T_START_HEREDOC T_ENCAPSED_AND_WHITESPACE T_END_HEREDOC.    (20)
 
 	.  reduce 20 (src line 1063)
 
 
-state 34
+state 35
 	encaps_list:  T_ENCAPSED_AND_WHITESPACE encaps_var.    (28)
 
 	.  reduce 28 (src line 1211)
 
 
-state 35
+state 36
 	scalar:  T_START_HEREDOC encaps_list T_END_HEREDOC.    (23)
 
 	.  reduce 23 (src line 1066)
 
 
-state 36
+state 37
 	encaps_list:  encaps_list encaps_var.    (25)
 
 	.  reduce 25 (src line 1204)
 
 
-state 37
+state 38
 	encaps_list:  encaps_list T_ENCAPSED_AND_WHITESPACE.    (26)
 
 	.  reduce 26 (src line 1207)
 
 
-state 38
+state 39
+	encaps_var:  T_VARIABLE '['.encaps_var_offset ']' 
+
+	T_STRING  shift 45
+	.  error
+
+	encaps_var_offset  goto 44
+
+state 40
+	encaps_var:  T_VARIABLE T_OBJECT_OPERATOR.T_STRING 
+
+	T_STRING  shift 46
+	.  error
+
+
+state 41
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES expr.'}' 
+
+	'}'  shift 47
+	.  error
+
+
+state 42
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME.'}' 
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME.'[' expr ']' '}' 
+
+	'['  shift 49
+	'}'  shift 48
+	.  error
+
+
+state 43
 	scalar:  '\"' encaps_list '\"'.    (22)
 
 	.  reduce 22 (src line 1065)
 
 
-159 terminals, 12 nonterminals
-30 grammar rules, 39/8000 states
+state 44
+	encaps_var:  T_VARIABLE '[' encaps_var_offset.']' 
+
+	']'  shift 50
+	.  error
+
+
+state 45
+	encaps_var_offset:  T_STRING.    (35)
+
+	.  reduce 35 (src line 1231)
+
+
+state 46
+	encaps_var:  T_VARIABLE T_OBJECT_OPERATOR T_STRING.    (31)
+
+	.  reduce 31 (src line 1220)
+
+
+state 47
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES expr '}'.    (32)
+
+	.  reduce 32 (src line 1222)
+
+
+state 48
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '}'.    (33)
+
+	.  reduce 33 (src line 1224)
+
+
+state 49
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '['.expr ']' '}' 
+
+	T_LNUMBER  shift 11
+	T_DNUMBER  shift 12
+	T_LINE  shift 13
+	T_FILE  shift 14
+	T_DIR  shift 15
+	T_CLASS_C  shift 20
+	T_TRAIT_C  shift 16
+	T_METHOD_C  shift 17
+	T_FUNC_C  shift 18
+	T_NS_C  shift 19
+	T_START_HEREDOC  shift 21
+	'"'  shift 22
+	.  error
+
+	expr  goto 51
+	expr_without_variable  goto 9
+	scalar  goto 10
+
+state 50
+	encaps_var:  T_VARIABLE '[' encaps_var_offset ']'.    (30)
+
+	.  reduce 30 (src line 1218)
+
+
+state 51
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '[' expr.']' '}' 
+
+	']'  shift 52
+	.  error
+
+
+state 52
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '[' expr ']'.'}' 
+
+	'}'  shift 53
+	.  error
+
+
+state 53
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '[' expr ']' '}'.    (34)
+
+	.  reduce 34 (src line 1226)
+
+
+161 terminals, 13 nonterminals
+36 grammar rules, 54/8000 states
 0 shift/reduce, 0 reduce/reduce conflicts reported
-61 working sets used
-memory: parser 18/120000
-0 extra closures
-41 shift entries, 1 exceptions
-17 goto entries
-4 entries saved by goto default
-Optimizer space used: output 153/120000
-153 table entries, 107 zero
-maximum spread: 159, maximum offset: 86
+62 working sets used
+memory: parser 26/120000
+21 extra closures
+82 shift entries, 1 exceptions
+20 goto entries
+8 entries saved by goto default
+Optimizer space used: output 170/120000
+170 table entries, 92 zero
+maximum spread: 161, maximum offset: 161
