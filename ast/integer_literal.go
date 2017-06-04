@@ -24,4 +24,6 @@ func NewIntegerLiteral(tok *token.Token, value string) *IntegerLiteral {
 
 func (i *IntegerLiteral) expressionNode()      {}
 func (i *IntegerLiteral) TokenLiteral() string { return i.Token.Literal }
-func (i *IntegerLiteral) String() string       { return i.Token.Literal }
+func (i *IntegerLiteral) String() string {
+	return strconv.FormatInt(i.Value, 10)
+}

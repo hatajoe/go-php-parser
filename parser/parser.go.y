@@ -179,7 +179,7 @@ import (
 %token <tok> T_START_HEREDOC
 %token <tok> T_END_HEREDOC
 %token <tok> T_DOLLAR_OPEN_CURLY_BRACES
-%token T_CURLY_OPEN
+%token <tok> T_CURLY_OPEN
 %token T_PAAMAYIM_NEKUDOTAYIM
 %token T_NAMESPACE
 %token T_NS_SEPARATOR
@@ -198,16 +198,16 @@ import (
 %type <ast> group_use_declaration inline_use_declarations inline_use_declaration
 %type <ast> mixed_group_use_declaration use_declaration unprefixed_use_declaration
 %type <ast> unprefixed_use_declarations const_decl inner_statement*/
-%type <expr> expr/* optional_expr while_statement for_statement foreach_variable
-%type <ast> foreach_statement declare_statement finally_statement unset_variable variable*/
+%type <expr> expr optional_expr/* while_statement for_statement foreach_variable*/
+%type <expr> /*foreach_statement declare_statement finally_statement unset_variable*/ variable
 %type <expr> /*extends_from parameter optional_type argument*/ expr_without_variable /*global_var
 %type <ast> static_var class_statement trait_adaptation trait_precedence trait_alias*/
-%type <expr> /*absolute_trait_method_reference trait_method_reference property*/ echo_expr/*
-%type <ast> new_expr anonymous_class class_name class_name_reference simple_variable
+%type <expr> /*absolute_trait_method_reference trait_method_reference property*/ echo_expr
+%type <expr> /*new_expr anonymous_class class_name class_name_reference*/ simple_variable/*
 %type <ast> internal_functions_in_yacc*/
-%type <expr> /*exit_expr*/ scalar /*backticks_expr lexical_var function_call member_name property_name
-%type <ast> variable_class_name dereferencable_scalar constant dereferencable
-%type <ast> callable_expr callable_variable static_member new_variable*/
+%type <expr> /*exit_expr*/ scalar /*backticks_expr lexical_var function_call member_name property_name*/
+%type <expr> /*variable_class_name dereferencable_scalar constant*/ dereferencable
+%type <expr> /*callable_expr*/ callable_variable /*static_member new_variable*/
 %type <expr> encaps_var encaps_var_offset/* isset_variables*/
 %type <stmts> top_statement_list /*use_declarations const_list inner_statement_list if_stmt
 %type <ast> alt_if_stmt for_exprs switch_case_list global_var_list static_var_list*/
@@ -1078,61 +1078,78 @@ constant:
 */
 
 expr:
-	/*	variable					{ $$ = $1; }
-	|*/	expr_without_variable		{ $$ = $1; }
+		variable					{ $$ = $1; }
+	|	expr_without_variable		{ $$ = $1; }
 ;
 
-/*
 optional_expr:
-		/* empty *//*	{ $$ = NULL; }
+		/* empty */	{ $$ = nil; }
 	|	expr		{ $$ = $1; }
 ;
 
+/*
 variable_class_name:
 	dereferencable { $$ = $1; }
 ;
+*/
 
 dereferencable:
 		variable				{ $$ = $1; }
-	|	'(' expr ')'			{ $$ = $2; }
-	|	dereferencable_scalar	{ $$ = $1; }
+	|	'(' expr ')'			{ $$ = ast.NewDereferencableExpression(ast.Wrapped, $2); }/*
+	|	dereferencable_scalar	{ $$ = $1; }*/
 ;
 
+/*
 callable_expr:
 		callable_variable		{ $$ = $1; }
 	|	'(' expr ')'			{ $$ = $2; }
 	|	dereferencable_scalar	{ $$ = $1; }
 ;
-/*
+*/
+
 callable_variable:
 		simple_variable
-			{ $$ = zend_ast_create(ZEND_AST_VAR, $1); }/*
+			{ $$ = $1; }
 	|	dereferencable '[' optional_expr ']'
-			{ $$ = zend_ast_create(ZEND_AST_DIM, $1, $3); }
+			{ $$ = ast.NewDereferencableExpression(ast.Dim, []ast.Expression{$1, $3}...); }/*
 	|	constant '[' optional_expr ']'
 			{ $$ = zend_ast_create(ZEND_AST_DIM, $1, $3); }
 	|	dereferencable '{' expr '}'
 			{ $$ = zend_ast_create(ZEND_AST_DIM, $1, $3); }
 	|	dereferencable T_OBJECT_OPERATOR property_name argument_list
 			{ $$ = zend_ast_create(ZEND_AST_METHOD_CALL, $1, $3, $4); }
-	|	function_call { $$ = $1; }
+	|	function_call { $$ = $1; }*/
 ;
 
 variable:
 		callable_variable
-			{ $$ = $1; }
+			{ $$ = $1; }/*
 	|	static_member
 			{ $$ = $1; }
 	|	dereferencable T_OBJECT_OPERATOR property_name
-			{ $$ = zend_ast_create(ZEND_AST_PROP, $1, $3); }
+			{ $$ = zend_ast_create(ZEND_AST_PROP, $1, $3); }*/
 ;
+
+
 simple_variable:
-		T_VARIABLE			{ $$ = $1; }
-	|	'$' '{' expr '}'	{ $$ = $3; }
-	|	'$' simple_variable	{ $$ = zend_ast_create(ZEND_AST_VAR, $2); }
+		T_VARIABLE			{ $$ = ast.NewVariableExpression($1, ast.Var, $1.Literal); }
+	|	'$' '{' expr '}'	{ 
+            tok := &token.Token{
+                Type   : token.T_DOLLAR_OPEN_CURLY_BRACES,
+                Literal: "${",
+            }
+            $$ = ast.NewVariableExpression(tok, ast.DollarOpenCurlyBraces, tok.Literal, $3); 
+        }
+	|	'$' simple_variable	{ 
+            tok := &token.Token{
+                Type   : '$',
+                Literal: "$",
+            }
+            $$ = ast.NewVariableExpression(tok, ast.MultipleDollars, tok.Literal, $2); 
+        }
 ;
 
-
+/*
 static_member:
 		class_name T_PAAMAYIM_NEKUDOTAYIM simple_variable
 			{ $$ = zend_ast_create(ZEND_AST_STATIC_PROP, $1, $3); }
@@ -1224,15 +1241,15 @@ encaps_var:
 	|	T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '}'
 			{ $$ = ast.NewVariableExpression($1, ast.DollarOpenCurlyBraces, $1.Literal, ast.NewStringLiteral($2, $2.Literal)); }
 	|	T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '[' expr ']' '}'
-			{ $$ = ast.NewVariableExpression($1, ast.DimInDollarOpenCurlyBraces, $1.Literal, []ast.Expression{ast.NewStringLiteral($2, $2.Literal), $4}...); }/*
-	|	T_CURLY_OPEN variable '}' { $$ = $2; }*/
+			{ $$ = ast.NewVariableExpression($1, ast.DimInDollarOpenCurlyBraces, $1.Literal, []ast.Expression{ast.NewStringLiteral($2, $2.Literal), $4}...); }
+	|	T_CURLY_OPEN variable '}' { $$ = ast.NewVariableExpression($1, ast.CurlyOpen, $1.Literal, $2); }
 ;
 
 encaps_var_offset:
-		T_STRING			{ $$ = ast.NewStringLiteral($1, $1.Literal); }/*
-	|	T_NUM_STRING		{ $$ = $1; }
-	|	'-' T_NUM_STRING 	{ $$ = zend_negate_num_string($2); }
-	|	T_VARIABLE			{ $$ = zend_ast_create(ZEND_AST_VAR, $1); }*/
+		T_STRING			{ $$ = ast.NewStringLiteral($1, $1.Literal); }
+	|	T_NUM_STRING		{ $$ = ast.NewIntegerLiteral($1, $1.Literal); }
+	|	'-' T_NUM_STRING 	{ $$ = ast.NewIntegerLiteral($2, "-" + $2.Literal); }
+	|	T_VARIABLE			{ $$ = ast.NewVariableExpression($1, ast.Var, $1.Literal); }
 ;
 /*
 

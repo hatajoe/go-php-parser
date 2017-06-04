@@ -158,6 +158,18 @@ EOL;`,
 			`echo "hello $foo[true]";`,
 		},
 		{
+			`<?php echo "hello $foo[1]";`,
+			`echo "hello $foo[1]";`,
+		},
+		{
+			`<?php echo "hello $foo[-1]";`,
+			`echo "hello $foo[-1]";`,
+		},
+		{
+			`<?php echo "hello $foo[$bar]";`,
+			`echo "hello $foo[$bar]";`,
+		},
+		{
 			`<?php echo "hello $foo->bar";`,
 			`echo "hello $foo->bar";`,
 		},
@@ -170,8 +182,40 @@ EOL;`,
 			`echo "hello ${a}";`,
 		},
 		{
+			`<?php echo "hello ${$foo}";`,
+			`echo "hello ${$foo}";`,
+		},
+		{
 			`<?php echo "hello ${a[1]}";`,
 			`echo "hello ${a[1]}";`,
+		},
+		{
+			`<?php echo "hello {$foo}";`,
+			`echo "hello {$foo}";`,
+		},
+		{
+			`<?php echo "hello {${$foo}}";`,
+			`echo "hello {${$foo}}";`,
+		},
+		{
+			`<?php echo "hello {${$$$foo}}";`,
+			`echo "hello {${$$$foo}}";`,
+		},
+		{
+			`<?php echo "hello {${$$$foo}}";`,
+			`echo "hello {${$$$foo}}";`,
+		},
+		{
+			`<?php echo "hello {$foo[]}";`,
+			`echo "hello {$foo[]}";`,
+		},
+		{
+			`<?php echo "hello {$foo[$bar]}";`,
+			`echo "hello {$foo[$bar]}";`,
+		},
+		{
+			`<?php echo "hello {()[$bar]}";`,
+			`echo "hello {()[$bar]}";`,
 		},
 	}
 

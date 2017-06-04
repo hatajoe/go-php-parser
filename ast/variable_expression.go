@@ -1,19 +1,10 @@
 package ast
 
 import (
+	"bytes"
 	"fmt"
 
 	"github.com/hatajoe/go-php-parser/token"
-)
-
-type VariableType int
-
-const (
-	Var VariableType = iota + 1
-	Dim
-	Prop
-	DollarOpenCurlyBraces
-	DimInDollarOpenCurlyBraces
 )
 
 type VariableExpression struct {
@@ -46,6 +37,15 @@ func (ve *VariableExpression) String() string {
 		return fmt.Sprintf("%s%s}", ve.Name, ve.Exprs[0].String())
 	case DimInDollarOpenCurlyBraces:
 		return fmt.Sprintf("%s%s[%s]}", ve.Name, ve.Exprs[0].String(), ve.Exprs[1].String())
+	case CurlyOpen:
+		return fmt.Sprintf("%s%s}", ve.Name, ve.Exprs[0].String())
+	case MultipleDollars:
+		var out bytes.Buffer
+		out.WriteString("$")
+		for _, v := range ve.Exprs {
+			out.WriteString(v.String())
+		}
+		return out.String()
 	default:
 		panic(fmt.Sprintf("err: Undefined type specified. got=%d", ve.Type))
 	}
