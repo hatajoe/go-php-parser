@@ -333,6 +333,10 @@ EOL;`,
 			`<?php echo [list($foo,$bar),list(1,2)];`,
 			`echo [list($foo, $bar), list(1, 2)];`,
 		},
+		{
+			`<?php echo "hello world";`,
+			`echo "hello world";`,
+		},
 	}
 
 	for idx, test := range tests {

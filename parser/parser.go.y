@@ -1045,8 +1045,8 @@ ctor_arguments:
 
 dereferencable_scalar:
 		T_ARRAY '(' array_pair_list ')'	{ $$ = ast.NewArrayExpression(ast.Long, $3...); }
-	|	'[' array_pair_list ']'			{ $$ = ast.NewArrayExpression(ast.Short, $2...); }/*
-	|	T_CONSTANT_ENCAPSED_STRING		{ $$ = $1; }*/
+	|	'[' array_pair_list ']'			{ $$ = ast.NewArrayExpression(ast.Short, $2...); }
+	|	T_CONSTANT_ENCAPSED_STRING		{ $$ = ast.NewConstantEncapsedStringLiteral($1, $1.Literal); }
 ;
 
 scalar:
