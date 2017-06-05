@@ -46,6 +46,8 @@ func (ve *VariableExpression) String() string {
 			out.WriteString(v.String())
 		}
 		return out.String()
+	case Ref:
+		return fmt.Sprintf("&%s", ve.Name)
 	default:
 		panic(fmt.Sprintf("err: Undefined type specified. got=%d", ve.Type))
 	}

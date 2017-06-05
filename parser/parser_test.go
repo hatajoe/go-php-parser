@@ -217,6 +217,122 @@ EOL;`,
 			`<?php echo "hello {()[$bar]}";`,
 			`echo "hello {()[$bar]}";`,
 		},
+		{
+			`<?php echo array();`,
+			`echo array();`,
+		},
+		{
+			`<?php echo [];`,
+			`echo [];`,
+		},
+		{
+			`<?php echo array(1=>2);`,
+			`echo array(
+    1 => 2,
+);`,
+		},
+		{
+			`<?php echo [1=>2];`,
+			`echo [
+    1 => 2,
+];`,
+		},
+		{
+			`<?php echo array(1=>2,3=>4);`,
+			`echo array(
+    1 => 2,
+    3 => 4,
+);`,
+		},
+		{
+			`<?php echo [1=>2,3=>4];`,
+			`echo [
+    1 => 2,
+    3 => 4,
+];`,
+		},
+		{
+			`<?php echo array(1,2,3,4,5,6,7,8,9,10);`,
+			`echo array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);`,
+		},
+		{
+			`<?php echo [1,2,3,4,5,6,7,8,9,10];`,
+			`echo [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];`,
+		},
+		{
+			`<?php echo array(1,2,3,4,5,6,7,8,9,10,11);`,
+			`echo array(
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+);`,
+		},
+		{
+			`<?php echo [1,2,3,4,5,6,7,8,9,10,11];`,
+			`echo [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+];`,
+		},
+		{
+			`<?php echo array(1=>&$foo,3=>&$bar);`,
+			`echo array(
+    1 => &$foo,
+    3 => &$bar,
+);`,
+		},
+		{
+			`<?php echo [1=>&$foo,3=>&$bar];`,
+			`echo [
+    1 => &$foo,
+    3 => &$bar,
+];`,
+		},
+		{
+			`<?php echo array(&$foo,&$bar);`,
+			`echo array(&$foo, &$bar);`,
+		},
+		{
+			`<?php echo [&$foo,&$bar];`,
+			`echo [&$foo, &$bar];`,
+		},
+		{
+			`<?php echo array(1=>list($foo,$bar));`,
+			`echo array(
+    1 => list($foo, $bar),
+);`,
+		},
+		{
+			`<?php echo [1=>list($foo,$bar)];`,
+			`echo [
+    1 => list($foo, $bar),
+];`,
+		},
+		{
+			`<?php echo array(list($foo,$bar),list(1,2));`,
+			`echo array(list($foo, $bar), list(1, 2));`,
+		},
+		{
+			`<?php echo [list($foo,$bar),list(1,2)];`,
+			`echo [list($foo, $bar), list(1, 2)];`,
+		},
 	}
 
 	for idx, test := range tests {

@@ -166,8 +166,8 @@ import (
 %token T_EXTENDS
 %token T_IMPLEMENTS
 %token T_OBJECT_OPERATOR
-%token T_DOUBLE_ARROW
-%token T_LIST
+%token <tok> T_DOUBLE_ARROW
+%token <tok> T_LIST
 %token T_ARRAY
 %token T_CALLABLE
 %token T_COMMENT
@@ -206,7 +206,7 @@ import (
 %type <expr> /*new_expr anonymous_class class_name class_name_reference*/ simple_variable/*
 %type <ast> internal_functions_in_yacc*/
 %type <expr> /*exit_expr*/ scalar /*backticks_expr lexical_var function_call member_name property_name*/
-%type <expr> /*variable_class_name dereferencable_scalar constant*/ dereferencable
+%type <expr> /*variable_class_name*/ dereferencable_scalar /*constant*/ dereferencable
 %type <expr> /*callable_expr*/ callable_variable /*static_member new_variable*/
 %type <expr> encaps_var encaps_var_offset/* isset_variables*/
 %type <stmts> top_statement_list /*use_declarations const_list inner_statement_list if_stmt
@@ -216,8 +216,8 @@ import (
 %type <ast> non_empty_parameter_list argument_list non_empty_argument_list property_list
 %type <ast> class_const_list class_const_decl name_list trait_adaptations method_body non_empty_for_exprs
 %type <ast> ctor_arguments alt_if_stmt_without_else trait_adaptation_list lexical_vars*/
-%type <exprs> /*lexical_var_list*/ encaps_list/*
-%type <ast> array_pair non_empty_array_pair_list array_pair_list possible_array_pair
+%type <exprs> /*lexical_var_list*/ encaps_list
+%type <exprs> array_pair non_empty_array_pair_list array_pair_list possible_array_pair/*
 %type <ast> isset_variable type return_type type_expr
 
 %type <ast> identifier
@@ -1041,14 +1041,14 @@ ctor_arguments:
 		/* empty *//*	{ $$ = zend_ast_create_list(0, ZEND_AST_ARG_LIST); }
 	|	argument_list { $$ = $1; }
 ;
-
+*/
 
 dereferencable_scalar:
-		T_ARRAY '(' array_pair_list ')'	{ $$ = $3; $$->attr = ZEND_ARRAY_SYNTAX_LONG; }
-	|	'[' array_pair_list ']'			{ $$ = $2; $$->attr = ZEND_ARRAY_SYNTAX_SHORT; }
-	|	T_CONSTANT_ENCAPSED_STRING		{ $$ = $1; }
+		T_ARRAY '(' array_pair_list ')'	{ $$ = ast.NewArrayExpression(ast.Long, $3...); }
+	|	'[' array_pair_list ']'			{ $$ = ast.NewArrayExpression(ast.Short, $2...); }/*
+	|	T_CONSTANT_ENCAPSED_STRING		{ $$ = $1; }*/
 ;
-*/
+
 scalar:
 		T_LNUMBER 	{ $$ = ast.NewIntegerLiteral($1, $1.Literal); }
 	|	T_DNUMBER 	{ $$ = ast.NewDoubleLiteral($1, $1.Literal); }
@@ -1063,10 +1063,11 @@ scalar:
 	|	T_START_HEREDOC T_ENCAPSED_AND_WHITESPACE T_END_HEREDOC { $$ = ast.NewHeredocExpression($1, $3, ast.NewEncapsedAndWhitespaceLiteral($2, $2.Literal)); }
 	|	T_START_HEREDOC T_END_HEREDOC { $$ = ast.NewHeredocExpression($1, $2); }
 	|	'"' encaps_list '"' 	{ $$ = ast.NewEncapsListExpression($2...); }
-	|	T_START_HEREDOC encaps_list T_END_HEREDOC { $$ = ast.NewHeredocExpression($1, $3, $2...); }/*
-	|	dereferencable_scalar	{ $$ = $1; }
+	|	T_START_HEREDOC encaps_list T_END_HEREDOC { $$ = ast.NewHeredocExpression($1, $3, $2...); }
+	|	dereferencable_scalar	{ $$ = $1; }/*
 	|	constant			{ $$ = $1; }*/
 ;
+
 /*
 constant:
 		name { $$ = zend_ast_create(ZEND_AST_CONST, $1); }
@@ -1095,8 +1096,8 @@ variable_class_name:
 
 dereferencable:
 		variable				{ $$ = $1; }
-	|	'(' expr ')'			{ $$ = ast.NewDereferencableExpression(ast.Wrapped, $2); }/*
-	|	dereferencable_scalar	{ $$ = $1; }*/
+	|	'(' expr ')'			{ $$ = ast.NewDereferencableExpression(ast.Wrapped, $2); }
+	|	dereferencable_scalar	{ $$ = $1; }
 ;
 
 /*
@@ -1183,41 +1184,40 @@ property_name:
 	|	'{' expr '}'	{ $$ = $2; }
 	|	simple_variable	{ $$ = zend_ast_create(ZEND_AST_VAR, $1); }
 ;
+*/
 
 array_pair_list:
 		non_empty_array_pair_list
-			{ /* allow single trailing comma *//* $$ = zend_ast_list_rtrim($1); }
+			{ /* allow single trailing comma */ $$ = $1; }
 ;
 
 possible_array_pair:
-		/* empty *//* { $$ = NULL; }
+		/* empty */ { $$ = []ast.Expression{}; }
 	|	array_pair  { $$ = $1; }
 ;
 
 non_empty_array_pair_list:
 		non_empty_array_pair_list ',' possible_array_pair
-			{ $$ = zend_ast_list_add($1, $3); }
+			{ $$ = append($1, $3...); }
 	|	possible_array_pair
-			{ $$ = zend_ast_create_list(1, ZEND_AST_ARRAY, $1); }
+			{ $$ = $1; }
 ;
 
 array_pair:
 		expr T_DOUBLE_ARROW expr
-			{ $$ = zend_ast_create(ZEND_AST_ARRAY_ELEM, $3, $1); }
+			{ $$ = []ast.Expression{ast.NewArrayPairExpression($1, $3)}; }
 	|	expr
-			{ $$ = zend_ast_create(ZEND_AST_ARRAY_ELEM, $1, NULL); }
+			{ $$ = []ast.Expression{$1}; }
 	|	expr T_DOUBLE_ARROW '&' variable
-			{ $$ = zend_ast_create_ex(ZEND_AST_ARRAY_ELEM, 1, $4, $1); }
+			{ $$ = []ast.Expression{ast.NewArrayPairExpression($1, ast.NewVariableExpression(&token.Token{Literal: $4.TokenLiteral()}, ast.Ref, $4.TokenLiteral()))}; }
 	|	'&' variable
-			{ $$ = zend_ast_create_ex(ZEND_AST_ARRAY_ELEM, 1, $2, NULL); }
+			{ $$ = []ast.Expression{ast.NewVariableExpression(&token.Token{Literal: $2.TokenLiteral()}, ast.Ref, $2.TokenLiteral())}; }
 	|	expr T_DOUBLE_ARROW T_LIST '(' array_pair_list ')'
-			{ $5->attr = ZEND_ARRAY_SYNTAX_LIST;
-			  $$ = zend_ast_create(ZEND_AST_ARRAY_ELEM, $5, $1); }
+			{ $$ = []ast.Expression{ast.NewArrayPairExpression($1, ast.NewListExpression($3, $5...))}; }
 	|	T_LIST '(' array_pair_list ')'
-			{ $3->attr = ZEND_ARRAY_SYNTAX_LIST;
-			  $$ = zend_ast_create(ZEND_AST_ARRAY_ELEM, $3, NULL); }
+			{ $$ = []ast.Expression{ast.NewListExpression($1, $3...)} }
 ;
-*/
+
 encaps_list:
 		encaps_list encaps_var
 			{ $$ = append($1, $2); }

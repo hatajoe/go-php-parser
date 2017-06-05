@@ -11,4 +11,5 @@ const (
 	CurlyOpen                                          // {
 	MultipleDollars                                    // $$foo
 	Wrapped                                            // ($foo)
+	Ref                                                // &$foo
 )
