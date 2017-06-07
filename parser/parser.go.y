@@ -183,7 +183,7 @@ import (
 %token T_PAAMAYIM_NEKUDOTAYIM
 %token T_NAMESPACE
 %token T_NS_SEPARATOR
-%token T_ELLIPSIS
+%token <tok> T_ELLIPSIS
 %token T_COALESCE
 %token T_POW
 %token T_POW_EQUAL
@@ -192,7 +192,8 @@ import (
 %token T_ERROR
 
 %type <program> start
-%type <stmt> top_statement /*namespace_name name*/ statement /*function_declaration_statement*//*
+%type <stmt> top_statement statement /*function_declaration_statement*/
+%type <expr> namespace_name name/*
 %type <ast> class_declaration_statement trait_declaration_statement
 %type <ast> interface_declaration_statement interface_extends_list
 %type <ast> group_use_declaration inline_use_declarations inline_use_declaration
@@ -200,20 +201,21 @@ import (
 %type <ast> unprefixed_use_declarations const_decl inner_statement*/
 %type <expr> expr optional_expr/* while_statement for_statement foreach_variable*/
 %type <expr> /*foreach_statement declare_statement finally_statement unset_variable*/ variable
-%type <expr> /*extends_from parameter optional_type argument*/ expr_without_variable /*global_var
+%type <expr> /*extends_from parameter optional_type*/ argument expr_without_variable /*global_var
 %type <ast> static_var class_statement trait_adaptation trait_precedence trait_alias*/
 %type <expr> /*absolute_trait_method_reference trait_method_reference property*/ echo_expr
 %type <expr> /*new_expr anonymous_class class_name class_name_reference*/ simple_variable/*
 %type <ast> internal_functions_in_yacc*/
-%type <expr> /*exit_expr*/ scalar /*backticks_expr lexical_var function_call member_name property_name*/
-%type <expr> /*variable_class_name*/ dereferencable_scalar /*constant*/ dereferencable
+%type <expr> /*exit_expr*/ scalar /*backticks_expr lexical_var function_call member_name*/ property_name
+%type <expr> /*variable_class_name*/ dereferencable_scalar constant dereferencable
 %type <expr> /*callable_expr*/ callable_variable /*static_member new_variable*/
 %type <expr> encaps_var encaps_var_offset/* isset_variables*/
 %type <stmts> top_statement_list /*use_declarations const_list inner_statement_list if_stmt
 %type <ast> alt_if_stmt for_exprs switch_case_list global_var_list static_var_list*/
 %type <exprs> echo_expr_list /*unset_variables catch_name_list catch_list parameter_list class_statement_list
-%type <ast> implements_list case_list if_stmt_without_else
-%type <ast> non_empty_parameter_list argument_list non_empty_argument_list property_list
+%type <ast> implements_list case_list if_stmt_without_else*/
+%type <expr> /*non_empty_parameter_list*/ argument_list /*property_list*/
+%type <exprs> non_empty_argument_list/*
 %type <ast> class_const_list class_const_decl name_list trait_adaptations method_body non_empty_for_exprs
 %type <ast> ctor_arguments alt_if_stmt_without_else trait_adaptation_list lexical_vars*/
 %type <exprs> /*lexical_var_list*/ encaps_list
@@ -269,18 +271,17 @@ top_statement_list:
 	|	/* empty */ { $$ = []ast.Statement{} }
 ;
 
-/*
+
 namespace_name:
-		T_STRING								{ $$ = $1; }
-	|	namespace_name T_NS_SEPARATOR T_STRING	{ $$ = zend_ast_append_str($1, $3); }
+		T_STRING								{ $$ = ast.NewStringLiteral($1, $1.Literal); }/*
+	|	namespace_name T_NS_SEPARATOR T_STRING	{ $$ = zend_ast_append_str($1, $3); }*/
 ;
 
 name:
-		namespace_name								{ $$ = $1; $$->attr = ZEND_NAME_NOT_FQ; }
+		namespace_name								{ $$ = $1 }/*
 	|	T_NAMESPACE T_NS_SEPARATOR namespace_name	{ $$ = $3; $$->attr = ZEND_NAME_RELATIVE; }
-	|	T_NS_SEPARATOR namespace_name				{ $$ = $2; $$->attr = ZEND_NAME_FQ; }
+	|	T_NS_SEPARATOR namespace_name				{ $$ = $2; $$->attr = ZEND_NAME_FQ; }*/
 ;
-*/
 
 top_statement:
 		statement							{ $$ = $1; }/*
@@ -645,24 +646,26 @@ return_type:
 		/* empty *//*	{ $$ = NULL; }
 	|	':' type_expr	{ $$ = $2; }
 ;
+*/
 
 argument_list:
-		'(' ')'	{ $$ = zend_ast_create_list(0, ZEND_AST_ARG_LIST); }
-	|	'(' non_empty_argument_list ')' { $$ = $2; }
+		'(' ')'	{ $$ = ast.NewArgumentListExpression(); }
+	|	'(' non_empty_argument_list ')' { $$ = ast.NewArgumentListExpression($2...); }
 ;
 
 non_empty_argument_list:
 		argument
-			{ $$ = zend_ast_create_list(1, ZEND_AST_ARG_LIST, $1); }
+			{ $$ = append($$, $1); }
 	|	non_empty_argument_list ',' argument
-			{ $$ = zend_ast_list_add($1, $3); }
+			{ $$ = append($1, $3); }
 ;
 
 argument:
 		expr			{ $$ = $1; }
-	|	T_ELLIPSIS expr	{ $$ = zend_ast_create(ZEND_AST_UNPACK, $2); }
+	|	T_ELLIPSIS expr	{ $$ = ast.NewArgumentExpression($1, $2); }
 ;
 
+/*
 global_var_list:
 		global_var_list ',' global_var { $$ = zend_ast_list_add($1, $3); }
 	|	global_var { $$ = zend_ast_create_list(1, ZEND_AST_STMT_LIST, $1); }
@@ -1064,19 +1067,17 @@ scalar:
 	|	T_START_HEREDOC T_END_HEREDOC { $$ = ast.NewHeredocExpression($1, $2); }
 	|	'"' encaps_list '"' 	{ $$ = ast.NewEncapsListExpression($2...); }
 	|	T_START_HEREDOC encaps_list T_END_HEREDOC { $$ = ast.NewHeredocExpression($1, $3, $2...); }
-	|	dereferencable_scalar	{ $$ = $1; }/*
-	|	constant			{ $$ = $1; }*/
+	|	dereferencable_scalar	{ $$ = $1; }
+	|	constant			{ $$ = $1; }
 ;
 
-/*
 constant:
-		name { $$ = zend_ast_create(ZEND_AST_CONST, $1); }
+		name { $$ = $1; } /*
 	|	class_name T_PAAMAYIM_NEKUDOTAYIM identifier
 			{ $$ = zend_ast_create(ZEND_AST_CLASS_CONST, $1, $3); }
 	|	variable_class_name T_PAAMAYIM_NEKUDOTAYIM identifier
-			{ $$ = zend_ast_create(ZEND_AST_CLASS_CONST, $1, $3); }
+			{ $$ = zend_ast_create(ZEND_AST_CLASS_CONST, $1, $3); }*/
 ;
-*/
 
 expr:
 		variable					{ $$ = $1; }
@@ -1112,13 +1113,13 @@ callable_variable:
 		simple_variable
 			{ $$ = $1; }
 	|	dereferencable '[' optional_expr ']'
-			{ $$ = ast.NewDereferencableExpression(ast.Dim, []ast.Expression{$1, $3}...); }/*
+			{ $$ = ast.NewCallableVariableExpression(ast.Dim, $1, $3); }
 	|	constant '[' optional_expr ']'
-			{ $$ = zend_ast_create(ZEND_AST_DIM, $1, $3); }
+			{ $$ = ast.NewCallableVariableExpression(ast.Dim, $1, $3); }
 	|	dereferencable '{' expr '}'
-			{ $$ = zend_ast_create(ZEND_AST_DIM, $1, $3); }
+			{ $$ = ast.NewCallableVariableExpression(ast.Curly, $1, $3); }
 	|	dereferencable T_OBJECT_OPERATOR property_name argument_list
-			{ $$ = zend_ast_create(ZEND_AST_METHOD_CALL, $1, $3, $4); }
+			{ $$ = ast.NewCallableVariableExpression(ast.Prop, $1, []ast.Expression{$3, $4}...); }/*
 	|	function_call { $$ = $1; }*/
 ;
 
@@ -1178,13 +1179,13 @@ member_name:
 	|	'{' expr '}'	{ $$ = $2; }
 	|	simple_variable	{ $$ = zend_ast_create(ZEND_AST_VAR, $1); }
 ;
+*/
 
 property_name:
-		T_STRING { $$ = $1; }
-	|	'{' expr '}'	{ $$ = $2; }
-	|	simple_variable	{ $$ = zend_ast_create(ZEND_AST_VAR, $1); }
+		T_STRING { $$ = ast.NewStringLiteral($1, $1.Literal); }
+	|	'{' expr '}'	{ $$ = ast.NewPropertyNameExpression($2); }
+	|	simple_variable	{ $$ = $1; }
 ;
-*/
 
 array_pair_list:
 		non_empty_array_pair_list

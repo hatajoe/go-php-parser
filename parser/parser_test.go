@@ -337,6 +337,50 @@ EOL;`,
 			`<?php echo "hello world";`,
 			`echo "hello world";`,
 		},
+		{
+			`<?php echo $foo[0];`,
+			`echo $foo[0];`,
+		},
+		{
+			`<?php echo $foo[0];`,
+			`echo $foo[0];`,
+		},
+		{
+			`<?php echo foo[0];`,
+			`echo foo[0];`,
+		},
+		{
+			`<?php echo $foo{0};`,
+			`echo $foo{0};`,
+		},
+		{
+			`<?php echo $foo->bar();`,
+			`echo $foo->bar();`,
+		},
+		{
+			`<?php echo $foo->{"bar"}();`,
+			`echo $foo->{"bar"}();`,
+		},
+		{
+			`<?php echo $foo->$bar();`,
+			`echo $foo->$bar();`,
+		},
+		{
+			`<?php echo $foo->bar(1);`,
+			`echo $foo->bar(1);`,
+		},
+		{
+			`<?php echo $foo->bar(1,2);`,
+			`echo $foo->bar(1, 2);`,
+		},
+		{
+			`<?php echo $foo->bar(1,2);`,
+			`echo $foo->bar(1, 2);`,
+		},
+		{
+			`<?php echo $foo->bar(... $baz);`,
+			`echo $foo->bar(...$baz);`,
+		},
 	}
 
 	for idx, test := range tests {
