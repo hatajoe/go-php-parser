@@ -16,6 +16,9 @@ $unset_indices = [];
 foreach ($tokens as $idx => $token) {
     if (is_array($token)) {
         $tok_name = token_name($token[0]);
+        if ($tok_name === "T_DOUBLE_COLON") {
+            $tok_name = "T_PAAMAYIM_NEKUDOTAYIM";
+        }
         if (in_array($tok_name, ["T_OPEN_TAG", "T_WHITESPACE"])) {
             $unset_indices[] = $idx;
             continue;

@@ -393,6 +393,30 @@ EOL;`,
 			`<?php echo \Foo\Bar\Baz;`,
 			`echo \Foo\Bar\Baz;`,
 		},
+		{
+			`<?php echo foo();`,
+			`echo foo();`,
+		},
+		{
+			`<?php echo foo(1,2);`,
+			`echo foo(1, 2);`,
+		},
+		{
+			`<?php echo static::bar(1,2);`,
+			`echo static::bar(1, 2);`,
+		},
+		{
+			`<?php echo Foo::bar(1,2);`,
+			`echo Foo::bar(1, 2);`,
+		},
+		{
+			`<?php echo Foo::{"bar"}(1,2);`,
+			`echo Foo::{"bar"}(1, 2);`,
+		},
+		{
+			`<?php echo Foo::$bar(1,2);`,
+			`echo Foo::$bar(1, 2);`,
+		},
 	}
 
 	for idx, test := range tests {
