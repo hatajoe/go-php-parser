@@ -32,9 +32,9 @@ state 3
 
 
 state 4
-	top_statement:  statement.    (6)
+	top_statement:  statement.    (9)
 
-	.  reduce 6 (src line 286)
+	.  reduce 9 (src line 286)
 
 
 state 5
@@ -43,7 +43,7 @@ state 5
 	'['  shift 34
 	T_LNUMBER  shift 16
 	T_DNUMBER  shift 17
-	T_STRING  shift 37
+	T_STRING  shift 39
 	T_VARIABLE  shift 29
 	T_CONSTANT_ENCAPSED_STRING  shift 35
 	T_LINE  shift 18
@@ -56,6 +56,8 @@ state 5
 	T_NS_C  shift 24
 	T_ARRAY  shift 33
 	T_START_HEREDOC  shift 26
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
 	'('  shift 31
 	'"'  shift 27
 	'$'  shift 30
@@ -79,55 +81,55 @@ state 6
 	statement:  T_ECHO echo_expr_list.';' 
 	echo_expr_list:  echo_expr_list.',' echo_expr 
 
-	','  shift 39
-	';'  shift 38
+	','  shift 41
+	';'  shift 40
 	.  error
 
 
 state 7
-	echo_expr_list:  echo_expr.    (15)
+	echo_expr_list:  echo_expr.    (18)
 
-	.  reduce 15 (src line 820)
+	.  reduce 18 (src line 821)
 
 
 state 8
-	echo_expr:  expr.    (16)
+	echo_expr:  expr.    (19)
 
-	.  reduce 16 (src line 822)
+	.  reduce 19 (src line 824)
 
 
 state 9
-	expr:  variable.    (38)
-	dereferencable:  variable.    (42)
+	expr:  variable.    (41)
+	dereferencable:  variable.    (45)
 
-	'['  reduce 42 (src line 1098)
-	T_OBJECT_OPERATOR  reduce 42 (src line 1098)
-	'{'  reduce 42 (src line 1098)
-	.  reduce 38 (src line 1082)
+	'['  reduce 45 (src line 1100)
+	T_OBJECT_OPERATOR  reduce 45 (src line 1100)
+	'{'  reduce 45 (src line 1100)
+	.  reduce 41 (src line 1084)
 
 
 state 10
-	expr:  expr_without_variable.    (39)
+	expr:  expr_without_variable.    (42)
 
-	.  reduce 39 (src line 1084)
+	.  reduce 42 (src line 1086)
 
 
 state 11
-	variable:  callable_variable.    (50)
+	variable:  callable_variable.    (53)
 
-	.  reduce 50 (src line 1126)
+	.  reduce 53 (src line 1128)
 
 
 state 12
-	expr_without_variable:  scalar.    (17)
+	expr_without_variable:  scalar.    (20)
 
-	.  reduce 17 (src line 854)
+	.  reduce 20 (src line 856)
 
 
 state 13
-	callable_variable:  simple_variable.    (45)
+	callable_variable:  simple_variable.    (48)
 
-	.  reduce 45 (src line 1112)
+	.  reduce 48 (src line 1114)
 
 
 state 14
@@ -135,78 +137,78 @@ state 14
 	callable_variable:  dereferencable.'{' expr '}' 
 	callable_variable:  dereferencable.T_OBJECT_OPERATOR property_name argument_list 
 
-	'['  shift 40
-	T_OBJECT_OPERATOR  shift 42
-	'{'  shift 41
+	'['  shift 42
+	T_OBJECT_OPERATOR  shift 44
+	'{'  shift 43
 	.  error
 
 
 state 15
-	scalar:  constant.    (36)
+	scalar:  constant.    (39)
 	callable_variable:  constant.'[' optional_expr ']' 
 
-	'['  shift 43
-	.  reduce 36 (src line 1071)
+	'['  shift 45
+	.  reduce 39 (src line 1073)
 
 
 state 16
-	scalar:  T_LNUMBER.    (21)
+	scalar:  T_LNUMBER.    (24)
 
-	.  reduce 21 (src line 1055)
+	.  reduce 24 (src line 1057)
 
 
 state 17
-	scalar:  T_DNUMBER.    (22)
+	scalar:  T_DNUMBER.    (25)
 
-	.  reduce 22 (src line 1057)
+	.  reduce 25 (src line 1059)
 
 
 state 18
-	scalar:  T_LINE.    (23)
+	scalar:  T_LINE.    (26)
 
-	.  reduce 23 (src line 1058)
+	.  reduce 26 (src line 1060)
 
 
 state 19
-	scalar:  T_FILE.    (24)
+	scalar:  T_FILE.    (27)
 
-	.  reduce 24 (src line 1059)
+	.  reduce 27 (src line 1061)
 
 
 state 20
-	scalar:  T_DIR.    (25)
+	scalar:  T_DIR.    (28)
 
-	.  reduce 25 (src line 1060)
+	.  reduce 28 (src line 1062)
 
 
 state 21
-	scalar:  T_TRAIT_C.    (26)
+	scalar:  T_TRAIT_C.    (29)
 
-	.  reduce 26 (src line 1061)
+	.  reduce 29 (src line 1063)
 
 
 state 22
-	scalar:  T_METHOD_C.    (27)
+	scalar:  T_METHOD_C.    (30)
 
-	.  reduce 27 (src line 1062)
+	.  reduce 30 (src line 1064)
 
 
 state 23
-	scalar:  T_FUNC_C.    (28)
+	scalar:  T_FUNC_C.    (31)
 
-	.  reduce 28 (src line 1063)
+	.  reduce 31 (src line 1065)
 
 
 state 24
-	scalar:  T_NS_C.    (29)
+	scalar:  T_NS_C.    (32)
 
-	.  reduce 29 (src line 1064)
+	.  reduce 32 (src line 1066)
 
 
 state 25
-	scalar:  T_CLASS_C.    (30)
+	scalar:  T_CLASS_C.    (33)
 
-	.  reduce 30 (src line 1065)
+	.  reduce 33 (src line 1067)
 
 
 state 26
@@ -214,42 +216,42 @@ state 26
 	scalar:  T_START_HEREDOC.T_END_HEREDOC 
 	scalar:  T_START_HEREDOC.encaps_list T_END_HEREDOC 
 
-	T_VARIABLE  shift 48
-	T_ENCAPSED_AND_WHITESPACE  shift 44
-	T_END_HEREDOC  shift 45
-	T_DOLLAR_OPEN_CURLY_BRACES  shift 49
-	T_CURLY_OPEN  shift 50
+	T_VARIABLE  shift 50
+	T_ENCAPSED_AND_WHITESPACE  shift 46
+	T_END_HEREDOC  shift 47
+	T_DOLLAR_OPEN_CURLY_BRACES  shift 51
+	T_CURLY_OPEN  shift 52
 	.  error
 
-	encaps_var  goto 47
-	encaps_list  goto 46
+	encaps_var  goto 49
+	encaps_list  goto 48
 
 state 27
 	scalar:  '\"'.encaps_list '\"' 
 
-	T_VARIABLE  shift 48
-	T_ENCAPSED_AND_WHITESPACE  shift 52
-	T_DOLLAR_OPEN_CURLY_BRACES  shift 49
-	T_CURLY_OPEN  shift 50
+	T_VARIABLE  shift 50
+	T_ENCAPSED_AND_WHITESPACE  shift 54
+	T_DOLLAR_OPEN_CURLY_BRACES  shift 51
+	T_CURLY_OPEN  shift 52
 	.  error
 
-	encaps_var  goto 47
-	encaps_list  goto 51
+	encaps_var  goto 49
+	encaps_list  goto 53
 
 state 28
-	scalar:  dereferencable_scalar.    (35)
-	dereferencable:  dereferencable_scalar.    (44)
+	scalar:  dereferencable_scalar.    (38)
+	dereferencable:  dereferencable_scalar.    (47)
 
-	'['  reduce 44 (src line 1101)
-	T_OBJECT_OPERATOR  reduce 44 (src line 1101)
-	'{'  reduce 44 (src line 1101)
-	.  reduce 35 (src line 1070)
+	'['  reduce 47 (src line 1103)
+	T_OBJECT_OPERATOR  reduce 47 (src line 1103)
+	'{'  reduce 47 (src line 1103)
+	.  reduce 38 (src line 1072)
 
 
 state 29
-	simple_variable:  T_VARIABLE.    (51)
+	simple_variable:  T_VARIABLE.    (54)
 
-	.  reduce 51 (src line 1136)
+	.  reduce 54 (src line 1138)
 
 
 state 30
@@ -257,11 +259,11 @@ state 30
 	simple_variable:  '$'.simple_variable 
 
 	T_VARIABLE  shift 29
-	'{'  shift 53
+	'{'  shift 55
 	'$'  shift 30
 	.  error
 
-	simple_variable  goto 54
+	simple_variable  goto 56
 
 state 31
 	dereferencable:  '('.expr ')' 
@@ -269,7 +271,7 @@ state 31
 	'['  shift 34
 	T_LNUMBER  shift 16
 	T_DNUMBER  shift 17
-	T_STRING  shift 37
+	T_STRING  shift 39
 	T_VARIABLE  shift 29
 	T_CONSTANT_ENCAPSED_STRING  shift 35
 	T_LINE  shift 18
@@ -282,6 +284,8 @@ state 31
 	T_NS_C  shift 24
 	T_ARRAY  shift 33
 	T_START_HEREDOC  shift 26
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
 	'('  shift 31
 	'"'  shift 27
 	'$'  shift 30
@@ -289,7 +293,7 @@ state 31
 
 	namespace_name  goto 36
 	name  goto 32
-	expr  goto 55
+	expr  goto 57
 	variable  goto 9
 	expr_without_variable  goto 10
 	simple_variable  goto 13
@@ -300,27 +304,27 @@ state 31
 	callable_variable  goto 11
 
 state 32
-	constant:  name.    (37)
+	constant:  name.    (40)
 
-	.  reduce 37 (src line 1074)
+	.  reduce 40 (src line 1076)
 
 
 state 33
 	dereferencable_scalar:  T_ARRAY.'(' array_pair_list ')' 
 
-	'('  shift 56
+	'('  shift 58
 	.  error
 
 
 state 34
 	dereferencable_scalar:  '['.array_pair_list ']' 
-	possible_array_pair: .    (58)
+	possible_array_pair: .    (61)
 
-	'&'  shift 62
+	'&'  shift 64
 	'['  shift 34
 	T_LNUMBER  shift 16
 	T_DNUMBER  shift 17
-	T_STRING  shift 37
+	T_STRING  shift 39
 	T_VARIABLE  shift 29
 	T_CONSTANT_ENCAPSED_STRING  shift 35
 	T_LINE  shift 18
@@ -331,17 +335,19 @@ state 34
 	T_METHOD_C  shift 22
 	T_FUNC_C  shift 23
 	T_NS_C  shift 24
-	T_LIST  shift 63
+	T_LIST  shift 65
 	T_ARRAY  shift 33
 	T_START_HEREDOC  shift 26
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
 	'('  shift 31
 	'"'  shift 27
 	'$'  shift 30
-	.  reduce 58 (src line 1195)
+	.  reduce 61 (src line 1197)
 
 	namespace_name  goto 36
 	name  goto 32
-	expr  goto 61
+	expr  goto 63
 	variable  goto 9
 	expr_without_variable  goto 10
 	simple_variable  goto 13
@@ -350,42 +356,59 @@ state 34
 	constant  goto 15
 	dereferencable  goto 14
 	callable_variable  goto 11
-	array_pair  goto 60
-	non_empty_array_pair_list  goto 58
-	array_pair_list  goto 57
-	possible_array_pair  goto 59
+	array_pair  goto 62
+	non_empty_array_pair_list  goto 60
+	array_pair_list  goto 59
+	possible_array_pair  goto 61
 
 state 35
-	dereferencable_scalar:  T_CONSTANT_ENCAPSED_STRING.    (20)
+	dereferencable_scalar:  T_CONSTANT_ENCAPSED_STRING.    (23)
 
-	.  reduce 20 (src line 1052)
+	.  reduce 23 (src line 1054)
 
 
 state 36
-	name:  namespace_name.    (5)
+	namespace_name:  namespace_name.T_NS_SEPARATOR T_STRING 
+	name:  namespace_name.    (6)
 
-	.  reduce 5 (src line 280)
+	T_NS_SEPARATOR  shift 66
+	.  reduce 6 (src line 280)
 
 
 state 37
+	name:  T_NAMESPACE.T_NS_SEPARATOR namespace_name 
+
+	T_NS_SEPARATOR  shift 67
+	.  error
+
+
+state 38
+	name:  T_NS_SEPARATOR.namespace_name 
+
+	T_STRING  shift 39
+	.  error
+
+	namespace_name  goto 68
+
+state 39
 	namespace_name:  T_STRING.    (4)
 
 	.  reduce 4 (src line 275)
 
 
-state 38
-	statement:  T_ECHO echo_expr_list ';'.    (7)
+state 40
+	statement:  T_ECHO echo_expr_list ';'.    (10)
 
-	.  reduce 7 (src line 400)
+	.  reduce 10 (src line 400)
 
 
-state 39
+state 41
 	echo_expr_list:  echo_expr_list ','.echo_expr 
 
 	'['  shift 34
 	T_LNUMBER  shift 16
 	T_DNUMBER  shift 17
-	T_STRING  shift 37
+	T_STRING  shift 39
 	T_VARIABLE  shift 29
 	T_CONSTANT_ENCAPSED_STRING  shift 35
 	T_LINE  shift 18
@@ -398,6 +421,8 @@ state 39
 	T_NS_C  shift 24
 	T_ARRAY  shift 33
 	T_START_HEREDOC  shift 26
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
 	'('  shift 31
 	'"'  shift 27
 	'$'  shift 30
@@ -408,81 +433,7 @@ state 39
 	expr  goto 8
 	variable  goto 9
 	expr_without_variable  goto 10
-	echo_expr  goto 64
-	simple_variable  goto 13
-	scalar  goto 12
-	dereferencable_scalar  goto 28
-	constant  goto 15
-	dereferencable  goto 14
-	callable_variable  goto 11
-
-state 40
-	callable_variable:  dereferencable '['.optional_expr ']' 
-	optional_expr: .    (40)
-
-	'['  shift 34
-	T_LNUMBER  shift 16
-	T_DNUMBER  shift 17
-	T_STRING  shift 37
-	T_VARIABLE  shift 29
-	T_CONSTANT_ENCAPSED_STRING  shift 35
-	T_LINE  shift 18
-	T_FILE  shift 19
-	T_DIR  shift 20
-	T_CLASS_C  shift 25
-	T_TRAIT_C  shift 21
-	T_METHOD_C  shift 22
-	T_FUNC_C  shift 23
-	T_NS_C  shift 24
-	T_ARRAY  shift 33
-	T_START_HEREDOC  shift 26
-	'('  shift 31
-	'"'  shift 27
-	'$'  shift 30
-	.  reduce 40 (src line 1087)
-
-	namespace_name  goto 36
-	name  goto 32
-	expr  goto 66
-	optional_expr  goto 65
-	variable  goto 9
-	expr_without_variable  goto 10
-	simple_variable  goto 13
-	scalar  goto 12
-	dereferencable_scalar  goto 28
-	constant  goto 15
-	dereferencable  goto 14
-	callable_variable  goto 11
-
-state 41
-	callable_variable:  dereferencable '{'.expr '}' 
-
-	'['  shift 34
-	T_LNUMBER  shift 16
-	T_DNUMBER  shift 17
-	T_STRING  shift 37
-	T_VARIABLE  shift 29
-	T_CONSTANT_ENCAPSED_STRING  shift 35
-	T_LINE  shift 18
-	T_FILE  shift 19
-	T_DIR  shift 20
-	T_CLASS_C  shift 25
-	T_TRAIT_C  shift 21
-	T_METHOD_C  shift 22
-	T_FUNC_C  shift 23
-	T_NS_C  shift 24
-	T_ARRAY  shift 33
-	T_START_HEREDOC  shift 26
-	'('  shift 31
-	'"'  shift 27
-	'$'  shift 30
-	.  error
-
-	namespace_name  goto 36
-	name  goto 32
-	expr  goto 67
-	variable  goto 9
-	expr_without_variable  goto 10
+	echo_expr  goto 69
 	simple_variable  goto 13
 	scalar  goto 12
 	dereferencable_scalar  goto 28
@@ -491,25 +442,13 @@ state 41
 	callable_variable  goto 11
 
 state 42
-	callable_variable:  dereferencable T_OBJECT_OPERATOR.property_name argument_list 
-
-	T_STRING  shift 69
-	T_VARIABLE  shift 29
-	'{'  shift 70
-	'$'  shift 30
-	.  error
-
-	simple_variable  goto 71
-	property_name  goto 68
-
-state 43
-	callable_variable:  constant '['.optional_expr ']' 
-	optional_expr: .    (40)
+	callable_variable:  dereferencable '['.optional_expr ']' 
+	optional_expr: .    (43)
 
 	'['  shift 34
 	T_LNUMBER  shift 16
 	T_DNUMBER  shift 17
-	T_STRING  shift 37
+	T_STRING  shift 39
 	T_VARIABLE  shift 29
 	T_CONSTANT_ENCAPSED_STRING  shift 35
 	T_LINE  shift 18
@@ -522,15 +461,55 @@ state 43
 	T_NS_C  shift 24
 	T_ARRAY  shift 33
 	T_START_HEREDOC  shift 26
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
 	'('  shift 31
 	'"'  shift 27
 	'$'  shift 30
-	.  reduce 40 (src line 1087)
+	.  reduce 43 (src line 1089)
 
 	namespace_name  goto 36
 	name  goto 32
-	expr  goto 66
-	optional_expr  goto 72
+	expr  goto 71
+	optional_expr  goto 70
+	variable  goto 9
+	expr_without_variable  goto 10
+	simple_variable  goto 13
+	scalar  goto 12
+	dereferencable_scalar  goto 28
+	constant  goto 15
+	dereferencable  goto 14
+	callable_variable  goto 11
+
+state 43
+	callable_variable:  dereferencable '{'.expr '}' 
+
+	'['  shift 34
+	T_LNUMBER  shift 16
+	T_DNUMBER  shift 17
+	T_STRING  shift 39
+	T_VARIABLE  shift 29
+	T_CONSTANT_ENCAPSED_STRING  shift 35
+	T_LINE  shift 18
+	T_FILE  shift 19
+	T_DIR  shift 20
+	T_CLASS_C  shift 25
+	T_TRAIT_C  shift 21
+	T_METHOD_C  shift 22
+	T_FUNC_C  shift 23
+	T_NS_C  shift 24
+	T_ARRAY  shift 33
+	T_START_HEREDOC  shift 26
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
+	'('  shift 31
+	'"'  shift 27
+	'$'  shift 30
+	.  error
+
+	namespace_name  goto 36
+	name  goto 32
+	expr  goto 72
 	variable  goto 9
 	expr_without_variable  goto 10
 	simple_variable  goto 13
@@ -541,54 +520,106 @@ state 43
 	callable_variable  goto 11
 
 state 44
+	callable_variable:  dereferencable T_OBJECT_OPERATOR.property_name argument_list 
+
+	T_STRING  shift 74
+	T_VARIABLE  shift 29
+	'{'  shift 75
+	'$'  shift 30
+	.  error
+
+	simple_variable  goto 76
+	property_name  goto 73
+
+state 45
+	callable_variable:  constant '['.optional_expr ']' 
+	optional_expr: .    (43)
+
+	'['  shift 34
+	T_LNUMBER  shift 16
+	T_DNUMBER  shift 17
+	T_STRING  shift 39
+	T_VARIABLE  shift 29
+	T_CONSTANT_ENCAPSED_STRING  shift 35
+	T_LINE  shift 18
+	T_FILE  shift 19
+	T_DIR  shift 20
+	T_CLASS_C  shift 25
+	T_TRAIT_C  shift 21
+	T_METHOD_C  shift 22
+	T_FUNC_C  shift 23
+	T_NS_C  shift 24
+	T_ARRAY  shift 33
+	T_START_HEREDOC  shift 26
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
+	'('  shift 31
+	'"'  shift 27
+	'$'  shift 30
+	.  reduce 43 (src line 1089)
+
+	namespace_name  goto 36
+	name  goto 32
+	expr  goto 71
+	optional_expr  goto 77
+	variable  goto 9
+	expr_without_variable  goto 10
+	simple_variable  goto 13
+	scalar  goto 12
+	dereferencable_scalar  goto 28
+	constant  goto 15
+	dereferencable  goto 14
+	callable_variable  goto 11
+
+state 46
 	scalar:  T_START_HEREDOC T_ENCAPSED_AND_WHITESPACE.T_END_HEREDOC 
 	encaps_list:  T_ENCAPSED_AND_WHITESPACE.encaps_var 
 
-	T_VARIABLE  shift 48
-	T_END_HEREDOC  shift 73
-	T_DOLLAR_OPEN_CURLY_BRACES  shift 49
-	T_CURLY_OPEN  shift 50
+	T_VARIABLE  shift 50
+	T_END_HEREDOC  shift 78
+	T_DOLLAR_OPEN_CURLY_BRACES  shift 51
+	T_CURLY_OPEN  shift 52
 	.  error
 
-	encaps_var  goto 74
+	encaps_var  goto 79
 
-state 45
-	scalar:  T_START_HEREDOC T_END_HEREDOC.    (32)
+state 47
+	scalar:  T_START_HEREDOC T_END_HEREDOC.    (35)
 
-	.  reduce 32 (src line 1067)
+	.  reduce 35 (src line 1069)
 
 
-state 46
+state 48
 	scalar:  T_START_HEREDOC encaps_list.T_END_HEREDOC 
 	encaps_list:  encaps_list.encaps_var 
 	encaps_list:  encaps_list.T_ENCAPSED_AND_WHITESPACE 
 
-	T_VARIABLE  shift 48
-	T_ENCAPSED_AND_WHITESPACE  shift 77
-	T_END_HEREDOC  shift 75
-	T_DOLLAR_OPEN_CURLY_BRACES  shift 49
-	T_CURLY_OPEN  shift 50
+	T_VARIABLE  shift 50
+	T_ENCAPSED_AND_WHITESPACE  shift 82
+	T_END_HEREDOC  shift 80
+	T_DOLLAR_OPEN_CURLY_BRACES  shift 51
+	T_CURLY_OPEN  shift 52
 	.  error
 
-	encaps_var  goto 76
+	encaps_var  goto 81
 
-state 47
-	encaps_list:  encaps_var.    (70)
+state 49
+	encaps_list:  encaps_var.    (73)
 
-	.  reduce 70 (src line 1227)
+	.  reduce 73 (src line 1229)
 
 
-state 48
-	encaps_var:  T_VARIABLE.    (72)
+state 50
+	encaps_var:  T_VARIABLE.    (75)
 	encaps_var:  T_VARIABLE.'[' encaps_var_offset ']' 
 	encaps_var:  T_VARIABLE.T_OBJECT_OPERATOR T_STRING 
 
-	'['  shift 78
-	T_OBJECT_OPERATOR  shift 79
-	.  reduce 72 (src line 1233)
+	'['  shift 83
+	T_OBJECT_OPERATOR  shift 84
+	.  reduce 75 (src line 1235)
 
 
-state 49
+state 51
 	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES.expr '}' 
 	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES.T_STRING_VARNAME '}' 
 	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES.T_STRING_VARNAME '[' expr ']' '}' 
@@ -596,10 +627,10 @@ state 49
 	'['  shift 34
 	T_LNUMBER  shift 16
 	T_DNUMBER  shift 17
-	T_STRING  shift 37
+	T_STRING  shift 39
 	T_VARIABLE  shift 29
 	T_CONSTANT_ENCAPSED_STRING  shift 35
-	T_STRING_VARNAME  shift 81
+	T_STRING_VARNAME  shift 86
 	T_LINE  shift 18
 	T_FILE  shift 19
 	T_DIR  shift 20
@@ -610,6 +641,8 @@ state 49
 	T_NS_C  shift 24
 	T_ARRAY  shift 33
 	T_START_HEREDOC  shift 26
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
 	'('  shift 31
 	'"'  shift 27
 	'$'  shift 30
@@ -617,7 +650,7 @@ state 49
 
 	namespace_name  goto 36
 	name  goto 32
-	expr  goto 80
+	expr  goto 85
 	variable  goto 9
 	expr_without_variable  goto 10
 	simple_variable  goto 13
@@ -627,58 +660,60 @@ state 49
 	dereferencable  goto 14
 	callable_variable  goto 11
 
-state 50
+state 52
 	encaps_var:  T_CURLY_OPEN.variable '}' 
 
 	'['  shift 34
-	T_STRING  shift 37
+	T_STRING  shift 39
 	T_VARIABLE  shift 29
 	T_CONSTANT_ENCAPSED_STRING  shift 35
 	T_ARRAY  shift 33
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
 	'('  shift 31
 	'$'  shift 30
 	.  error
 
 	namespace_name  goto 36
 	name  goto 32
-	variable  goto 82
+	variable  goto 87
 	simple_variable  goto 13
-	dereferencable_scalar  goto 84
-	constant  goto 83
+	dereferencable_scalar  goto 89
+	constant  goto 88
 	dereferencable  goto 14
 	callable_variable  goto 11
 
-state 51
+state 53
 	scalar:  '\"' encaps_list.'\"' 
 	encaps_list:  encaps_list.encaps_var 
 	encaps_list:  encaps_list.T_ENCAPSED_AND_WHITESPACE 
 
-	T_VARIABLE  shift 48
-	T_ENCAPSED_AND_WHITESPACE  shift 77
-	T_DOLLAR_OPEN_CURLY_BRACES  shift 49
-	T_CURLY_OPEN  shift 50
-	'"'  shift 85
+	T_VARIABLE  shift 50
+	T_ENCAPSED_AND_WHITESPACE  shift 82
+	T_DOLLAR_OPEN_CURLY_BRACES  shift 51
+	T_CURLY_OPEN  shift 52
+	'"'  shift 90
 	.  error
 
-	encaps_var  goto 76
+	encaps_var  goto 81
 
-state 52
+state 54
 	encaps_list:  T_ENCAPSED_AND_WHITESPACE.encaps_var 
 
-	T_VARIABLE  shift 48
-	T_DOLLAR_OPEN_CURLY_BRACES  shift 49
-	T_CURLY_OPEN  shift 50
+	T_VARIABLE  shift 50
+	T_DOLLAR_OPEN_CURLY_BRACES  shift 51
+	T_CURLY_OPEN  shift 52
 	.  error
 
-	encaps_var  goto 74
+	encaps_var  goto 79
 
-state 53
+state 55
 	simple_variable:  '$' '{'.expr '}' 
 
 	'['  shift 34
 	T_LNUMBER  shift 16
 	T_DNUMBER  shift 17
-	T_STRING  shift 37
+	T_STRING  shift 39
 	T_VARIABLE  shift 29
 	T_CONSTANT_ENCAPSED_STRING  shift 35
 	T_LINE  shift 18
@@ -691,6 +726,8 @@ state 53
 	T_NS_C  shift 24
 	T_ARRAY  shift 33
 	T_START_HEREDOC  shift 26
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
 	'('  shift 31
 	'"'  shift 27
 	'$'  shift 30
@@ -698,7 +735,7 @@ state 53
 
 	namespace_name  goto 36
 	name  goto 32
-	expr  goto 86
+	expr  goto 91
 	variable  goto 9
 	expr_without_variable  goto 10
 	simple_variable  goto 13
@@ -707,175 +744,202 @@ state 53
 	constant  goto 15
 	dereferencable  goto 14
 	callable_variable  goto 11
-
-state 54
-	simple_variable:  '$' simple_variable.    (53)
-
-	.  reduce 53 (src line 1145)
-
-
-state 55
-	dereferencable:  '(' expr.')' 
-
-	')'  shift 87
-	.  error
-
 
 state 56
-	dereferencable_scalar:  T_ARRAY '('.array_pair_list ')' 
-	possible_array_pair: .    (58)
+	simple_variable:  '$' simple_variable.    (56)
 
-	'&'  shift 62
-	'['  shift 34
-	T_LNUMBER  shift 16
-	T_DNUMBER  shift 17
-	T_STRING  shift 37
-	T_VARIABLE  shift 29
-	T_CONSTANT_ENCAPSED_STRING  shift 35
-	T_LINE  shift 18
-	T_FILE  shift 19
-	T_DIR  shift 20
-	T_CLASS_C  shift 25
-	T_TRAIT_C  shift 21
-	T_METHOD_C  shift 22
-	T_FUNC_C  shift 23
-	T_NS_C  shift 24
-	T_LIST  shift 63
-	T_ARRAY  shift 33
-	T_START_HEREDOC  shift 26
-	'('  shift 31
-	'"'  shift 27
-	'$'  shift 30
-	.  reduce 58 (src line 1195)
+	.  reduce 56 (src line 1147)
 
-	namespace_name  goto 36
-	name  goto 32
-	expr  goto 61
-	variable  goto 9
-	expr_without_variable  goto 10
-	simple_variable  goto 13
-	scalar  goto 12
-	dereferencable_scalar  goto 28
-	constant  goto 15
-	dereferencable  goto 14
-	callable_variable  goto 11
-	array_pair  goto 60
-	non_empty_array_pair_list  goto 58
-	array_pair_list  goto 88
-	possible_array_pair  goto 59
 
 state 57
-	dereferencable_scalar:  '[' array_pair_list.']' 
+	dereferencable:  '(' expr.')' 
 
-	']'  shift 89
+	')'  shift 92
 	.  error
 
 
 state 58
-	array_pair_list:  non_empty_array_pair_list.    (57)
-	non_empty_array_pair_list:  non_empty_array_pair_list.',' possible_array_pair 
+	dereferencable_scalar:  T_ARRAY '('.array_pair_list ')' 
+	possible_array_pair: .    (61)
 
-	','  shift 90
-	.  reduce 57 (src line 1190)
-
-
-state 59
-	non_empty_array_pair_list:  possible_array_pair.    (61)
-
-	.  reduce 61 (src line 1203)
-
-
-state 60
-	possible_array_pair:  array_pair.    (59)
-
-	.  reduce 59 (src line 1197)
-
-
-state 61
-	array_pair:  expr.T_DOUBLE_ARROW expr 
-	array_pair:  expr.    (63)
-	array_pair:  expr.T_DOUBLE_ARROW '&' variable 
-	array_pair:  expr.T_DOUBLE_ARROW T_LIST '(' array_pair_list ')' 
-
-	T_DOUBLE_ARROW  shift 91
-	.  reduce 63 (src line 1210)
-
-
-state 62
-	array_pair:  '&'.variable 
-
+	'&'  shift 64
 	'['  shift 34
-	T_STRING  shift 37
+	T_LNUMBER  shift 16
+	T_DNUMBER  shift 17
+	T_STRING  shift 39
 	T_VARIABLE  shift 29
 	T_CONSTANT_ENCAPSED_STRING  shift 35
+	T_LINE  shift 18
+	T_FILE  shift 19
+	T_DIR  shift 20
+	T_CLASS_C  shift 25
+	T_TRAIT_C  shift 21
+	T_METHOD_C  shift 22
+	T_FUNC_C  shift 23
+	T_NS_C  shift 24
+	T_LIST  shift 65
 	T_ARRAY  shift 33
+	T_START_HEREDOC  shift 26
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
 	'('  shift 31
+	'"'  shift 27
 	'$'  shift 30
-	.  error
+	.  reduce 61 (src line 1197)
 
 	namespace_name  goto 36
 	name  goto 32
-	variable  goto 92
+	expr  goto 63
+	variable  goto 9
+	expr_without_variable  goto 10
 	simple_variable  goto 13
-	dereferencable_scalar  goto 84
-	constant  goto 83
+	scalar  goto 12
+	dereferencable_scalar  goto 28
+	constant  goto 15
 	dereferencable  goto 14
 	callable_variable  goto 11
+	array_pair  goto 62
+	non_empty_array_pair_list  goto 60
+	array_pair_list  goto 93
+	possible_array_pair  goto 61
 
-state 63
-	array_pair:  T_LIST.'(' array_pair_list ')' 
-
-	'('  shift 93
-	.  error
-
-
-state 64
-	echo_expr_list:  echo_expr_list ',' echo_expr.    (14)
-
-	.  reduce 14 (src line 818)
-
-
-state 65
-	callable_variable:  dereferencable '[' optional_expr.']' 
+state 59
+	dereferencable_scalar:  '[' array_pair_list.']' 
 
 	']'  shift 94
 	.  error
 
 
-state 66
-	optional_expr:  expr.    (41)
+state 60
+	array_pair_list:  non_empty_array_pair_list.    (60)
+	non_empty_array_pair_list:  non_empty_array_pair_list.',' possible_array_pair 
 
-	.  reduce 41 (src line 1089)
+	','  shift 95
+	.  reduce 60 (src line 1192)
+
+
+state 61
+	non_empty_array_pair_list:  possible_array_pair.    (64)
+
+	.  reduce 64 (src line 1205)
+
+
+state 62
+	possible_array_pair:  array_pair.    (62)
+
+	.  reduce 62 (src line 1199)
+
+
+state 63
+	array_pair:  expr.T_DOUBLE_ARROW expr 
+	array_pair:  expr.    (66)
+	array_pair:  expr.T_DOUBLE_ARROW '&' variable 
+	array_pair:  expr.T_DOUBLE_ARROW T_LIST '(' array_pair_list ')' 
+
+	T_DOUBLE_ARROW  shift 96
+	.  reduce 66 (src line 1212)
+
+
+state 64
+	array_pair:  '&'.variable 
+
+	'['  shift 34
+	T_STRING  shift 39
+	T_VARIABLE  shift 29
+	T_CONSTANT_ENCAPSED_STRING  shift 35
+	T_ARRAY  shift 33
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
+	'('  shift 31
+	'$'  shift 30
+	.  error
+
+	namespace_name  goto 36
+	name  goto 32
+	variable  goto 97
+	simple_variable  goto 13
+	dereferencable_scalar  goto 89
+	constant  goto 88
+	dereferencable  goto 14
+	callable_variable  goto 11
+
+state 65
+	array_pair:  T_LIST.'(' array_pair_list ')' 
+
+	'('  shift 98
+	.  error
+
+
+state 66
+	namespace_name:  namespace_name T_NS_SEPARATOR.T_STRING 
+
+	T_STRING  shift 99
+	.  error
 
 
 state 67
-	callable_variable:  dereferencable '{' expr.'}' 
+	name:  T_NAMESPACE T_NS_SEPARATOR.namespace_name 
 
-	'}'  shift 95
+	T_STRING  shift 39
 	.  error
 
+	namespace_name  goto 100
 
 state 68
-	callable_variable:  dereferencable T_OBJECT_OPERATOR property_name.argument_list 
+	namespace_name:  namespace_name.T_NS_SEPARATOR T_STRING 
+	name:  T_NS_SEPARATOR namespace_name.    (8)
 
-	'('  shift 97
-	.  error
+	T_NS_SEPARATOR  shift 66
+	.  reduce 8 (src line 283)
 
-	argument_list  goto 96
 
 state 69
-	property_name:  T_STRING.    (54)
+	echo_expr_list:  echo_expr_list ',' echo_expr.    (17)
 
-	.  reduce 54 (src line 1184)
+	.  reduce 17 (src line 819)
 
 
 state 70
+	callable_variable:  dereferencable '[' optional_expr.']' 
+
+	']'  shift 101
+	.  error
+
+
+state 71
+	optional_expr:  expr.    (44)
+
+	.  reduce 44 (src line 1091)
+
+
+state 72
+	callable_variable:  dereferencable '{' expr.'}' 
+
+	'}'  shift 102
+	.  error
+
+
+state 73
+	callable_variable:  dereferencable T_OBJECT_OPERATOR property_name.argument_list 
+
+	'('  shift 104
+	.  error
+
+	argument_list  goto 103
+
+state 74
+	property_name:  T_STRING.    (57)
+
+	.  reduce 57 (src line 1186)
+
+
+state 75
 	property_name:  '{'.expr '}' 
 
 	'['  shift 34
 	T_LNUMBER  shift 16
 	T_DNUMBER  shift 17
-	T_STRING  shift 37
+	T_STRING  shift 39
 	T_VARIABLE  shift 29
 	T_CONSTANT_ENCAPSED_STRING  shift 35
 	T_LINE  shift 18
@@ -888,6 +952,8 @@ state 70
 	T_NS_C  shift 24
 	T_ARRAY  shift 33
 	T_START_HEREDOC  shift 26
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
 	'('  shift 31
 	'"'  shift 27
 	'$'  shift 30
@@ -895,7 +961,7 @@ state 70
 
 	namespace_name  goto 36
 	name  goto 32
-	expr  goto 98
+	expr  goto 105
 	variable  goto 9
 	expr_without_variable  goto 10
 	simple_variable  goto 13
@@ -905,145 +971,145 @@ state 70
 	dereferencable  goto 14
 	callable_variable  goto 11
 
-state 71
-	property_name:  simple_variable.    (56)
-
-	.  reduce 56 (src line 1187)
-
-
-state 72
-	callable_variable:  constant '[' optional_expr.']' 
-
-	']'  shift 99
-	.  error
-
-
-state 73
-	scalar:  T_START_HEREDOC T_ENCAPSED_AND_WHITESPACE T_END_HEREDOC.    (31)
-
-	.  reduce 31 (src line 1066)
-
-
-state 74
-	encaps_list:  T_ENCAPSED_AND_WHITESPACE encaps_var.    (71)
-
-	.  reduce 71 (src line 1229)
-
-
-state 75
-	scalar:  T_START_HEREDOC encaps_list T_END_HEREDOC.    (34)
-
-	.  reduce 34 (src line 1069)
-
-
 state 76
-	encaps_list:  encaps_list encaps_var.    (68)
+	property_name:  simple_variable.    (59)
 
-	.  reduce 68 (src line 1222)
+	.  reduce 59 (src line 1189)
 
 
 state 77
-	encaps_list:  encaps_list T_ENCAPSED_AND_WHITESPACE.    (69)
+	callable_variable:  constant '[' optional_expr.']' 
 
-	.  reduce 69 (src line 1225)
+	']'  shift 106
+	.  error
 
 
 state 78
-	encaps_var:  T_VARIABLE '['.encaps_var_offset ']' 
+	scalar:  T_START_HEREDOC T_ENCAPSED_AND_WHITESPACE T_END_HEREDOC.    (34)
 
-	'-'  shift 103
-	T_STRING  shift 101
-	T_VARIABLE  shift 104
-	T_NUM_STRING  shift 102
-	.  error
+	.  reduce 34 (src line 1068)
 
-	encaps_var_offset  goto 100
 
 state 79
-	encaps_var:  T_VARIABLE T_OBJECT_OPERATOR.T_STRING 
+	encaps_list:  T_ENCAPSED_AND_WHITESPACE encaps_var.    (74)
 
-	T_STRING  shift 105
-	.  error
+	.  reduce 74 (src line 1231)
 
 
 state 80
-	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES expr.'}' 
+	scalar:  T_START_HEREDOC encaps_list T_END_HEREDOC.    (37)
 
-	'}'  shift 106
-	.  error
+	.  reduce 37 (src line 1071)
 
 
 state 81
-	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME.'}' 
-	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME.'[' expr ']' '}' 
+	encaps_list:  encaps_list encaps_var.    (71)
 
-	'['  shift 108
-	'}'  shift 107
-	.  error
+	.  reduce 71 (src line 1224)
 
 
 state 82
-	dereferencable:  variable.    (42)
-	encaps_var:  T_CURLY_OPEN variable.'}' 
+	encaps_list:  encaps_list T_ENCAPSED_AND_WHITESPACE.    (72)
 
-	'}'  shift 109
-	.  reduce 42 (src line 1098)
+	.  reduce 72 (src line 1227)
 
 
 state 83
-	callable_variable:  constant.'[' optional_expr ']' 
+	encaps_var:  T_VARIABLE '['.encaps_var_offset ']' 
 
-	'['  shift 43
+	'-'  shift 110
+	T_STRING  shift 108
+	T_VARIABLE  shift 111
+	T_NUM_STRING  shift 109
+	.  error
+
+	encaps_var_offset  goto 107
+
+state 84
+	encaps_var:  T_VARIABLE T_OBJECT_OPERATOR.T_STRING 
+
+	T_STRING  shift 112
 	.  error
 
 
-state 84
-	dereferencable:  dereferencable_scalar.    (44)
-
-	.  reduce 44 (src line 1101)
-
-
 state 85
-	scalar:  '\"' encaps_list '\"'.    (33)
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES expr.'}' 
 
-	.  reduce 33 (src line 1068)
+	'}'  shift 113
+	.  error
 
 
 state 86
-	simple_variable:  '$' '{' expr.'}' 
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME.'}' 
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME.'[' expr ']' '}' 
 
-	'}'  shift 110
+	'['  shift 115
+	'}'  shift 114
 	.  error
 
 
 state 87
-	dereferencable:  '(' expr ')'.    (43)
+	dereferencable:  variable.    (45)
+	encaps_var:  T_CURLY_OPEN variable.'}' 
 
-	.  reduce 43 (src line 1100)
+	'}'  shift 116
+	.  reduce 45 (src line 1100)
 
 
 state 88
-	dereferencable_scalar:  T_ARRAY '(' array_pair_list.')' 
+	callable_variable:  constant.'[' optional_expr ']' 
 
-	')'  shift 111
+	'['  shift 45
 	.  error
 
 
 state 89
-	dereferencable_scalar:  '[' array_pair_list ']'.    (19)
+	dereferencable:  dereferencable_scalar.    (47)
 
-	.  reduce 19 (src line 1051)
+	.  reduce 47 (src line 1103)
 
 
 state 90
-	non_empty_array_pair_list:  non_empty_array_pair_list ','.possible_array_pair 
-	possible_array_pair: .    (58)
+	scalar:  '\"' encaps_list '\"'.    (36)
 
-	'&'  shift 62
+	.  reduce 36 (src line 1070)
+
+
+state 91
+	simple_variable:  '$' '{' expr.'}' 
+
+	'}'  shift 117
+	.  error
+
+
+state 92
+	dereferencable:  '(' expr ')'.    (46)
+
+	.  reduce 46 (src line 1102)
+
+
+state 93
+	dereferencable_scalar:  T_ARRAY '(' array_pair_list.')' 
+
+	')'  shift 118
+	.  error
+
+
+state 94
+	dereferencable_scalar:  '[' array_pair_list ']'.    (22)
+
+	.  reduce 22 (src line 1053)
+
+
+state 95
+	non_empty_array_pair_list:  non_empty_array_pair_list ','.possible_array_pair 
+	possible_array_pair: .    (61)
+
+	'&'  shift 64
 	'['  shift 34
 	T_LNUMBER  shift 16
 	T_DNUMBER  shift 17
-	T_STRING  shift 37
+	T_STRING  shift 39
 	T_VARIABLE  shift 29
 	T_CONSTANT_ENCAPSED_STRING  shift 35
 	T_LINE  shift 18
@@ -1054,17 +1120,19 @@ state 90
 	T_METHOD_C  shift 22
 	T_FUNC_C  shift 23
 	T_NS_C  shift 24
-	T_LIST  shift 63
+	T_LIST  shift 65
 	T_ARRAY  shift 33
 	T_START_HEREDOC  shift 26
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
 	'('  shift 31
 	'"'  shift 27
 	'$'  shift 30
-	.  reduce 58 (src line 1195)
+	.  reduce 61 (src line 1197)
 
 	namespace_name  goto 36
 	name  goto 32
-	expr  goto 61
+	expr  goto 63
 	variable  goto 9
 	expr_without_variable  goto 10
 	simple_variable  goto 13
@@ -1073,19 +1141,19 @@ state 90
 	constant  goto 15
 	dereferencable  goto 14
 	callable_variable  goto 11
-	array_pair  goto 60
-	possible_array_pair  goto 112
+	array_pair  goto 62
+	possible_array_pair  goto 119
 
-state 91
+state 96
 	array_pair:  expr T_DOUBLE_ARROW.expr 
 	array_pair:  expr T_DOUBLE_ARROW.'&' variable 
 	array_pair:  expr T_DOUBLE_ARROW.T_LIST '(' array_pair_list ')' 
 
-	'&'  shift 114
+	'&'  shift 121
 	'['  shift 34
 	T_LNUMBER  shift 16
 	T_DNUMBER  shift 17
-	T_STRING  shift 37
+	T_STRING  shift 39
 	T_VARIABLE  shift 29
 	T_CONSTANT_ENCAPSED_STRING  shift 35
 	T_LINE  shift 18
@@ -1096,9 +1164,11 @@ state 91
 	T_METHOD_C  shift 22
 	T_FUNC_C  shift 23
 	T_NS_C  shift 24
-	T_LIST  shift 115
+	T_LIST  shift 122
 	T_ARRAY  shift 33
 	T_START_HEREDOC  shift 26
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
 	'('  shift 31
 	'"'  shift 27
 	'$'  shift 30
@@ -1106,7 +1176,7 @@ state 91
 
 	namespace_name  goto 36
 	name  goto 32
-	expr  goto 113
+	expr  goto 120
 	variable  goto 9
 	expr_without_variable  goto 10
 	simple_variable  goto 13
@@ -1116,25 +1186,25 @@ state 91
 	dereferencable  goto 14
 	callable_variable  goto 11
 
-state 92
-	dereferencable:  variable.    (42)
-	array_pair:  '&' variable.    (65)
+state 97
+	dereferencable:  variable.    (45)
+	array_pair:  '&' variable.    (68)
 
-	'['  reduce 42 (src line 1098)
-	T_OBJECT_OPERATOR  reduce 42 (src line 1098)
-	'{'  reduce 42 (src line 1098)
-	.  reduce 65 (src line 1214)
+	'['  reduce 45 (src line 1100)
+	T_OBJECT_OPERATOR  reduce 45 (src line 1100)
+	'{'  reduce 45 (src line 1100)
+	.  reduce 68 (src line 1216)
 
 
-state 93
+state 98
 	array_pair:  T_LIST '('.array_pair_list ')' 
-	possible_array_pair: .    (58)
+	possible_array_pair: .    (61)
 
-	'&'  shift 62
+	'&'  shift 64
 	'['  shift 34
 	T_LNUMBER  shift 16
 	T_DNUMBER  shift 17
-	T_STRING  shift 37
+	T_STRING  shift 39
 	T_VARIABLE  shift 29
 	T_CONSTANT_ENCAPSED_STRING  shift 35
 	T_LINE  shift 18
@@ -1145,17 +1215,19 @@ state 93
 	T_METHOD_C  shift 22
 	T_FUNC_C  shift 23
 	T_NS_C  shift 24
-	T_LIST  shift 63
+	T_LIST  shift 65
 	T_ARRAY  shift 33
 	T_START_HEREDOC  shift 26
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
 	'('  shift 31
 	'"'  shift 27
 	'$'  shift 30
-	.  reduce 58 (src line 1195)
+	.  reduce 61 (src line 1197)
 
 	namespace_name  goto 36
 	name  goto 32
-	expr  goto 61
+	expr  goto 63
 	variable  goto 9
 	expr_without_variable  goto 10
 	simple_variable  goto 13
@@ -1164,37 +1236,51 @@ state 93
 	constant  goto 15
 	dereferencable  goto 14
 	callable_variable  goto 11
-	array_pair  goto 60
-	non_empty_array_pair_list  goto 58
-	array_pair_list  goto 116
-	possible_array_pair  goto 59
+	array_pair  goto 62
+	non_empty_array_pair_list  goto 60
+	array_pair_list  goto 123
+	possible_array_pair  goto 61
 
-state 94
-	callable_variable:  dereferencable '[' optional_expr ']'.    (46)
+state 99
+	namespace_name:  namespace_name T_NS_SEPARATOR T_STRING.    (5)
 
-	.  reduce 46 (src line 1115)
-
-
-state 95
-	callable_variable:  dereferencable '{' expr '}'.    (48)
-
-	.  reduce 48 (src line 1119)
+	.  reduce 5 (src line 277)
 
 
-state 96
-	callable_variable:  dereferencable T_OBJECT_OPERATOR property_name argument_list.    (49)
+state 100
+	namespace_name:  namespace_name.T_NS_SEPARATOR T_STRING 
+	name:  T_NAMESPACE T_NS_SEPARATOR namespace_name.    (7)
 
-	.  reduce 49 (src line 1121)
+	T_NS_SEPARATOR  shift 66
+	.  reduce 7 (src line 282)
 
 
-state 97
+state 101
+	callable_variable:  dereferencable '[' optional_expr ']'.    (49)
+
+	.  reduce 49 (src line 1117)
+
+
+state 102
+	callable_variable:  dereferencable '{' expr '}'.    (51)
+
+	.  reduce 51 (src line 1121)
+
+
+state 103
+	callable_variable:  dereferencable T_OBJECT_OPERATOR property_name argument_list.    (52)
+
+	.  reduce 52 (src line 1123)
+
+
+state 104
 	argument_list:  '('.')' 
 	argument_list:  '('.non_empty_argument_list ')' 
 
 	'['  shift 34
 	T_LNUMBER  shift 16
 	T_DNUMBER  shift 17
-	T_STRING  shift 37
+	T_STRING  shift 39
 	T_VARIABLE  shift 29
 	T_CONSTANT_ENCAPSED_STRING  shift 35
 	T_LINE  shift 18
@@ -1207,18 +1293,20 @@ state 97
 	T_NS_C  shift 24
 	T_ARRAY  shift 33
 	T_START_HEREDOC  shift 26
-	T_ELLIPSIS  shift 121
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
+	T_ELLIPSIS  shift 128
 	'('  shift 31
-	')'  shift 117
+	')'  shift 124
 	'"'  shift 27
 	'$'  shift 30
 	.  error
 
 	namespace_name  goto 36
 	name  goto 32
-	expr  goto 120
+	expr  goto 127
 	variable  goto 9
-	argument  goto 119
+	argument  goto 126
 	expr_without_variable  goto 10
 	simple_variable  goto 13
 	scalar  goto 12
@@ -1226,78 +1314,78 @@ state 97
 	constant  goto 15
 	dereferencable  goto 14
 	callable_variable  goto 11
-	non_empty_argument_list  goto 118
-
-state 98
-	property_name:  '{' expr.'}' 
-
-	'}'  shift 122
-	.  error
-
-
-state 99
-	callable_variable:  constant '[' optional_expr ']'.    (47)
-
-	.  reduce 47 (src line 1117)
-
-
-state 100
-	encaps_var:  T_VARIABLE '[' encaps_var_offset.']' 
-
-	']'  shift 123
-	.  error
-
-
-state 101
-	encaps_var_offset:  T_STRING.    (79)
-
-	.  reduce 79 (src line 1249)
-
-
-state 102
-	encaps_var_offset:  T_NUM_STRING.    (80)
-
-	.  reduce 80 (src line 1251)
-
-
-state 103
-	encaps_var_offset:  '-'.T_NUM_STRING 
-
-	T_NUM_STRING  shift 124
-	.  error
-
-
-state 104
-	encaps_var_offset:  T_VARIABLE.    (82)
-
-	.  reduce 82 (src line 1253)
-
+	non_empty_argument_list  goto 125
 
 state 105
-	encaps_var:  T_VARIABLE T_OBJECT_OPERATOR T_STRING.    (74)
+	property_name:  '{' expr.'}' 
 
-	.  reduce 74 (src line 1238)
+	'}'  shift 129
+	.  error
 
 
 state 106
-	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES expr '}'.    (75)
+	callable_variable:  constant '[' optional_expr ']'.    (50)
 
-	.  reduce 75 (src line 1240)
+	.  reduce 50 (src line 1119)
 
 
 state 107
-	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '}'.    (76)
+	encaps_var:  T_VARIABLE '[' encaps_var_offset.']' 
 
-	.  reduce 76 (src line 1242)
+	']'  shift 130
+	.  error
 
 
 state 108
+	encaps_var_offset:  T_STRING.    (82)
+
+	.  reduce 82 (src line 1251)
+
+
+state 109
+	encaps_var_offset:  T_NUM_STRING.    (83)
+
+	.  reduce 83 (src line 1253)
+
+
+state 110
+	encaps_var_offset:  '-'.T_NUM_STRING 
+
+	T_NUM_STRING  shift 131
+	.  error
+
+
+state 111
+	encaps_var_offset:  T_VARIABLE.    (85)
+
+	.  reduce 85 (src line 1255)
+
+
+state 112
+	encaps_var:  T_VARIABLE T_OBJECT_OPERATOR T_STRING.    (77)
+
+	.  reduce 77 (src line 1240)
+
+
+state 113
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES expr '}'.    (78)
+
+	.  reduce 78 (src line 1242)
+
+
+state 114
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '}'.    (79)
+
+	.  reduce 79 (src line 1244)
+
+
+state 115
 	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '['.expr ']' '}' 
 
 	'['  shift 34
 	T_LNUMBER  shift 16
 	T_DNUMBER  shift 17
-	T_STRING  shift 37
+	T_STRING  shift 39
 	T_VARIABLE  shift 29
 	T_CONSTANT_ENCAPSED_STRING  shift 35
 	T_LINE  shift 18
@@ -1310,6 +1398,8 @@ state 108
 	T_NS_C  shift 24
 	T_ARRAY  shift 33
 	T_START_HEREDOC  shift 26
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
 	'('  shift 31
 	'"'  shift 27
 	'$'  shift 30
@@ -1317,7 +1407,7 @@ state 108
 
 	namespace_name  goto 36
 	name  goto 32
-	expr  goto 125
+	expr  goto 132
 	variable  goto 9
 	expr_without_variable  goto 10
 	simple_variable  goto 13
@@ -1327,105 +1417,107 @@ state 108
 	dereferencable  goto 14
 	callable_variable  goto 11
 
-state 109
-	encaps_var:  T_CURLY_OPEN variable '}'.    (78)
+state 116
+	encaps_var:  T_CURLY_OPEN variable '}'.    (81)
 
-	.  reduce 78 (src line 1246)
-
-
-state 110
-	simple_variable:  '$' '{' expr '}'.    (52)
-
-	.  reduce 52 (src line 1138)
+	.  reduce 81 (src line 1248)
 
 
-state 111
-	dereferencable_scalar:  T_ARRAY '(' array_pair_list ')'.    (18)
+state 117
+	simple_variable:  '$' '{' expr '}'.    (55)
 
-	.  reduce 18 (src line 1049)
-
-
-state 112
-	non_empty_array_pair_list:  non_empty_array_pair_list ',' possible_array_pair.    (60)
-
-	.  reduce 60 (src line 1200)
+	.  reduce 55 (src line 1140)
 
 
-state 113
-	array_pair:  expr T_DOUBLE_ARROW expr.    (62)
+state 118
+	dereferencable_scalar:  T_ARRAY '(' array_pair_list ')'.    (21)
 
-	.  reduce 62 (src line 1207)
+	.  reduce 21 (src line 1051)
 
 
-state 114
+state 119
+	non_empty_array_pair_list:  non_empty_array_pair_list ',' possible_array_pair.    (63)
+
+	.  reduce 63 (src line 1202)
+
+
+state 120
+	array_pair:  expr T_DOUBLE_ARROW expr.    (65)
+
+	.  reduce 65 (src line 1209)
+
+
+state 121
 	array_pair:  expr T_DOUBLE_ARROW '&'.variable 
 
 	'['  shift 34
-	T_STRING  shift 37
+	T_STRING  shift 39
 	T_VARIABLE  shift 29
 	T_CONSTANT_ENCAPSED_STRING  shift 35
 	T_ARRAY  shift 33
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
 	'('  shift 31
 	'$'  shift 30
 	.  error
 
 	namespace_name  goto 36
 	name  goto 32
-	variable  goto 126
+	variable  goto 133
 	simple_variable  goto 13
-	dereferencable_scalar  goto 84
-	constant  goto 83
+	dereferencable_scalar  goto 89
+	constant  goto 88
 	dereferencable  goto 14
 	callable_variable  goto 11
 
-state 115
+state 122
 	array_pair:  expr T_DOUBLE_ARROW T_LIST.'(' array_pair_list ')' 
 
-	'('  shift 127
+	'('  shift 134
 	.  error
 
 
-state 116
+state 123
 	array_pair:  T_LIST '(' array_pair_list.')' 
 
-	')'  shift 128
+	')'  shift 135
 	.  error
 
 
-state 117
-	argument_list:  '(' ')'.    (8)
+state 124
+	argument_list:  '(' ')'.    (11)
 
-	.  reduce 8 (src line 651)
+	.  reduce 11 (src line 651)
 
 
-state 118
+state 125
 	argument_list:  '(' non_empty_argument_list.')' 
 	non_empty_argument_list:  non_empty_argument_list.',' argument 
 
-	','  shift 130
-	')'  shift 129
+	','  shift 137
+	')'  shift 136
 	.  error
 
 
-state 119
-	non_empty_argument_list:  argument.    (10)
+state 126
+	non_empty_argument_list:  argument.    (13)
 
-	.  reduce 10 (src line 656)
-
-
-state 120
-	argument:  expr.    (12)
-
-	.  reduce 12 (src line 663)
+	.  reduce 13 (src line 656)
 
 
-state 121
+state 127
+	argument:  expr.    (15)
+
+	.  reduce 15 (src line 663)
+
+
+state 128
 	argument:  T_ELLIPSIS.expr 
 
 	'['  shift 34
 	T_LNUMBER  shift 16
 	T_DNUMBER  shift 17
-	T_STRING  shift 37
+	T_STRING  shift 39
 	T_VARIABLE  shift 29
 	T_CONSTANT_ENCAPSED_STRING  shift 35
 	T_LINE  shift 18
@@ -1438,6 +1530,8 @@ state 121
 	T_NS_C  shift 24
 	T_ARRAY  shift 33
 	T_START_HEREDOC  shift 26
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
 	'('  shift 31
 	'"'  shift 27
 	'$'  shift 30
@@ -1445,7 +1539,7 @@ state 121
 
 	namespace_name  goto 36
 	name  goto 32
-	expr  goto 131
+	expr  goto 138
 	variable  goto 9
 	expr_without_variable  goto 10
 	simple_variable  goto 13
@@ -1454,104 +1548,106 @@ state 121
 	constant  goto 15
 	dereferencable  goto 14
 	callable_variable  goto 11
-
-state 122
-	property_name:  '{' expr '}'.    (55)
-
-	.  reduce 55 (src line 1186)
-
-
-state 123
-	encaps_var:  T_VARIABLE '[' encaps_var_offset ']'.    (73)
-
-	.  reduce 73 (src line 1236)
-
-
-state 124
-	encaps_var_offset:  '-' T_NUM_STRING.    (81)
-
-	.  reduce 81 (src line 1252)
-
-
-state 125
-	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '[' expr.']' '}' 
-
-	']'  shift 132
-	.  error
-
-
-state 126
-	dereferencable:  variable.    (42)
-	array_pair:  expr T_DOUBLE_ARROW '&' variable.    (64)
-
-	'['  reduce 42 (src line 1098)
-	T_OBJECT_OPERATOR  reduce 42 (src line 1098)
-	'{'  reduce 42 (src line 1098)
-	.  reduce 64 (src line 1212)
-
-
-state 127
-	array_pair:  expr T_DOUBLE_ARROW T_LIST '('.array_pair_list ')' 
-	possible_array_pair: .    (58)
-
-	'&'  shift 62
-	'['  shift 34
-	T_LNUMBER  shift 16
-	T_DNUMBER  shift 17
-	T_STRING  shift 37
-	T_VARIABLE  shift 29
-	T_CONSTANT_ENCAPSED_STRING  shift 35
-	T_LINE  shift 18
-	T_FILE  shift 19
-	T_DIR  shift 20
-	T_CLASS_C  shift 25
-	T_TRAIT_C  shift 21
-	T_METHOD_C  shift 22
-	T_FUNC_C  shift 23
-	T_NS_C  shift 24
-	T_LIST  shift 63
-	T_ARRAY  shift 33
-	T_START_HEREDOC  shift 26
-	'('  shift 31
-	'"'  shift 27
-	'$'  shift 30
-	.  reduce 58 (src line 1195)
-
-	namespace_name  goto 36
-	name  goto 32
-	expr  goto 61
-	variable  goto 9
-	expr_without_variable  goto 10
-	simple_variable  goto 13
-	scalar  goto 12
-	dereferencable_scalar  goto 28
-	constant  goto 15
-	dereferencable  goto 14
-	callable_variable  goto 11
-	array_pair  goto 60
-	non_empty_array_pair_list  goto 58
-	array_pair_list  goto 133
-	possible_array_pair  goto 59
-
-state 128
-	array_pair:  T_LIST '(' array_pair_list ')'.    (67)
-
-	.  reduce 67 (src line 1218)
-
 
 state 129
-	argument_list:  '(' non_empty_argument_list ')'.    (9)
+	property_name:  '{' expr '}'.    (58)
 
-	.  reduce 9 (src line 653)
+	.  reduce 58 (src line 1188)
 
 
 state 130
+	encaps_var:  T_VARIABLE '[' encaps_var_offset ']'.    (76)
+
+	.  reduce 76 (src line 1238)
+
+
+state 131
+	encaps_var_offset:  '-' T_NUM_STRING.    (84)
+
+	.  reduce 84 (src line 1254)
+
+
+state 132
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '[' expr.']' '}' 
+
+	']'  shift 139
+	.  error
+
+
+state 133
+	dereferencable:  variable.    (45)
+	array_pair:  expr T_DOUBLE_ARROW '&' variable.    (67)
+
+	'['  reduce 45 (src line 1100)
+	T_OBJECT_OPERATOR  reduce 45 (src line 1100)
+	'{'  reduce 45 (src line 1100)
+	.  reduce 67 (src line 1214)
+
+
+state 134
+	array_pair:  expr T_DOUBLE_ARROW T_LIST '('.array_pair_list ')' 
+	possible_array_pair: .    (61)
+
+	'&'  shift 64
+	'['  shift 34
+	T_LNUMBER  shift 16
+	T_DNUMBER  shift 17
+	T_STRING  shift 39
+	T_VARIABLE  shift 29
+	T_CONSTANT_ENCAPSED_STRING  shift 35
+	T_LINE  shift 18
+	T_FILE  shift 19
+	T_DIR  shift 20
+	T_CLASS_C  shift 25
+	T_TRAIT_C  shift 21
+	T_METHOD_C  shift 22
+	T_FUNC_C  shift 23
+	T_NS_C  shift 24
+	T_LIST  shift 65
+	T_ARRAY  shift 33
+	T_START_HEREDOC  shift 26
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
+	'('  shift 31
+	'"'  shift 27
+	'$'  shift 30
+	.  reduce 61 (src line 1197)
+
+	namespace_name  goto 36
+	name  goto 32
+	expr  goto 63
+	variable  goto 9
+	expr_without_variable  goto 10
+	simple_variable  goto 13
+	scalar  goto 12
+	dereferencable_scalar  goto 28
+	constant  goto 15
+	dereferencable  goto 14
+	callable_variable  goto 11
+	array_pair  goto 62
+	non_empty_array_pair_list  goto 60
+	array_pair_list  goto 140
+	possible_array_pair  goto 61
+
+state 135
+	array_pair:  T_LIST '(' array_pair_list ')'.    (70)
+
+	.  reduce 70 (src line 1220)
+
+
+state 136
+	argument_list:  '(' non_empty_argument_list ')'.    (12)
+
+	.  reduce 12 (src line 653)
+
+
+state 137
 	non_empty_argument_list:  non_empty_argument_list ','.argument 
 
 	'['  shift 34
 	T_LNUMBER  shift 16
 	T_DNUMBER  shift 17
-	T_STRING  shift 37
+	T_STRING  shift 39
 	T_VARIABLE  shift 29
 	T_CONSTANT_ENCAPSED_STRING  shift 35
 	T_LINE  shift 18
@@ -1564,7 +1660,9 @@ state 130
 	T_NS_C  shift 24
 	T_ARRAY  shift 33
 	T_START_HEREDOC  shift 26
-	T_ELLIPSIS  shift 121
+	T_NAMESPACE  shift 37
+	T_NS_SEPARATOR  shift 38
+	T_ELLIPSIS  shift 128
 	'('  shift 31
 	'"'  shift 27
 	'$'  shift 30
@@ -1572,9 +1670,9 @@ state 130
 
 	namespace_name  goto 36
 	name  goto 32
-	expr  goto 120
+	expr  goto 127
 	variable  goto 9
-	argument  goto 134
+	argument  goto 141
 	expr_without_variable  goto 10
 	simple_variable  goto 13
 	scalar  goto 12
@@ -1583,53 +1681,53 @@ state 130
 	dereferencable  goto 14
 	callable_variable  goto 11
 
-state 131
-	argument:  T_ELLIPSIS expr.    (13)
+state 138
+	argument:  T_ELLIPSIS expr.    (16)
 
-	.  reduce 13 (src line 665)
+	.  reduce 16 (src line 665)
 
 
-state 132
+state 139
 	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '[' expr ']'.'}' 
 
-	'}'  shift 135
+	'}'  shift 142
 	.  error
 
 
-state 133
+state 140
 	array_pair:  expr T_DOUBLE_ARROW T_LIST '(' array_pair_list.')' 
 
-	')'  shift 136
+	')'  shift 143
 	.  error
 
 
-state 134
-	non_empty_argument_list:  non_empty_argument_list ',' argument.    (11)
+state 141
+	non_empty_argument_list:  non_empty_argument_list ',' argument.    (14)
 
-	.  reduce 11 (src line 659)
-
-
-state 135
-	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '[' expr ']' '}'.    (77)
-
-	.  reduce 77 (src line 1244)
+	.  reduce 14 (src line 659)
 
 
-state 136
-	array_pair:  expr T_DOUBLE_ARROW T_LIST '(' array_pair_list ')'.    (66)
+state 142
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '[' expr ']' '}'.    (80)
 
-	.  reduce 66 (src line 1216)
+	.  reduce 80 (src line 1246)
+
+
+state 143
+	array_pair:  expr T_DOUBLE_ARROW T_LIST '(' array_pair_list ')'.    (69)
+
+	.  reduce 69 (src line 1218)
 
 
 165 terminals, 30 nonterminals
-83 grammar rules, 137/8000 states
+86 grammar rules, 144/8000 states
 0 shift/reduce, 0 reduce/reduce conflicts reported
 79 working sets used
 memory: parser 383/120000
-60 extra closures
-472 shift entries, 13 exceptions
-66 goto entries
+67 extra closures
+523 shift entries, 13 exceptions
+68 goto entries
 210 entries saved by goto default
-Optimizer space used: output 367/120000
-367 table entries, 99 zero
+Optimizer space used: output 381/120000
+381 table entries, 93 zero
 maximum spread: 165, maximum offset: 164

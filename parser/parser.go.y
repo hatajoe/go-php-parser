@@ -181,8 +181,8 @@ import (
 %token <tok> T_DOLLAR_OPEN_CURLY_BRACES
 %token <tok> T_CURLY_OPEN
 %token T_PAAMAYIM_NEKUDOTAYIM
-%token T_NAMESPACE
-%token T_NS_SEPARATOR
+%token <tok> T_NAMESPACE
+%token <tok> T_NS_SEPARATOR
 %token <tok> T_ELLIPSIS
 %token T_COALESCE
 %token T_POW
@@ -273,14 +273,14 @@ top_statement_list:
 
 
 namespace_name:
-		T_STRING								{ $$ = ast.NewStringLiteral($1, $1.Literal); }/*
-	|	namespace_name T_NS_SEPARATOR T_STRING	{ $$ = zend_ast_append_str($1, $3); }*/
+		T_STRING								{ $$ = ast.NewStringLiteral($1, $1.Literal); }
+	|	namespace_name T_NS_SEPARATOR T_STRING	{ $$ = ast.NewNamespaceExpression(nil, nil, $1, ast.NewStringLiteral($3, $3.Literal)) }
 ;
 
 name:
-		namespace_name								{ $$ = $1 }/*
-	|	T_NAMESPACE T_NS_SEPARATOR namespace_name	{ $$ = $3; $$->attr = ZEND_NAME_RELATIVE; }
-	|	T_NS_SEPARATOR namespace_name				{ $$ = $2; $$->attr = ZEND_NAME_FQ; }*/
+		namespace_name								{ $$ = $1; }
+	|	T_NAMESPACE T_NS_SEPARATOR namespace_name	{ $$ = ast.NewNamespaceExpression($1, $2, $3) }
+	|	T_NS_SEPARATOR namespace_name				{ $$ = ast.NewNamespaceExpression(nil, $1, $2) }
 ;
 
 top_statement:
@@ -815,10 +815,12 @@ const_decl:
 	T_STRING '=' expr backup_doc_comment { $$ = zend_ast_create(ZEND_AST_CONST_ELEM, $1, $3, ($4 ? zend_ast_create_zval_from_str($4) : NULL)); }
 ;
 */
+
 echo_expr_list:
 		echo_expr_list ',' echo_expr { $$ = append($1, $3); }
 	|	echo_expr { $$ = append($$, $1); }
 ;
+
 echo_expr:
 	expr { $$ = $1 }
 ;

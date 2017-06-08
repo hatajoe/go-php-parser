@@ -381,6 +381,18 @@ EOL;`,
 			`<?php echo $foo->bar(... $baz);`,
 			`echo $foo->bar(...$baz);`,
 		},
+		{
+			`<?php echo Foo\Bar\Baz;`,
+			`echo Foo\Bar\Baz;`,
+		},
+		{
+			`<?php echo namespace \Foo\Bar\Baz;`,
+			`echo namespace \Foo\Bar\Baz;`,
+		},
+		{
+			`<?php echo \Foo\Bar\Baz;`,
+			`echo \Foo\Bar\Baz;`,
+		},
 	}
 
 	for idx, test := range tests {
