@@ -1,54 +1,23 @@
 package ast
 
 import (
-	"bytes"
 	"fmt"
-
-	"github.com/hatajoe/go-php-parser/token"
 )
 
 type VariableExpression struct {
-	Token *token.Token
-	Type  VariableType
-	Name  string
-	Exprs []Expression
+	Name Expression
+	Prop Expression
 }
 
-func NewVariableExpression(tok *token.Token, t VariableType, name string, exprs ...Expression) *VariableExpression {
+func NewVariableExpression(name, prop Expression) *VariableExpression {
 	return &VariableExpression{
-		Token: tok,
-		Type:  t,
-		Name:  name,
-		Exprs: exprs,
+		Name: name,
+		Prop: prop,
 	}
 }
 
 func (ve *VariableExpression) expressionNode()      {}
-func (ve *VariableExpression) TokenLiteral() string { return ve.Token.Literal }
+func (ve *VariableExpression) TokenLiteral() string { return "" }
 func (ve *VariableExpression) String() string {
-	switch ve.Type {
-	case Var:
-		return ve.Name
-	case Dim:
-		return fmt.Sprintf("%s[%s]", ve.Name, ve.Exprs[0].String())
-	case Prop:
-		return fmt.Sprintf("%s->%s", ve.Name, ve.Exprs[0].String())
-	case DollarOpenCurlyBraces:
-		return fmt.Sprintf("%s%s}", ve.Name, ve.Exprs[0].String())
-	case DimInDollarOpenCurlyBraces:
-		return fmt.Sprintf("%s%s[%s]}", ve.Name, ve.Exprs[0].String(), ve.Exprs[1].String())
-	case CurlyOpen:
-		return fmt.Sprintf("%s%s}", ve.Name, ve.Exprs[0].String())
-	case MultipleDollars:
-		var out bytes.Buffer
-		out.WriteString("$")
-		for _, v := range ve.Exprs {
-			out.WriteString(v.String())
-		}
-		return out.String()
-	case Ref:
-		return fmt.Sprintf("&%s", ve.Name)
-	default:
-		panic(fmt.Sprintf("err: Undefined type specified. got=%d", ve.Type))
-	}
+	return fmt.Sprintf("%s->%s", ve.Name.String(), ve.Prop.String())
 }

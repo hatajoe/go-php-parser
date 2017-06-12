@@ -10,7 +10,5 @@ const (
 	DollarOpenCurlyBraces                              // ${
 	DimInDollarOpenCurlyBraces                         // ${foo[
 	CurlyOpen                                          // {
-	MultipleDollars                                    // $$foo
 	Wrapped                                            // ($foo)
-	Ref                                                // &$foo
 )
