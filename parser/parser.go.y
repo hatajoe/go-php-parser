@@ -857,40 +857,41 @@ new_expr:
 			{ $$ = $2; }
 ;
 */
+
 expr_without_variable:
-	/*	T_LIST '(' array_pair_list ')' '=' expr
-			{ $3->attr = ZEND_ARRAY_SYNTAX_LIST; $$ = zend_ast_create(ZEND_AST_ASSIGN, $3, $6); }
+		T_LIST '(' array_pair_list ')' '=' expr
+			{ $$ = ast.NewAssignExpression(ast.Equal, ast.NewListExpression($1, $3...), $6, false); }
 	|	'[' array_pair_list ']' '=' expr
-			{ $2->attr = ZEND_ARRAY_SYNTAX_SHORT; $$ = zend_ast_create(ZEND_AST_ASSIGN, $2, $5); }
+			{ $$ = ast.NewAssignExpression(ast.Equal, ast.NewArrayExpression(ast.Short, $2...), $5, false); }
 	|	variable '=' expr
-			{ $$ = zend_ast_create(ZEND_AST_ASSIGN, $1, $3); }
+			{ $$ = ast.NewAssignExpression(ast.Equal, $1, $3, false); }
 	|	variable '=' '&' variable
-			{ $$ = zend_ast_create(ZEND_AST_ASSIGN_REF, $1, $4); }
-	|	T_CLONE expr { $$ = zend_ast_create(ZEND_AST_CLONE, $2); }
+			{ $$ = ast.NewAssignExpression(ast.Equal, $1, $4, true); }/*
+	|	T_CLONE expr { $$ = zend_ast_create(ZEND_AST_CLONE, $2); }*/
 	|	variable T_PLUS_EQUAL expr
-			{ $$ = zend_ast_create_assign_op(ZEND_ASSIGN_ADD, $1, $3); }
+			{ $$ = ast.NewAssignExpression(ast.PlusEqual, $1, $3, false); }
 	|	variable T_MINUS_EQUAL expr
-			{ $$ = zend_ast_create_assign_op(ZEND_ASSIGN_SUB, $1, $3); }
+			{ $$ = ast.NewAssignExpression(ast.MinusEqual, $1, $3, false); }
 	|	variable T_MUL_EQUAL expr
-			{ $$ = zend_ast_create_assign_op(ZEND_ASSIGN_MUL, $1, $3); }
+			{ $$ = ast.NewAssignExpression(ast.MulEqual, $1, $3, false); }
 	|	variable T_POW_EQUAL expr
-			{ $$ = zend_ast_create_assign_op(ZEND_ASSIGN_POW, $1, $3); }
+			{ $$ = ast.NewAssignExpression(ast.PowEqual, $1, $3, false); }
 	|	variable T_DIV_EQUAL expr
-			{ $$ = zend_ast_create_assign_op(ZEND_ASSIGN_DIV, $1, $3); }
+			{ $$ = ast.NewAssignExpression(ast.DivEqual, $1, $3, false); }
 	|	variable T_CONCAT_EQUAL expr
-			{ $$ = zend_ast_create_assign_op(ZEND_ASSIGN_CONCAT, $1, $3); }
+			{ $$ = ast.NewAssignExpression(ast.ConcatEqual, $1, $3, false); }
 	|	variable T_MOD_EQUAL expr
-			{ $$ = zend_ast_create_assign_op(ZEND_ASSIGN_MOD, $1, $3); }
+			{ $$ = ast.NewAssignExpression(ast.ModEqual, $1, $3, false); }
 	|	variable T_AND_EQUAL expr
-			{ $$ = zend_ast_create_assign_op(ZEND_ASSIGN_BW_AND, $1, $3); }
+			{ $$ = ast.NewAssignExpression(ast.AndEqual, $1, $3, false); }
 	|	variable T_OR_EQUAL expr
-			{ $$ = zend_ast_create_assign_op(ZEND_ASSIGN_BW_OR, $1, $3); }
+			{ $$ = ast.NewAssignExpression(ast.QrEqual, $1, $3, false); }
 	|	variable T_XOR_EQUAL expr
-			{ $$ = zend_ast_create_assign_op(ZEND_ASSIGN_BW_XOR, $1, $3); }
+			{ $$ = ast.NewAssignExpression(ast.XorEqual, $1, $3, false); }
 	|	variable T_SL_EQUAL expr
-			{ $$ = zend_ast_create_assign_op(ZEND_ASSIGN_SL, $1, $3); }
+			{ $$ = ast.NewAssignExpression(ast.SlEqual, $1, $3, false); }
 	|	variable T_SR_EQUAL expr
-			{ $$ = zend_ast_create_assign_op(ZEND_ASSIGN_SR, $1, $3); }
+			{ $$ = ast.NewAssignExpression(ast.SrEqual, $1, $3, false); }/*
 	|	variable T_INC { $$ = zend_ast_create(ZEND_AST_POST_INC, $1); }
 	|	T_INC variable { $$ = zend_ast_create(ZEND_AST_PRE_INC, $2); }
 	|	variable T_DEC { $$ = zend_ast_create(ZEND_AST_POST_DEC, $1); }
@@ -958,8 +959,8 @@ expr_without_variable:
 	|	T_BOOL_CAST expr	{ $$ = zend_ast_create_cast(_IS_BOOL, $2); }
 	|	T_UNSET_CAST expr	{ $$ = zend_ast_create_cast(IS_NULL, $2); }
 	|	T_EXIT exit_expr	{ $$ = zend_ast_create(ZEND_AST_EXIT, $2); }
-	|	'@' expr			{ $$ = zend_ast_create(ZEND_AST_SILENCE, $2); }
-	|*/	scalar { $$ = $1; }/*
+	|	'@' expr			{ $$ = zend_ast_create(ZEND_AST_SILENCE, $2); }*/
+	|	scalar { $$ = $1; }/*
 	|	'`' backticks_expr '`' { $$ = zend_ast_create(ZEND_AST_SHELL_EXEC, $2); }
 	|	T_PRINT expr { $$ = zend_ast_create(ZEND_AST_PRINT, $2); }
 	|	T_YIELD { $$ = zend_ast_create(ZEND_AST_YIELD, NULL, NULL); CG(extra_fn_flags) |= ZEND_ACC_GENERATOR; }

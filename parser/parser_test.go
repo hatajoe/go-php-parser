@@ -449,6 +449,70 @@ EOL;`,
 			`<?php echo $foo::Bar;`,
 			`echo $foo::Bar;`,
 		},
+		{
+			`<?php echo list($a, $b) = $foo->bar();`,
+			`echo list($a, $b) = $foo->bar();`,
+		},
+		{
+			`<?php echo [$a, $b] = $foo->bar();`,
+			`echo [$a, $b] = $foo->bar();`,
+		},
+		{
+			`<?php echo $a = 1;`,
+			`echo $a = 1;`,
+		},
+		{
+			`<?php echo $a = &$b;`,
+			`echo $a = &$b;`,
+		},
+		{
+			`<?php echo $a += 1;`,
+			`echo $a += 1;`,
+		},
+		{
+			`<?php echo $a -= 1;`,
+			`echo $a -= 1;`,
+		},
+		{
+			`<?php echo $a *= 1;`,
+			`echo $a *= 1;`,
+		},
+		{
+			`<?php echo $a **= 1;`,
+			`echo $a **= 1;`,
+		},
+		{
+			`<?php echo $a /= 1;`,
+			`echo $a /= 1;`,
+		},
+		{
+			`<?php echo $a .= "1";`,
+			`echo $a .= "1";`,
+		},
+		{
+			`<?php echo $a %= 1;`,
+			`echo $a %= 1;`,
+		},
+		{
+			`<?php echo $a &= 1;`,
+			`echo $a &= 1;`,
+		},
+		{
+			`<?php echo $a |= 1;`,
+			`echo $a |= 1;`,
+		},
+		{
+			`<?php echo $a ^= 1;`,
+			`echo $a ^= 1;`,
+		},
+		{
+			`<?php echo $a <<= 1;`,
+			`echo $a <<= 1;`,
+		},
+		{
+			`<?php echo $a >>= 1;`,
+			`echo $a >>= 1;`,
+		},
 	}
 
 	for idx, test := range tests {
