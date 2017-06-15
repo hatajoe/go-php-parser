@@ -513,6 +513,210 @@ EOL;`,
 			`<?php echo $a >>= 1;`,
 			`echo $a >>= 1;`,
 		},
+		{
+			`<?php echo $a || $b;`,
+			`echo $a || $b;`,
+		},
+		{
+			`<?php echo $a && $b;`,
+			`echo $a && $b;`,
+		},
+		{
+			`<?php echo $a or $b;`,
+			`echo $a or $b;`,
+		},
+		{
+			`<?php echo $a and $b;`,
+			`echo $a and $b;`,
+		},
+		{
+			`<?php echo $a xor $b;`,
+			`echo $a xor $b;`,
+		},
+		{
+			`<?php echo $a | $b;`,
+			`echo $a | $b;`,
+		},
+		{
+			`<?php echo $a & $b;`,
+			`echo $a & $b;`,
+		},
+		{
+			`<?php echo $a ^ $b;`,
+			`echo $a ^ $b;`,
+		},
+		{
+			`<?php echo $a . $b;`,
+			`echo $a . $b;`,
+		},
+		{
+			`<?php echo $a + $b;`,
+			`echo $a + $b;`,
+		},
+		{
+			`<?php echo $a - $b;`,
+			`echo $a - $b;`,
+		},
+		{
+			`<?php echo $a * $b;`,
+			`echo $a * $b;`,
+		},
+		{
+			`<?php echo $a ** $b;`,
+			`echo $a ** $b;`,
+		},
+		{
+			`<?php echo $a / $b;`,
+			`echo $a / $b;`,
+		},
+		{
+			`<?php echo $a % $b;`,
+			`echo $a % $b;`,
+		},
+		{
+			`<?php echo $a << $b;`,
+			`echo $a << $b;`,
+		},
+		{
+			`<?php echo $a >> $b;`,
+			`echo $a >> $b;`,
+		},
+		{
+			`<?php echo $a === $b;`,
+			`echo $a === $b;`,
+		},
+		{
+			`<?php echo $a !== $b;`,
+			`echo $a !== $b;`,
+		},
+		{
+			`<?php echo $a == $b;`,
+			`echo $a == $b;`,
+		},
+		{
+			`<?php echo $a != $b;`,
+			`echo $a != $b;`,
+		},
+		{
+			`<?php echo $a < $b;`,
+			`echo $a < $b;`,
+		},
+		{
+			`<?php echo $a <= $b;`,
+			`echo $a <= $b;`,
+		},
+		{
+			`<?php echo $a > $b;`,
+			`echo $a > $b;`,
+		},
+		{
+			`<?php echo $a >= $b;`,
+			`echo $a >= $b;`,
+		},
+		{
+			`<?php echo $a <=> $b;`,
+			`echo $a <=> $b;`,
+		},
+		{
+			`<?php echo $a instanceof Foo;`,
+			`echo $a instanceof Foo;`,
+		},
+		{
+			`<?php echo (1 + 2);`,
+			`echo (1 + 2);`,
+		},
+		{
+			`<?php echo clone $a;`,
+			`echo clone $a;`,
+		},
+		{
+			`<?php echo (int)$a;`,
+			`echo (int)$a;`,
+		},
+		{
+			`<?php echo (integer)$a;`,
+			`echo (integer)$a;`,
+		},
+		{
+			`<?php echo (real)$a;`,
+			`echo (real)$a;`,
+		},
+		{
+			`<?php echo (double)$a;`,
+			`echo (double)$a;`,
+		},
+		{
+			`<?php echo (float)$a;`,
+			`echo (float)$a;`,
+		},
+		{
+			`<?php echo (string)$a;`,
+			`echo (string)$a;`,
+		},
+		{
+			`<?php echo (array)$a;`,
+			`echo (array)$a;`,
+		},
+		{
+			`<?php echo (object)$a;`,
+			`echo (object)$a;`,
+		},
+		{
+			`<?php echo (bool)$a;`,
+			`echo (bool)$a;`,
+		},
+		{
+			`<?php echo (boolean)$a;`,
+			`echo (boolean)$a;`,
+		},
+		{
+			`<?php echo (unset)$a;`,
+			`echo (unset)$a;`,
+		},
+		{
+			`<?php echo exit;`,
+			`echo exit;`,
+		},
+		{
+			`<?php echo exit(1);`,
+			`echo exit(1);`,
+		},
+		{
+			`<?php echo +$a;`,
+			`echo +$a;`,
+		},
+		{
+			`<?php echo -$a;`,
+			`echo -$a;`,
+		},
+		{
+			`<?php echo !$a;`,
+			`echo !$a;`,
+		},
+		{
+			`<?php echo ~$a;`,
+			`echo ~$a;`,
+		},
+		{
+			`<?php echo @$a;`,
+			`echo @$a;`,
+		},
+		{
+			`<?php echo $a++;`,
+			`echo $a++;`,
+		},
+		{
+			`<?php echo ++$a;`,
+			`echo ++$a;`,
+		},
+		{
+			`<?php echo $a--;`,
+			`echo $a--;`,
+		},
+		{
+			`<?php echo --$a;`,
+			`echo --$a;`,
+		},
 	}
 
 	for idx, test := range tests {

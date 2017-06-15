@@ -108,16 +108,16 @@ import (
 %token T_INSTANCEOF
 %token T_INC
 %token T_DEC
-%token T_INT_CAST
-%token T_DOUBLE_CAST
-%token T_STRING_CAST
-%token T_ARRAY_CAST
-%token T_OBJECT_CAST
-%token T_BOOL_CAST
-%token T_UNSET_CAST
+%token <tok> T_INT_CAST
+%token <tok> T_DOUBLE_CAST
+%token <tok> T_STRING_CAST
+%token <tok> T_ARRAY_CAST
+%token <tok> T_OBJECT_CAST
+%token <tok> T_BOOL_CAST
+%token <tok> T_UNSET_CAST
 %token T_NEW
-%token T_CLONE
-%token T_EXIT
+%token <tok> T_CLONE
+%token <tok> T_EXIT
 %token T_IF
 %token T_ELSEIF
 %token T_ELSE
@@ -204,9 +204,9 @@ import (
 %type <expr> /*extends_from parameter optional_type*/ argument expr_without_variable /*global_var
 %type <ast> static_var class_statement trait_adaptation trait_precedence trait_alias*/
 %type <expr> /*absolute_trait_method_reference trait_method_reference property*/ echo_expr
-%type <expr> /*new_expr anonymous_class*/ class_name /*class_name_reference*/ simple_variable/*
+%type <expr> /*new_expr anonymous_class*/ class_name class_name_reference simple_variable/*
 %type <ast> internal_functions_in_yacc*/
-%type <expr> /*exit_expr*/ scalar /*backticks_expr lexical_var*/ function_call member_name property_name
+%type <expr> exit_expr scalar /*backticks_expr lexical_var*/ function_call member_name property_name
 %type <expr> variable_class_name dereferencable_scalar constant dereferencable
 %type <expr> callable_expr callable_variable static_member /*new_variable*/
 %type <expr> encaps_var encaps_var_offset/* isset_variables*/
@@ -866,8 +866,8 @@ expr_without_variable:
 	|	variable '=' expr
 			{ $$ = ast.NewAssignExpression(ast.Equal, $1, $3, false); }
 	|	variable '=' '&' variable
-			{ $$ = ast.NewAssignExpression(ast.Equal, $1, $4, true); }/*
-	|	T_CLONE expr { $$ = zend_ast_create(ZEND_AST_CLONE, $2); }*/
+			{ $$ = ast.NewAssignExpression(ast.Equal, $1, $4, true); }
+	|	T_CLONE expr { $$ = ast.NewCloneExpression($1, $2); }
 	|	variable T_PLUS_EQUAL expr
 			{ $$ = ast.NewAssignExpression(ast.PlusEqual, $1, $3, false); }
 	|	variable T_MINUS_EQUAL expr
@@ -891,75 +891,75 @@ expr_without_variable:
 	|	variable T_SL_EQUAL expr
 			{ $$ = ast.NewAssignExpression(ast.SlEqual, $1, $3, false); }
 	|	variable T_SR_EQUAL expr
-			{ $$ = ast.NewAssignExpression(ast.SrEqual, $1, $3, false); }/*
-	|	variable T_INC { $$ = zend_ast_create(ZEND_AST_POST_INC, $1); }
-	|	T_INC variable { $$ = zend_ast_create(ZEND_AST_PRE_INC, $2); }
-	|	variable T_DEC { $$ = zend_ast_create(ZEND_AST_POST_DEC, $1); }
-	|	T_DEC variable { $$ = zend_ast_create(ZEND_AST_PRE_DEC, $2); }
+			{ $$ = ast.NewAssignExpression(ast.SrEqual, $1, $3, false); }
+	|	variable T_INC { $$ = ast.NewIncrementExpression(ast.PostInc, $1); }
+	|	T_INC variable { $$ = ast.NewIncrementExpression(ast.PreInc, $2); }
+	|	variable T_DEC { $$ = ast.NewDecrementExpression(ast.PostDec, $1); }
+	|	T_DEC variable { $$ = ast.NewDecrementExpression(ast.PreDec, $2); }
 	|	expr T_BOOLEAN_OR expr
-			{ $$ = zend_ast_create(ZEND_AST_OR, $1, $3); }
+			{ $$ = ast.NewInfixExpression(ast.BooleanOr, $1, $3); }
 	|	expr T_BOOLEAN_AND expr
-			{ $$ = zend_ast_create(ZEND_AST_AND, $1, $3); }
+			{ $$ = ast.NewInfixExpression(ast.BooleanAnd, $1, $3); }
 	|	expr T_LOGICAL_OR expr
-			{ $$ = zend_ast_create(ZEND_AST_OR, $1, $3); }
+			{ $$ = ast.NewInfixExpression(ast.LogicalOr, $1, $3); }
 	|	expr T_LOGICAL_AND expr
-			{ $$ = zend_ast_create(ZEND_AST_AND, $1, $3); }
+			{ $$ = ast.NewInfixExpression(ast.LogicalAnd, $1, $3); }
 	|	expr T_LOGICAL_XOR expr
-			{ $$ = zend_ast_create_binary_op(ZEND_BOOL_XOR, $1, $3); }
-	|	expr '|' expr	{ $$ = zend_ast_create_binary_op(ZEND_BW_OR, $1, $3); }
-	|	expr '&' expr	{ $$ = zend_ast_create_binary_op(ZEND_BW_AND, $1, $3); }
-	|	expr '^' expr	{ $$ = zend_ast_create_binary_op(ZEND_BW_XOR, $1, $3); }
-	|	expr '.' expr 	{ $$ = zend_ast_create_binary_op(ZEND_CONCAT, $1, $3); }
-	|	expr '+' expr 	{ $$ = zend_ast_create_binary_op(ZEND_ADD, $1, $3); }
-	|	expr '-' expr 	{ $$ = zend_ast_create_binary_op(ZEND_SUB, $1, $3); }
-	|	expr '*' expr	{ $$ = zend_ast_create_binary_op(ZEND_MUL, $1, $3); }
-	|	expr T_POW expr	{ $$ = zend_ast_create_binary_op(ZEND_POW, $1, $3); }
-	|	expr '/' expr	{ $$ = zend_ast_create_binary_op(ZEND_DIV, $1, $3); }
-	|	expr '%' expr 	{ $$ = zend_ast_create_binary_op(ZEND_MOD, $1, $3); }
-	| 	expr T_SL expr	{ $$ = zend_ast_create_binary_op(ZEND_SL, $1, $3); }
-	|	expr T_SR expr	{ $$ = zend_ast_create_binary_op(ZEND_SR, $1, $3); }
-	|	'+' expr %prec T_INC { $$ = zend_ast_create(ZEND_AST_UNARY_PLUS, $2); }
-	|	'-' expr %prec T_INC { $$ = zend_ast_create(ZEND_AST_UNARY_MINUS, $2); }
-	|	'!' expr { $$ = zend_ast_create_ex(ZEND_AST_UNARY_OP, ZEND_BOOL_NOT, $2); }
-	|	'~' expr { $$ = zend_ast_create_ex(ZEND_AST_UNARY_OP, ZEND_BW_NOT, $2); }
+			{ $$ = ast.NewInfixExpression(ast.LogicalXor, $1, $3); }
+	|	expr '|' expr	{ $$ = ast.NewInfixExpression(ast.BwOr, $1, $3); }
+	|	expr '&' expr	{ $$ = ast.NewInfixExpression(ast.BwAnd, $1, $3); }
+	|	expr '^' expr	{ $$ = ast.NewInfixExpression(ast.BwXor, $1, $3); }
+	|	expr '.' expr 	{ $$ = ast.NewInfixExpression(ast.Concat, $1, $3); }
+	|	expr '+' expr 	{ $$ = ast.NewInfixExpression(ast.Add, $1, $3); }
+	|	expr '-' expr 	{ $$ = ast.NewInfixExpression(ast.Sub, $1, $3); }
+	|	expr '*' expr	{ $$ = ast.NewInfixExpression(ast.Mul, $1, $3); }
+	|	expr T_POW expr	{ $$ = ast.NewInfixExpression(ast.Pow, $1, $3); }
+	|	expr '/' expr	{ $$ = ast.NewInfixExpression(ast.Div, $1, $3); }
+	|	expr '%' expr 	{ $$ = ast.NewInfixExpression(ast.Mod, $1, $3); }
+	| 	expr T_SL expr	{ $$ = ast.NewInfixExpression(ast.Sl, $1, $3); }
+	|	expr T_SR expr	{ $$ = ast.NewInfixExpression(ast.Sr, $1, $3); }
+	|	'+' expr %prec T_INC { $$ = ast.NewPrefixExpression(ast.UnaryPlus, $2); }
+	|	'-' expr %prec T_INC { $$ = ast.NewPrefixExpression(ast.UnaryMinus, $2); }
+	|	'!' expr { $$ = ast.NewPrefixExpression(ast.BoolNot, $2); }
+	|	'~' expr { $$ = ast.NewPrefixExpression(ast.BwNot, $2); }
 	|	expr T_IS_IDENTICAL expr
-			{ $$ = zend_ast_create_binary_op(ZEND_IS_IDENTICAL, $1, $3); }
+			{ $$ = ast.NewInfixExpression(ast.IsIdentical, $1, $3); }
 	|	expr T_IS_NOT_IDENTICAL expr
-			{ $$ = zend_ast_create_binary_op(ZEND_IS_NOT_IDENTICAL, $1, $3); }
+			{ $$ = ast.NewInfixExpression(ast.IsNotIdentical, $1, $3); }
 	|	expr T_IS_EQUAL expr
-			{ $$ = zend_ast_create_binary_op(ZEND_IS_EQUAL, $1, $3); }
+			{ $$ = ast.NewInfixExpression(ast.IsEqual, $1, $3); }
 	|	expr T_IS_NOT_EQUAL expr
-			{ $$ = zend_ast_create_binary_op(ZEND_IS_NOT_EQUAL, $1, $3); }
+			{ $$ = ast.NewInfixExpression(ast.IsNotEqual, $1, $3); }
 	|	expr '<' expr
-			{ $$ = zend_ast_create_binary_op(ZEND_IS_SMALLER, $1, $3); }
+			{ $$ = ast.NewInfixExpression(ast.Smaller, $1, $3); }
 	|	expr T_IS_SMALLER_OR_EQUAL expr
-			{ $$ = zend_ast_create_binary_op(ZEND_IS_SMALLER_OR_EQUAL, $1, $3); }
+			{ $$ = ast.NewInfixExpression(ast.SmallerOrEqual, $1, $3); }
 	|	expr '>' expr
-			{ $$ = zend_ast_create(ZEND_AST_GREATER, $1, $3); }
+			{ $$ = ast.NewInfixExpression(ast.Greater, $1, $3); }
 	|	expr T_IS_GREATER_OR_EQUAL expr
-			{ $$ = zend_ast_create(ZEND_AST_GREATER_EQUAL, $1, $3); }
+			{ $$ = ast.NewInfixExpression(ast.GreaterOrEqual, $1, $3); }
 	|	expr T_SPACESHIP expr
-			{ $$ = zend_ast_create_binary_op(ZEND_SPACESHIP, $1, $3); }
+			{ $$ = ast.NewInfixExpression(ast.Spaceship, $1, $3); }
 	|	expr T_INSTANCEOF class_name_reference
-			{ $$ = zend_ast_create(ZEND_AST_INSTANCEOF, $1, $3); }
-	|	'(' expr ')' { $$ = $2; }
+			{ $$ = ast.NewInfixExpression(ast.InstanceOf, $1, $3); }
+	|	'(' expr ')' { $$ = ast.NewDereferencableExpression(ast.Wrapped, $2); }/*
 	|	new_expr { $$ = $1; }
 	|	expr '?' expr ':' expr
 			{ $$ = zend_ast_create(ZEND_AST_CONDITIONAL, $1, $3, $5); }
 	|	expr '?' ':' expr
-			{ $$ = zend_ast_create(ZEND_AST_CONDITIONAL, $1, NULL, $4); }
+			{ $$ = zend_ast_create(ZEND_AST_CONDITIONAL, $1, NULL, $4); }*/
 	|	expr T_COALESCE expr
-			{ $$ = zend_ast_create(ZEND_AST_COALESCE, $1, $3); }
-	|	internal_functions_in_yacc { $$ = $1; }
-	|	T_INT_CAST expr		{ $$ = zend_ast_create_cast(IS_LONG, $2); }
-	|	T_DOUBLE_CAST expr	{ $$ = zend_ast_create_cast(IS_DOUBLE, $2); }
-	|	T_STRING_CAST expr	{ $$ = zend_ast_create_cast(IS_STRING, $2); }
-	|	T_ARRAY_CAST expr	{ $$ = zend_ast_create_cast(IS_ARRAY, $2); }
-	|	T_OBJECT_CAST expr	{ $$ = zend_ast_create_cast(IS_OBJECT, $2); }
-	|	T_BOOL_CAST expr	{ $$ = zend_ast_create_cast(_IS_BOOL, $2); }
-	|	T_UNSET_CAST expr	{ $$ = zend_ast_create_cast(IS_NULL, $2); }
-	|	T_EXIT exit_expr	{ $$ = zend_ast_create(ZEND_AST_EXIT, $2); }
-	|	'@' expr			{ $$ = zend_ast_create(ZEND_AST_SILENCE, $2); }*/
+			{ $$ = ast.NewInfixExpression(ast.Coalesce, $1, $3); }/*
+	|	internal_functions_in_yacc { $$ = $1; }*/
+	|	T_INT_CAST expr		{ $$ = ast.NewCastExpression($1, $2); }
+	|	T_DOUBLE_CAST expr	{ $$ = ast.NewCastExpression($1, $2); }
+	|	T_STRING_CAST expr	{ $$ = ast.NewCastExpression($1, $2); }
+	|	T_ARRAY_CAST expr	{ $$ = ast.NewCastExpression($1, $2); }
+	|	T_OBJECT_CAST expr	{ $$ = ast.NewCastExpression($1, $2); }
+	|	T_BOOL_CAST expr	{ $$ = ast.NewCastExpression($1, $2); }
+	|	T_UNSET_CAST expr	{ $$ = ast.NewCastExpression($1, $2); }
+	|	T_EXIT exit_expr	{ $$ = ast.NewExitExpression($1, $2); }
+	|	'@' expr			{ $$ = ast.NewPrefixExpression(ast.Silence, $2); }
 	|	scalar { $$ = $1; }/*
 	|	'`' backticks_expr '`' { $$ = zend_ast_create(ZEND_AST_SHELL_EXEC, $2); }
 	|	T_PRINT expr { $$ = zend_ast_create(ZEND_AST_PRINT, $2); }
@@ -1028,17 +1028,17 @@ class_name:
 	|	name { $$ = $1; }
 ;
 
-/*
 class_name_reference:
-		class_name		{ $$ = $1; }
-	|	new_variable	{ $$ = $1; }
+		class_name		{ $$ = $1; }/*
+	|	new_variable	{ $$ = $1; }*/
 ;
 
 exit_expr:
-		/* empty *//*				{ $$ = NULL; }
-	|	'(' optional_expr ')'	{ $$ = $2; }
+		/* empty */				{ $$ = nil; }
+	|	'(' optional_expr ')'	{ $$ = ast.NewDereferencableExpression(ast.Wrapped, $2); }
 ;
 
+/*
 backticks_expr:
 		/* empty *//*
 			{ $$ = zend_ast_create_zval_from_str(ZSTR_EMPTY_ALLOC()); }
