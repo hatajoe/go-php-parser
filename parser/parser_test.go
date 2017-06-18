@@ -622,6 +622,30 @@ EOL;`,
 			`echo $a instanceof Foo;`,
 		},
 		{
+			`<?php echo $a instanceof $foo;`,
+			`echo $a instanceof $foo;`,
+		},
+		{
+			`<?php echo $a instanceof $foo[$bar];`,
+			`echo $a instanceof $foo[$bar];`,
+		},
+		{
+			`<?php echo $a instanceof $foo{"foo"+$bar};`,
+			`echo $a instanceof $foo{"foo" + $bar};`,
+		},
+		{
+			`<?php echo $a instanceof $foo->bar;`,
+			`echo $a instanceof $foo->bar;`,
+		},
+		{
+			`<?php echo $a instanceof Foo::$bar;`,
+			`echo $a instanceof Foo::$bar;`,
+		},
+		{
+			`<?php echo $a instanceof $foo::$bar;`,
+			`echo $a instanceof $foo::$bar;`,
+		},
+		{
 			`<?php echo (1 + 2);`,
 			`echo (1 + 2);`,
 		},
@@ -716,6 +740,62 @@ EOL;`,
 		{
 			`<?php echo --$a;`,
 			`echo --$a;`,
+		},
+		{
+			`<?php echo $a > 1 ? $b : $c;`,
+			`echo $a > 1 ? $b : $c;`,
+		},
+		{
+			`<?php echo $a > 1 ?: $b;`,
+			`echo $a > 1 ?: $b;`,
+		},
+		{
+			"<?php echo ``;",
+			"echo ``;",
+		},
+		{
+			"<?php echo `$a`;",
+			"echo `$a`;",
+		},
+		{
+			"<?php echo `$a -la`;",
+			"echo `$a -la`;",
+		},
+		{
+			`<?php echo print "foo";`,
+			`echo print "foo";`,
+		},
+		{
+			`<?php echo new Foo;`,
+			`echo new Foo;`,
+		},
+		{
+			`<?php echo new Foo();`,
+			`echo new Foo();`,
+		},
+		{
+			`<?php echo new Foo(1, 2);`,
+			`echo new Foo(1, 2);`,
+		},
+		{
+			`<?php echo isset($a);`,
+			`echo isset($a);`,
+		},
+		{
+			`<?php echo isset($a,$b);`,
+			`echo isset($a, $b);`,
+		},
+		{
+			`<?php echo empty($a);`,
+			`echo empty($a);`,
+		},
+		{
+			`<?php echo include "foo/bar.php";`,
+			`echo include "foo/bar.php";`,
+		},
+		{
+			`<?php echo include_once "foo/bar.php";`,
+			`echo include_once "foo/bar.php";`,
 		},
 	}
 
