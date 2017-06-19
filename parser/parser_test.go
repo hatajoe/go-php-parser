@@ -797,6 +797,48 @@ EOL;`,
 			`<?php echo include_once "foo/bar.php";`,
 			`echo include_once "foo/bar.php";`,
 		},
+		{
+			`<?php echo eval($a);`,
+			`echo eval($a);`,
+		},
+		{
+			`<?php echo require "foo/bar.php";`,
+			`echo require "foo/bar.php";`,
+		},
+		{
+			`<?php echo require_once "foo/bar.php";`,
+			`echo require_once "foo/bar.php";`,
+		},
+		{
+			`<?php echo yield;`,
+			`echo yield;`,
+		},
+		{
+			`<?php echo yield foo();`,
+			`echo yield foo();`,
+		},
+		{
+			`<?php echo yield $foo => $bar;`,
+			`echo yield $foo => $bar;`,
+		},
+		{
+			`<?php echo yield from $foo;`,
+			`echo yield from $foo;`,
+		},
+		{
+			`<?php {}`,
+			`{}`,
+		},
+		{
+			`<?php {
+    $a = 1;
+    $b = 2;
+}`,
+			`{
+    $a = 1;
+    $b = 2;
+}`,
+		},
 	}
 
 	for idx, test := range tests {
