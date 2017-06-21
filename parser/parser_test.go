@@ -825,6 +825,23 @@ EOL;`,
 			`<?php echo yield from $foo;`,
 			`echo yield from $foo;`,
 		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
+
+func TestBlockStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
 		{
 			`<?php {}`,
 			`{}`,
@@ -838,6 +855,166 @@ EOL;`,
     $a = 1;
     $b = 2;
 }`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
+
+func TestIfStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php if (true) $a = 1;`,
+			`if (true) $a = 1;`,
+		},
+		{
+			`<?php if (true) {
+    $a = 1;
+    $b = 2;
+}`,
+			`if (true) {
+    $a = 1;
+    $b = 2;
+}`,
+		},
+		{
+			`<?php if (true) {
+    $a = 1;
+    $b = 2;
+} elseif ($a > 1) {
+    $c = 1;
+    $d = 2;
+} elseif ($b < 1) {
+    $e = 1;
+    $f = 2;
+}`,
+			`if (true) {
+    $a = 1;
+    $b = 2;
+} elseif ($a > 1) {
+    $c = 1;
+    $d = 2;
+} elseif ($b < 1) {
+    $e = 1;
+    $f = 2;
+}`,
+		},
+		{
+			`<?php if (true) {
+    $a = 1;
+    $b = 2;
+} elseif ($a > 1) {
+    $c = 1;
+    $d = 2;
+} elseif ($b < 1) {
+    $e = 1;
+    $f = 2;
+} else {
+    $g = 3;
+}`,
+			`if (true) {
+    $a = 1;
+    $b = 2;
+} elseif ($a > 1) {
+    $c = 1;
+    $d = 2;
+} elseif ($b < 1) {
+    $e = 1;
+    $f = 2;
+} else {
+    $g = 3;
+}`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
+
+func TestAltIfStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php if (true): $a = 1; endif;`,
+			`if (true):
+    $a = 1;
+endif;`,
+		},
+		{
+			`<?php if (true):
+    $a = 1;
+    $b = 2;
+endif;`,
+			`if (true):
+    $a = 1;
+    $b = 2;
+endif;`,
+		},
+		{
+			`<?php if (true):
+    $a = 1;
+    $b = 2;
+elseif ($a > 1):
+    $c = 1;
+    $d = 2;
+elseif ($b < 1):
+    $e = 1;
+    $f = 2;
+endif;`,
+			`if (true):
+    $a = 1;
+    $b = 2;
+elseif ($a > 1):
+    $c = 1;
+    $d = 2;
+elseif ($b < 1):
+    $e = 1;
+    $f = 2;
+endif;`,
+		},
+		{
+			`<?php if (true):
+    $a = 1;
+    $b = 2;
+elseif ($a > 1):
+    $c = 1;
+    $d = 2;
+elseif ($b < 1):
+    $e = 1;
+    $f = 2;
+else:
+    $g = 3;
+endif;`,
+			`if (true):
+    $a = 1;
+    $b = 2;
+elseif ($a > 1):
+    $c = 1;
+    $d = 2;
+elseif ($b < 1):
+    $e = 1;
+    $f = 2;
+else:
+    $g = 3;
+endif;`,
 		},
 	}
 

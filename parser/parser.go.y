@@ -118,10 +118,10 @@ import (
 %token <tok> T_NEW
 %token <tok> T_CLONE
 %token <tok> T_EXIT
-%token T_IF
-%token T_ELSEIF
-%token T_ELSE
-%token T_ENDIF
+%token <tok> T_IF
+%token <tok> T_ELSEIF
+%token <tok> T_ELSE
+%token <tok> T_ENDIF
 %token T_DO
 %token T_WHILE
 %token T_ENDWHILE
@@ -210,14 +210,14 @@ import (
 %type <expr> variable_class_name dereferencable_scalar constant dereferencable
 %type <expr> callable_expr callable_variable static_member new_variable
 %type <expr> encaps_var encaps_var_offset 
-%type <stmts> top_statement_list /*use_declarations const_list*/ inner_statement_list/* if_stmt
-%type <ast> alt_if_stmt for_exprs switch_case_list global_var_list static_var_list*/
-%type <exprs> isset_variables backticks_expr echo_expr_list /*unset_variables catch_name_list catch_list parameter_list class_statement_list
-%type <ast> implements_list case_list if_stmt_without_else*/
+%type <stmts> top_statement_list /*use_declarations const_list*/ inner_statement_list
+%type <stmt> alt_if_stmt alt_if_stmt_without_else /*for_exprs switch_case_list global_var_list static_var_list*/
+%type <exprs> isset_variables backticks_expr echo_expr_list /*unset_variables catch_name_list catch_list parameter_list class_statement_list*/
+%type <stmt> /*implements_list case_list*/ if_stmt if_stmt_without_else
 %type <expr> /*non_empty_parameter_list*/ argument_list /*property_list*/
 %type <exprs> non_empty_argument_list/*
 %type <ast> class_const_list class_const_decl name_list trait_adaptations method_body non_empty_for_exprs*/
-%type <expr> ctor_arguments /*alt_if_stmt_without_else trait_adaptation_list lexical_vars*/
+%type <expr> ctor_arguments /*trait_adaptation_list lexical_vars*/
 %type <exprs> /*lexical_var_list*/ encaps_list
 %type <exprs> array_pair non_empty_array_pair_list array_pair_list possible_array_pair
 %type <expr> isset_variable /*type return_type type_expr
@@ -401,9 +401,9 @@ inner_statement:
 ;
 
 statement:
-	    '{' inner_statement_list '}' { $$ = ast.NewBlockStatement($2...); }/*
+	    '{' inner_statement_list '}' { $$ = ast.NewBlockStatement($2...); }
 	|	if_stmt { $$ = $1; }
-	|	alt_if_stmt { $$ = $1; }
+	|	alt_if_stmt { $$ = $1; }/*
 	|	T_WHILE '(' expr ')' while_statement
 			{ $$ = zend_ast_create(ZEND_AST_WHILE, $3, $5); }
 	|	T_DO statement T_WHILE '(' expr ')' ';'
@@ -575,39 +575,43 @@ while_statement:
 		statement { $$ = $1; }
 	|	':' inner_statement_list T_ENDWHILE ';' { $$ = $2; }
 ;
-
+*/
 
 if_stmt_without_else:
 		T_IF '(' expr ')' statement
-			{ $$ = zend_ast_create_list(1, ZEND_AST_IF,
-			      zend_ast_create(ZEND_AST_IF_ELEM, $3, $5)); }
+			{ $$ = ast.NewIfStatement($1, $3, $5, nil); }
 	|	if_stmt_without_else T_ELSEIF '(' expr ')' statement
-			{ $$ = zend_ast_list_add($1,
-			      zend_ast_create(ZEND_AST_IF_ELEM, $4, $6)); }
+			{ $$ = ast.NewIfStatement($2, $4, $6, $$); }
 ;
 
 if_stmt:
 		if_stmt_without_else %prec T_NOELSE { $$ = $1; }
 	|	if_stmt_without_else T_ELSE statement
-			{ $$ = zend_ast_list_add($1, zend_ast_create(ZEND_AST_IF_ELEM, NULL, $3)); }
+			{ $$ = ast.NewIfStatement($2, nil, $3, $$); }
 ;
+
 
 alt_if_stmt_without_else:
 		T_IF '(' expr ')' ':' inner_statement_list
-			{ $$ = zend_ast_create_list(1, ZEND_AST_IF,
-			      zend_ast_create(ZEND_AST_IF_ELEM, $3, $6)); }
+			{ $$ = ast.NewAltIfStatement($1, $3, $6, nil); }
 	|	alt_if_stmt_without_else T_ELSEIF '(' expr ')' ':' inner_statement_list
-			{ $$ = zend_ast_list_add($1,
-			      zend_ast_create(ZEND_AST_IF_ELEM, $4, $7)); }
+			{ $$ = ast.NewAltIfStatement($2, $4, $7, $$); }
 ;
 
 alt_if_stmt:
-		alt_if_stmt_without_else T_ENDIF ';' { $$ = $1; }
+		alt_if_stmt_without_else T_ENDIF ';' 
+            { 
+                stmt := $1; 
+                $$ = ast.NewAltIfStatement($2, nil, nil, stmt); 
+            }
 	|	alt_if_stmt_without_else T_ELSE ':' inner_statement_list T_ENDIF ';'
-			{ $$ = zend_ast_list_add($1,
-			      zend_ast_create(ZEND_AST_IF_ELEM, NULL, $4)); }
+			{ 
+                stmt := ast.NewAltIfStatement($2, nil, $4, $$);
+                $$ = ast.NewAltIfStatement($5, nil, nil, stmt);
+            }
 ;
 
+/*
 parameter_list:
 		non_empty_parameter_list { $$ = $1; }
 	|	/* empty *//*	{ $$ = zend_ast_create_list(0, ZEND_AST_PARAM_LIST); }
