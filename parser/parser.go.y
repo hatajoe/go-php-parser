@@ -122,10 +122,10 @@ import (
 %token <tok> T_ELSEIF
 %token <tok> T_ELSE
 %token <tok> T_ENDIF
-%token T_DO
-%token T_WHILE
-%token T_ENDWHILE
-%token T_FOR
+%token <tok> T_DO
+%token <tok> T_WHILE
+%token <tok> T_ENDWHILE
+%token <tok> T_FOR
 %token T_ENDFOR
 %token T_FOREACH
 %token T_ENDFOREACH
@@ -199,7 +199,7 @@ import (
 %type <ast> group_use_declaration inline_use_declarations inline_use_declaration
 %type <ast> mixed_group_use_declaration use_declaration unprefixed_use_declaration*/
 %type <stmt> /*unprefixed_use_declarations const_decl*/ inner_statement
-%type <expr> expr optional_expr/* while_statement for_statement foreach_variable*/
+%type <expr> expr optional_expr /*foreach_variable*/
 %type <expr> /*foreach_statement declare_statement finally_statement unset_variable*/ variable
 %type <expr> /*extends_from parameter optional_type*/ argument expr_without_variable /*global_var
 %type <ast> static_var class_statement trait_adaptation trait_precedence trait_alias*/
@@ -211,12 +211,12 @@ import (
 %type <expr> callable_expr callable_variable static_member new_variable
 %type <expr> encaps_var encaps_var_offset 
 %type <stmts> top_statement_list /*use_declarations const_list*/ inner_statement_list
-%type <stmt> alt_if_stmt alt_if_stmt_without_else /*for_exprs switch_case_list global_var_list static_var_list*/
-%type <exprs> isset_variables backticks_expr echo_expr_list /*unset_variables catch_name_list catch_list parameter_list class_statement_list*/
+%type <stmt> for_statement while_statement alt_if_stmt alt_if_stmt_without_else /* switch_case_list global_var_list static_var_list*/
+%type <exprs> for_exprs isset_variables backticks_expr echo_expr_list /*unset_variables catch_name_list catch_list parameter_list class_statement_list*/
 %type <stmt> /*implements_list case_list*/ if_stmt if_stmt_without_else
 %type <expr> /*non_empty_parameter_list*/ argument_list /*property_list*/
-%type <exprs> non_empty_argument_list/*
-%type <ast> class_const_list class_const_decl name_list trait_adaptations method_body non_empty_for_exprs*/
+%type <exprs> non_empty_argument_list non_empty_for_exprs/*
+%type <ast> class_const_list class_const_decl name_list trait_adaptations method_body */
 %type <expr> ctor_arguments /*trait_adaptation_list lexical_vars*/
 %type <exprs> /*lexical_var_list*/ encaps_list
 %type <exprs> array_pair non_empty_array_pair_list array_pair_list possible_array_pair
@@ -403,13 +403,13 @@ inner_statement:
 statement:
 	    '{' inner_statement_list '}' { $$ = ast.NewBlockStatement($2...); }
 	|	if_stmt { $$ = $1; }
-	|	alt_if_stmt { $$ = $1; }/*
+	|	alt_if_stmt { $$ = $1; }
 	|	T_WHILE '(' expr ')' while_statement
-			{ $$ = zend_ast_create(ZEND_AST_WHILE, $3, $5); }
+			{ $$ = ast.NewWhileStatement($1, $3, $5); }
 	|	T_DO statement T_WHILE '(' expr ')' ';'
-			{ $$ = zend_ast_create(ZEND_AST_DO_WHILE, $2, $5); }
+			{ $$ = ast.NewDoWhileStatement($1, $5, $2); }
 	|	T_FOR '(' for_exprs ';' for_exprs ';' for_exprs ')' for_statement
-			{ $$ = zend_ast_create(ZEND_AST_FOR, $3, $5, $7, $9); }
+			{ $$ = ast.NewForStatement($1, $3, $5, $7, $9); }/*
 	|	T_SWITCH '(' expr ')' switch_case_list
 			{ $$ = zend_ast_create(ZEND_AST_SWITCH, $3, $5); }
 	|	T_BREAK optional_expr ';'		{ $$ = zend_ast_create(ZEND_AST_BREAK, $2); }
@@ -534,12 +534,14 @@ foreach_variable:
 	|	T_LIST '(' array_pair_list ')' { $$ = $3; $$->attr = ZEND_ARRAY_SYNTAX_LIST; }
 	|	'[' array_pair_list ']' { $$ = $2; $$->attr = ZEND_ARRAY_SYNTAX_SHORT; }
 ;
+*/
 
 for_statement:
-		statement { $$ = $1; }
-	|	':' inner_statement_list T_ENDFOR ';' { $$ = $2; }
+		statement { $$ = $1; }/*
+	|	':' inner_statement_list T_ENDFOR ';' { $$ = $2; }*/
 ;
 
+/*
 foreach_statement:
 		statement { $$ = $1; }
 	|	':' inner_statement_list T_ENDFOREACH ';' { $$ = $2; }
@@ -569,13 +571,13 @@ case_separator:
 		':'
 	|	';'
 ;
+*/
 
 
 while_statement:
 		statement { $$ = $1; }
-	|	':' inner_statement_list T_ENDWHILE ';' { $$ = $2; }
+	|	':' inner_statement_list T_ENDWHILE ';' { $$ = ast.NewAltWhileStatement($3, $2...); }
 ;
-*/
 
 if_stmt_without_else:
 		T_IF '(' expr ')' statement
@@ -832,17 +834,17 @@ echo_expr:
 	expr { $$ = $1 }
 ;
 
-/*
 for_exprs:
-		/* empty *//*			{ $$ = NULL; }
+		/* empty */			{ $$ = []ast.Expression{}; }
 	|	non_empty_for_exprs	{ $$ = $1; }
 ;
 
 non_empty_for_exprs:
-		non_empty_for_exprs ',' expr { $$ = zend_ast_list_add($1, $3); }
-	|	expr { $$ = zend_ast_create_list(1, ZEND_AST_EXPR_LIST, $1); }
+		non_empty_for_exprs ',' expr { $$ = append($1, $3); }
+	|	expr { $$ = []ast.Expression{$1}; }
 ;
 
+/*
 anonymous_class:
         T_CLASS { $<num>$ = CG(zend_lineno); } ctor_arguments
 		extends_from implements_list backup_doc_comment '{' class_statement_list '}' {

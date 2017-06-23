@@ -1027,3 +1027,127 @@ endif;`,
 		}
 	}
 }
+
+func TestWhileStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php while (true) {
+    $a = 1;
+    $b = 2;
+}`,
+			`while (true) {
+    $a = 1;
+    $b = 2;
+}`,
+		},
+		{
+			`<?php while (true) :
+    $a = 1;
+    $b = 2;
+endwhile;`,
+			`while (true) :
+    $a = 1;
+    $b = 2;
+endwhile;`,
+		},
+		{
+			`<?php do {
+    $a = 1;
+    $b = 2;
+} while (true);`,
+			`do {
+    $a = 1;
+    $b = 2;
+} while (true);`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
+
+func TestForStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php for (;;) {
+    $a = 1;
+    $b = 2;
+}`,
+			`for (;;) {
+    $a = 1;
+    $b = 2;
+}`,
+		},
+		{
+			`<?php for ($i=0,$j=0; $i<0,$j<0; $i++,$j++) {
+    $a = 1;
+    $b = 2;
+}`,
+			`for ($i = 0, $j = 0; $i < 0, $j < 0; $i++, $j++) {
+    $a = 1;
+    $b = 2;
+}`,
+		},
+		{
+			`<?php for ($i=0; $i<0; $i++) {
+    $a = 1;
+    $b = 2;
+}`,
+			`for ($i = 0; $i < 0; $i++) {
+    $a = 1;
+    $b = 2;
+}`,
+		},
+		{
+			`<?php for (; $i<0; $i++) {
+    $a = 1;
+    $b = 2;
+}`,
+			`for (; $i < 0; $i++) {
+    $a = 1;
+    $b = 2;
+}`,
+		},
+		{
+			`<?php for ($i=0;; $i++) {
+    $a = 1;
+    $b = 2;
+}`,
+			`for ($i = 0;; $i++) {
+    $a = 1;
+    $b = 2;
+}`,
+		},
+		{
+			`<?php for ($i=0; $i<0;) {
+    $a = 1;
+    $b = 2;
+}`,
+			`for ($i = 0; $i < 0;) {
+    $a = 1;
+    $b = 2;
+}`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
