@@ -132,10 +132,10 @@ import (
 %token T_DECLARE
 %token T_ENDDECLARE
 %token T_AS
-%token T_SWITCH
+%token <tok> T_SWITCH
 %token T_ENDSWITCH
-%token T_CASE
-%token T_DEFAULT
+%token <tok> T_CASE
+%token <tok> T_DEFAULT
 %token T_BREAK
 %token T_CONTINUE
 %token T_GOTO
@@ -210,10 +210,10 @@ import (
 %type <expr> variable_class_name dereferencable_scalar constant dereferencable
 %type <expr> callable_expr callable_variable static_member new_variable
 %type <expr> encaps_var encaps_var_offset 
-%type <stmts> top_statement_list /*use_declarations const_list*/ inner_statement_list
-%type <stmt> for_statement while_statement alt_if_stmt alt_if_stmt_without_else /* switch_case_list global_var_list static_var_list*/
+%type <stmts> top_statement_list /*use_declarations const_list*/ inner_statement_list case_list
+%type <stmt> for_statement while_statement alt_if_stmt alt_if_stmt_without_else switch_case_list /* global_var_list static_var_list*/
 %type <exprs> for_exprs isset_variables backticks_expr echo_expr_list /*unset_variables catch_name_list catch_list parameter_list class_statement_list*/
-%type <stmt> /*implements_list case_list*/ if_stmt if_stmt_without_else
+%type <stmt> /*implements_list*/ if_stmt if_stmt_without_else
 %type <expr> /*non_empty_parameter_list*/ argument_list /*property_list*/
 %type <exprs> non_empty_argument_list non_empty_for_exprs/*
 %type <ast> class_const_list class_const_decl name_list trait_adaptations method_body */
@@ -409,9 +409,9 @@ statement:
 	|	T_DO statement T_WHILE '(' expr ')' ';'
 			{ $$ = ast.NewDoWhileStatement($1, $5, $2); }
 	|	T_FOR '(' for_exprs ';' for_exprs ';' for_exprs ')' for_statement
-			{ $$ = ast.NewForStatement($1, $3, $5, $7, $9); }/*
+			{ $$ = ast.NewForStatement($1, $3, $5, $7, $9); }
 	|	T_SWITCH '(' expr ')' switch_case_list
-			{ $$ = zend_ast_create(ZEND_AST_SWITCH, $3, $5); }
+			{ $$ = ast.NewSwitchStatement($1, $3, $5); }/*
 	|	T_BREAK optional_expr ';'		{ $$ = zend_ast_create(ZEND_AST_BREAK, $2); }
 	|	T_CONTINUE optional_expr ';'	{ $$ = zend_ast_create(ZEND_AST_CONTINUE, $2); }
 	|	T_RETURN optional_expr ';'		{ $$ = zend_ast_create(ZEND_AST_RETURN, $2); }
@@ -551,28 +551,26 @@ declare_statement:
 		statement { $$ = $1; }
 	|	':' inner_statement_list T_ENDDECLARE ';' { $$ = $2; }
 ;
+*/
 
 switch_case_list:
-		'{' case_list '}'					{ $$ = $2; }
-	|	'{' ';' case_list '}'				{ $$ = $3; }
-	|	':' case_list T_ENDSWITCH ';'		{ $$ = $2; }
-	|	':' ';' case_list T_ENDSWITCH ';'	{ $$ = $3; }
+		'{' case_list '}'					{ $$ = ast.NewSwitchCaseListStatement($2, false); }
+	|	'{' ';' case_list '}'				{ $$ = ast.NewSwitchCaseListStatement($3, true); }
+	|	':' case_list T_ENDSWITCH ';'		{ $$ = ast.NewAltSwitchCaseListStatement($2, false); }
+	|	':' ';' case_list T_ENDSWITCH ';'	{ $$ = ast.NewAltSwitchCaseListStatement($3, true); }
 ;
 
 case_list:
-		/* empty *//* { $$ = zend_ast_create_list(0, ZEND_AST_SWITCH_LIST); }
-	|	case_list T_CASE expr case_separator inner_statement_list
-			{ $$ = zend_ast_list_add($1, zend_ast_create(ZEND_AST_SWITCH_CASE, $3, $5)); }
-	|	case_list T_DEFAULT case_separator inner_statement_list
-			{ $$ = zend_ast_list_add($1, zend_ast_create(ZEND_AST_SWITCH_CASE, NULL, $4)); }
+		/* empty */ { $$ = []ast.Statement{}; }
+	|	case_list T_CASE expr ':' inner_statement_list
+			{ $$ = append($1, ast.NewCaseListStatement($2, $3, $5, false)); }
+	|	case_list T_CASE expr ';' inner_statement_list
+			{ $$ = append($1, ast.NewCaseListStatement($2, $3, $5, true)); }
+	|	case_list T_DEFAULT ':' inner_statement_list
+			{ $$ = append($1, ast.NewCaseListStatement($2, nil, $4, false)); }
+	|	case_list T_DEFAULT ';' inner_statement_list
+			{ $$ = append($1, ast.NewCaseListStatement($2, nil, $4, true)); }
 ;
-
-case_separator:
-		':'
-	|	';'
-;
-*/
-
 
 while_statement:
 		statement { $$ = $1; }

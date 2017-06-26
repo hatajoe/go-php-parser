@@ -1151,3 +1151,84 @@ func TestForStatement(t *testing.T) {
 		}
 	}
 }
+
+func TestSwitchStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php switch ($a) {
+}`,
+			`switch ($a) {
+}`,
+		},
+		{
+			`<?php switch ($a) {;
+}`,
+			`switch ($a) {;
+}`,
+		},
+		{
+			`<?php switch ($a) :
+endswitch;`,
+			`switch ($a) :
+endswitch;`,
+		},
+		{
+			`<?php switch ($a) :;
+endswitch;`,
+			`switch ($a) :;
+endswitch;`,
+		},
+		{
+			`<?php switch ($a) {
+case 1:
+    $a = 1;
+    $b = 2;
+case 2;
+    $c = 3;
+    $d = 4;
+}`,
+			`switch ($a) {
+case 1:
+    $a = 1;
+    $b = 2;
+case 2;
+    $c = 3;
+    $d = 4;
+}`,
+		},
+		{
+			`<?php switch ($a) {
+case 1:
+    $a = 1;
+    $b = 2;
+case 2;
+    $c = 3;
+    $d = 4;
+default:
+    $e = 5;
+}`,
+			`switch ($a) {
+case 1:
+    $a = 1;
+    $b = 2;
+case 2;
+    $c = 3;
+    $d = 4;
+default:
+    $e = 5;
+}`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
