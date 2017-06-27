@@ -127,7 +127,7 @@ import (
 %token <tok> T_ENDWHILE
 %token <tok> T_FOR
 %token T_ENDFOR
-%token T_FOREACH
+%token <tok> T_FOREACH
 %token T_ENDFOREACH
 %token T_DECLARE
 %token T_ENDDECLARE
@@ -136,19 +136,19 @@ import (
 %token T_ENDSWITCH
 %token <tok> T_CASE
 %token <tok> T_DEFAULT
-%token T_BREAK
-%token T_CONTINUE
+%token <tok> T_BREAK
+%token <tok> T_CONTINUE
 %token T_GOTO
 %token T_FUNCTION
 %token T_CONST
-%token T_RETURN
+%token <tok> T_RETURN
 %token T_TRY
 %token T_CATCH
 %token T_FINALLY
 %token T_THROW
 %token T_USE
 %token T_INSTEADOF
-%token T_GLOBAL
+%token <tok> T_GLOBAL
 %token <tok> T_STATIC
 %token T_ABSTRACT
 %token T_FINAL
@@ -156,7 +156,7 @@ import (
 %token T_PROTECTED
 %token T_PUBLIC
 %token T_VAR
-%token T_UNSET
+%token <tok> T_UNSET
 %token <tok> T_ISSET
 %token <tok> T_EMPTY
 %token T_HALT_COMPILER
@@ -199,10 +199,10 @@ import (
 %type <ast> group_use_declaration inline_use_declarations inline_use_declaration
 %type <ast> mixed_group_use_declaration use_declaration unprefixed_use_declaration*/
 %type <stmt> /*unprefixed_use_declarations const_decl*/ inner_statement
-%type <expr> expr optional_expr /*foreach_variable*/
-%type <expr> /*foreach_statement declare_statement finally_statement unset_variable*/ variable
-%type <expr> /*extends_from parameter optional_type*/ argument expr_without_variable /*global_var
-%type <ast> static_var class_statement trait_adaptation trait_precedence trait_alias*/
+%type <expr> expr optional_expr foreach_variable
+%type <expr> /*declare_statement finally_statement*/  unset_variable variable
+%type <expr> /*extends_from parameter optional_type*/ argument expr_without_variable global_var
+%type <expr> static_var /*class_statement trait_adaptation trait_precedence trait_alias*/
 %type <expr> /*absolute_trait_method_reference trait_method_reference property*/ echo_expr
 %type <expr> new_expr /*anonymous_class*/ class_name class_name_reference simple_variable
 %type <expr> internal_functions_in_yacc
@@ -211,17 +211,16 @@ import (
 %type <expr> callable_expr callable_variable static_member new_variable
 %type <expr> encaps_var encaps_var_offset 
 %type <stmts> top_statement_list /*use_declarations const_list*/ inner_statement_list case_list
-%type <stmt> for_statement while_statement alt_if_stmt alt_if_stmt_without_else switch_case_list /* global_var_list static_var_list*/
-%type <exprs> for_exprs isset_variables backticks_expr echo_expr_list /*unset_variables catch_name_list catch_list parameter_list class_statement_list*/
+%type <stmt> foreach_statement for_statement while_statement alt_if_stmt alt_if_stmt_without_else switch_case_list 
+%type <exprs> isset_variables backticks_expr echo_expr_list unset_variables /*catch_name_list catch_list parameter_list class_statement_list*/
 %type <stmt> /*implements_list*/ if_stmt if_stmt_without_else
 %type <expr> /*non_empty_parameter_list*/ argument_list /*property_list*/
-%type <exprs> non_empty_argument_list non_empty_for_exprs/*
+%type <exprs> static_var_list global_var_list for_exprs non_empty_argument_list non_empty_for_exprs/*
 %type <ast> class_const_list class_const_decl name_list trait_adaptations method_body */
 %type <expr> ctor_arguments /*trait_adaptation_list lexical_vars*/
 %type <exprs> /*lexical_var_list*/ encaps_list
 %type <exprs> array_pair non_empty_array_pair_list array_pair_list possible_array_pair
-%type <expr> isset_variable /*type return_type type_expr
-*/
+%type <expr> isset_variable /*type return_type type_expr*/
 
 %type <expr> identifier
 
@@ -411,21 +410,20 @@ statement:
 	|	T_FOR '(' for_exprs ';' for_exprs ';' for_exprs ')' for_statement
 			{ $$ = ast.NewForStatement($1, $3, $5, $7, $9); }
 	|	T_SWITCH '(' expr ')' switch_case_list
-			{ $$ = ast.NewSwitchStatement($1, $3, $5); }/*
-	|	T_BREAK optional_expr ';'		{ $$ = zend_ast_create(ZEND_AST_BREAK, $2); }
-	|	T_CONTINUE optional_expr ';'	{ $$ = zend_ast_create(ZEND_AST_CONTINUE, $2); }
-	|	T_RETURN optional_expr ';'		{ $$ = zend_ast_create(ZEND_AST_RETURN, $2); }
-	|	T_GLOBAL global_var_list ';'	{ $$ = $2; }
-	|	T_STATIC static_var_list ';'	{ $$ = $2; }*/
-	|	T_ECHO echo_expr_list ';'		{ $$ = ast.NewEchoStatement($1, $2); }/*
-	|	T_INLINE_HTML { $$ = zend_ast_create(ZEND_AST_ECHO, $1); }*/
-	|	expr ';' { $$ = ast.NewExpressionStatement($1); }/*
-	|	T_UNSET '(' unset_variables ')' ';' { $$ = $3; }
+			{ $$ = ast.NewSwitchStatement($1, $3, $5); }
+	|	T_BREAK optional_expr ';'		{ $$ = ast.NewBreakStatement($1, $2); }
+	|	T_CONTINUE optional_expr ';'	{ $$ = ast.NewContinueStatement($1, $2); }
+	|	T_RETURN optional_expr ';'		{ $$ = ast.NewReturnStatement($1, $2); }
+	|	T_GLOBAL global_var_list ';'	{ $$ = ast.NewGlobalStatement($1, $2); }
+	|	T_STATIC static_var_list ';'	{ $$ = ast.NewStaticStatement($1, $2); }
+	|	T_ECHO echo_expr_list ';'		{ $$ = ast.NewEchoStatement($1, $2); }
+	|	T_INLINE_HTML { $$ = ast.NewInlineHTMLStatement($1); }
+	|	expr ';' { $$ = ast.NewExpressionStatement($1); }
+	|	T_UNSET '(' unset_variables ')' ';' { $$ = ast.NewUnsetStatement($1, $3); }
 	|	T_FOREACH '(' expr T_AS foreach_variable ')' foreach_statement
-			{ $$ = zend_ast_create(ZEND_AST_FOREACH, $3, $5, NULL, $7); }
-	|	T_FOREACH '(' expr T_AS foreach_variable T_DOUBLE_ARROW foreach_variable ')'
-		foreach_statement
-			{ $$ = zend_ast_create(ZEND_AST_FOREACH, $3, $7, $5, $9); }
+			{ $$ = ast.NewForeachStatement($1, $3, nil, $5, $7); }
+	|	T_FOREACH '(' expr T_AS foreach_variable T_DOUBLE_ARROW foreach_variable ')' foreach_statement
+			{ $$ = ast.NewForeachStatement($1, $3, $5, $7, $9); }/*
 	|	T_DECLARE '(' const_list ')'
 			{ zend_handle_encoding_declaration($3); }
 		declare_statement
@@ -455,16 +453,18 @@ finally_statement:
 		/* empty *//* { $$ = NULL; }
 	|	T_FINALLY '{' inner_statement_list '}' { $$ = $3; }
 ;
+*/
 
 unset_variables:
-		unset_variable { $$ = zend_ast_create_list(1, ZEND_AST_STMT_LIST, $1); }
-	|	unset_variables ',' unset_variable { $$ = zend_ast_list_add($1, $3); }
+		unset_variable { $$ = append($$, $1); }
+	|	unset_variables ',' unset_variable { $$ = append($1, $3); }
 ;
 
 unset_variable:
-		variable { $$ = zend_ast_create(ZEND_AST_UNSET, $1); }
+		variable { $$ = $1; }
 ;
 
+/*
 function_declaration_statement:
 	function returns_ref T_STRING backup_doc_comment '(' parameter_list ')' return_type
 	backup_fn_flags '{' inner_statement_list '}' backup_fn_flags
@@ -527,26 +527,26 @@ implements_list:
 		/* empty *//*				{ $$ = NULL; }
 	|	T_IMPLEMENTS name_list	{ $$ = $2; }
 ;
+*/
 
 foreach_variable:
 		variable			{ $$ = $1; }
-	|	'&' variable		{ $$ = zend_ast_create(ZEND_AST_REF, $2); }
-	|	T_LIST '(' array_pair_list ')' { $$ = $3; $$->attr = ZEND_ARRAY_SYNTAX_LIST; }
-	|	'[' array_pair_list ']' { $$ = $2; $$->attr = ZEND_ARRAY_SYNTAX_SHORT; }
+	|	'&' variable		{ $$ = ast.NewAmpersandLiteral($2); }
+	|	T_LIST '(' array_pair_list ')' { $$ = ast.NewListExpression($1, $3...); }
+	|	'[' array_pair_list ']' { $$ = ast.NewArrayExpression(ast.Short, $2...); }
 ;
-*/
 
 for_statement:
-		statement { $$ = $1; }/*
-	|	':' inner_statement_list T_ENDFOR ';' { $$ = $2; }*/
+		statement { $$ = $1; }
+	|	':' inner_statement_list T_ENDFOR ';' { $$ = ast.NewAltForStatement($2); }
+;
+
+foreach_statement:
+		statement { $$ = $1; }
+	|	':' inner_statement_list T_ENDFOREACH ';' { $$ = ast.NewAltForeachStatement($2); }
 ;
 
 /*
-foreach_statement:
-		statement { $$ = $1; }
-	|	':' inner_statement_list T_ENDFOREACH ';' { $$ = $2; }
-;
-
 declare_statement:
 		statement { $$ = $1; }
 	|	':' inner_statement_list T_ENDDECLARE ';' { $$ = $2; }
@@ -672,29 +672,27 @@ argument:
 	|	T_ELLIPSIS expr	{ $$ = ast.NewArgumentExpression($1, $2); }
 ;
 
-/*
 global_var_list:
-		global_var_list ',' global_var { $$ = zend_ast_list_add($1, $3); }
-	|	global_var { $$ = zend_ast_create_list(1, ZEND_AST_STMT_LIST, $1); }
+		global_var_list ',' global_var { $$ = append($1, $3); }
+	|	global_var { $$ = append($$, $1); }
 ;
 
 global_var:
 	simple_variable
-		{ $$ = zend_ast_create(ZEND_AST_GLOBAL, zend_ast_create(ZEND_AST_VAR, $1)); }
+		{ $$ = $1; }
 ;
 
-
 static_var_list:
-		static_var_list ',' static_var { $$ = zend_ast_list_add($1, $3); }
-	|	static_var { $$ = zend_ast_create_list(1, ZEND_AST_STMT_LIST, $1); }
+		static_var_list ',' static_var { $$ = append($1, $3); }
+	|	static_var { $$ = append($$, $1); }
 ;
 
 static_var:
-		T_VARIABLE			{ $$ = zend_ast_create(ZEND_AST_STATIC, $1, NULL); }
-	|	T_VARIABLE '=' expr	{ $$ = zend_ast_create(ZEND_AST_STATIC, $1, $3); }
+		T_VARIABLE			{ $$ = ast.NewVariableLiteral($1, $1.Literal); }
+	|	T_VARIABLE '=' expr	{ $$ = ast.NewAssignExpression(ast.Equal, ast.NewVariableLiteral($1, $1.Literal), $3, false); }
 ;
 
-
+/*
 class_statement_list:
 		class_statement_list class_statement
 			{ $$ = zend_ast_list_add($1, $2); }

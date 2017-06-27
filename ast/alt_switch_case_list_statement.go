@@ -6,14 +6,14 @@ import (
 )
 
 type AltSwitchCaseListStatement struct {
-	Stmts    []Statement
-	HasComma bool
+	Stmts        []Statement
+	HasSemiColon bool
 }
 
-func NewAltSwitchCaseListStatement(stmts []Statement, hasComma bool) *AltSwitchCaseListStatement {
+func NewAltSwitchCaseListStatement(stmts []Statement, hasSemiColon bool) *AltSwitchCaseListStatement {
 	return &AltSwitchCaseListStatement{
-		Stmts:    stmts,
-		HasComma: hasComma,
+		Stmts:        stmts,
+		HasSemiColon: hasSemiColon,
 	}
 }
 
@@ -28,7 +28,7 @@ func (scls *AltSwitchCaseListStatement) String() string {
 	}
 
 	out.WriteString(":")
-	if scls.HasComma {
+	if scls.HasSemiColon {
 		out.WriteString(";")
 	}
 	out.WriteString("\n")

@@ -1140,6 +1140,16 @@ func TestForStatement(t *testing.T) {
     $b = 2;
 }`,
 		},
+		{
+			`<?php for ($i=0; $i<0;) :
+    $a = 1;
+    $b = 2;
+endfor;`,
+			`for ($i = 0; $i < 0;) :
+    $a = 1;
+    $b = 2;
+endfor;`,
+		},
 	}
 
 	for idx, test := range tests {
@@ -1219,6 +1229,272 @@ case 2;
     $d = 4;
 default:
     $e = 5;
+}`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
+
+func TestBreakStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php break;`,
+			`break;`,
+		},
+		{
+			`<?php break Foo;`,
+			`break Foo;`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
+
+func TestContinueStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php continue;`,
+			`continue;`,
+		},
+		{
+			`<?php continue Foo;`,
+			`continue Foo;`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
+
+func TestReturnStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php return;`,
+			`return;`,
+		},
+		{
+			`<?php return Foo;`,
+			`return Foo;`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
+
+func TestGlobalStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php global $a;`,
+			`global $a;`,
+		},
+		{
+			`<?php global $a,$b;`,
+			`global $a, $b;`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
+
+func TestStaticStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php static $a;`,
+			`static $a;`,
+		},
+		{
+			`<?php static $a,$b;`,
+			`static $a, $b;`,
+		},
+		{
+			`<?php static $a = 0;`,
+			`static $a = 0;`,
+		},
+		{
+			`<?php static $a = 0, $b;`,
+			`static $a = 0, $b;`,
+		},
+		{
+			`<?php static $a = 0, $b = 0;`,
+			`static $a = 0, $b = 0;`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
+
+func TestInlineHTMLStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`this is test`,
+			`this is test
+`,
+		},
+		{
+			`<p>this is test</p>`,
+			`<p>this is test</p>
+`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
+
+func TestUnsetStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php unset($a);`,
+			`unset($a);`,
+		},
+		{
+			`<?php unset($a,$b);`,
+			`unset($a, $b);`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
+
+func TestForeachStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php foreach ($a as $b) {
+    $a = 1;
+    $b = 2;
+}`,
+			`foreach ($a as $b) {
+    $a = 1;
+    $b = 2;
+}`,
+		},
+		{
+			`<?php foreach ($a as $b => $c) {
+    $a = 1;
+    $b = 2;
+}`,
+			`foreach ($a as $b => $c) {
+    $a = 1;
+    $b = 2;
+}`,
+		},
+		{
+			`<?php foreach ($a as $b => $c) :
+    $a = 1;
+    $b = 2;
+endforeach;`,
+			`foreach ($a as $b => $c) :
+    $a = 1;
+    $b = 2;
+endforeach;`,
+		},
+		{
+			`<?php foreach ($a as &$b => &$c) {
+    $a = 1;
+    $b = 2;
+}`,
+			`foreach ($a as &$b => &$c) {
+    $a = 1;
+    $b = 2;
+}`,
+		},
+		{
+			`<?php foreach ($a as list($b, $c, $d)) {
+    $a = 1;
+    $b = 2;
+}`,
+			`foreach ($a as list($b, $c, $d)) {
+    $a = 1;
+    $b = 2;
+}`,
+		},
+		{
+			`<?php foreach ($a as [$b, $c, $d]) {
+    $a = 1;
+    $b = 2;
+}`,
+			`foreach ($a as [$b, $c, $d]) {
+    $a = 1;
+    $b = 2;
 }`,
 		},
 	}

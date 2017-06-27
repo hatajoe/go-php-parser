@@ -21,5 +21,5 @@ func NewEvalExpression(tok *token.Token, arg Expression) *EvalExpression {
 func (ee *EvalExpression) expressionNode()      {}
 func (ee *EvalExpression) TokenLiteral() string { return ee.Token.Literal }
 func (ee *EvalExpression) String() string {
-	return fmt.Sprintf("eval(%s)", ee.Arg.String())
+	return fmt.Sprintf("%s(%s)", ee.TokenLiteral(), ee.Arg.String())
 }
