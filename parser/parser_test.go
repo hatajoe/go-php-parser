@@ -1508,3 +1508,244 @@ endforeach;`,
 		}
 	}
 }
+
+func TestDeclareStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php declare(ticks=1);`,
+			`declare (ticks = 1);`,
+		},
+		{
+			`<?php declare(encoding='ISO-8859-1');`,
+			`declare (encoding = 'ISO-8859-1');`,
+		},
+		{
+			`<?php declare(ticks=1, encoding='ISO-8859-1');`,
+			`declare (ticks = 1, encoding = 'ISO-8859-1');`,
+		},
+		{
+			`<?php declare(ticks=1) {
+    $a = 1;
+    $b = 2;
+}`,
+			`declare (ticks = 1) {
+    $a = 1;
+    $b = 2;
+}`,
+		},
+		{
+			`<?php declare(encoding='ISO-8859-1') {
+    $a = 1;
+    $b = 2;
+}`,
+			`declare (encoding = 'ISO-8859-1') {
+    $a = 1;
+    $b = 2;
+}`,
+		},
+		{
+			`<?php declare(ticks=1, encoding='ISO-8859-1') {
+    $a = 1;
+    $b = 2;
+}`,
+			`declare (ticks = 1, encoding = 'ISO-8859-1') {
+    $a = 1;
+    $b = 2;
+}`,
+		},
+		{
+			`<?php declare (ticks=1) :
+    $a = 1;
+    $b = 2;
+enddeclare;`,
+			`declare (ticks = 1) :
+    $a = 1;
+    $b = 2;
+enddeclare;`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
+
+func TestTryStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php try {
+    $a = 1;
+    $b = 2;
+}`,
+			`try {
+    $a = 1;
+    $b = 2;
+}`,
+		},
+		{
+			`<?php try {
+    $a = 1;
+    $b = 2;
+} catch (Exception $e) {
+    $c = 3;
+    $d = 4;
+}`,
+			`try {
+    $a = 1;
+    $b = 2;
+} catch (Exception $e) {
+    $c = 3;
+    $d = 4;
+}`,
+		},
+		{
+			`<?php try {
+    $a = 1;
+    $b = 2;
+} catch (Foo $e) {
+    $c = 3;
+    $d = 4;
+} catch (Bar $e) {
+    $e = 5;
+    $f = 6;
+}`,
+			`try {
+    $a = 1;
+    $b = 2;
+} catch (Foo $e) {
+    $c = 3;
+    $d = 4;
+} catch (Bar $e) {
+    $e = 5;
+    $f = 6;
+}`,
+		},
+		{
+			`<?php try {
+    $a = 1;
+    $b = 2;
+} catch (Foo|Bar $e) {
+    $c = 3;
+    $d = 4;
+}`,
+			`try {
+    $a = 1;
+    $b = 2;
+} catch (Foo|Bar $e) {
+    $c = 3;
+    $d = 4;
+}`,
+		},
+		{
+			`<?php try {
+    $a = 1;
+    $b = 2;
+} catch (Foo $e) {
+    $c = 3;
+    $d = 4;
+} catch (Bar $e) {
+    $e = 5;
+    $f = 6;
+} finally {
+    $g = 7;
+    $h = 8;
+}`,
+			`try {
+    $a = 1;
+    $b = 2;
+} catch (Foo $e) {
+    $c = 3;
+    $d = 4;
+} catch (Bar $e) {
+    $e = 5;
+    $f = 6;
+} finally {
+    $g = 7;
+    $h = 8;
+}`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
+
+func TestThrowStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php throw new Exception("foo bar");`,
+			`throw new Exception("foo bar");`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
+
+func TestGotoStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php goto Foo;`,
+			`goto Foo;`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
+
+func TestLabelStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php Foo:`,
+			`Foo:`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
