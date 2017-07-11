@@ -6,7 +6,7 @@ import (
 	"github.com/hatajoe/go-php-parser/lexer"
 )
 
-func TestSimpleEcho(t *testing.T) {
+func TestEchoStatement(t *testing.T) {
 	tests := []struct {
 		input    string
 		expected string
@@ -824,6 +824,108 @@ EOL;`,
 		{
 			`<?php echo yield from $foo;`,
 			`echo yield from $foo;`,
+		},
+		{
+			`<?php echo function () {
+    $a = 1;
+    $b = 2;
+};`,
+			`echo function () {
+    $a = 1;
+    $b = 2;
+};`,
+		},
+		{
+			`<?php echo function ($a) {
+    $b = 1;
+    $c = 2;
+};`,
+			`echo function ($a) {
+    $b = 1;
+    $c = 2;
+};`,
+		},
+		{
+			`<?php echo function ($a, $b) {
+    $c = 1;
+    $d = 2;
+};`,
+			`echo function ($a, $b) {
+    $c = 1;
+    $d = 2;
+};`,
+		},
+		{
+			`<?php echo function (array $a, $b) {
+    $c = 1;
+    $d = 2;
+};`,
+			`echo function (array $a, $b) {
+    $c = 1;
+    $d = 2;
+};`,
+		},
+		{
+			`<?php echo function (array $a, callable $b) {
+    $c = 1;
+    $d = 2;
+};`,
+			`echo function (array $a, callable $b) {
+    $c = 1;
+    $d = 2;
+};`,
+		},
+		{
+			`<?php echo function (\Foo\Bar $a, Foo $b) {
+    $c = 1;
+    $d = 2;
+};`,
+			`echo function (\Foo\Bar $a, Foo $b) {
+    $c = 1;
+    $d = 2;
+};`,
+		},
+		{
+			`<?php echo function (?\Foo\Bar $a, ?Foo $b) {
+    $c = 1;
+    $d = 2;
+};`,
+			`echo function (?\Foo\Bar $a, ?Foo $b) {
+    $c = 1;
+    $d = 2;
+};`,
+		},
+		{
+			`<?php echo function (?\Foo\Bar &$a, int $b = 0) {
+    $c = 1;
+    $d = 2;
+};`,
+			`echo function (?\Foo\Bar &$a, int $b = 0) {
+    $c = 1;
+    $d = 2;
+};`,
+		},
+		{
+			`<?php echo function (?\Foo\Bar &$a, int ...$b) {
+    $c = 1;
+    $d = 2;
+};`,
+			`echo function (?\Foo\Bar &$a, int ...$b) {
+    $c = 1;
+    $d = 2;
+};`,
+		},
+		{
+			`<?php echo function (?\Foo\Bar &$a, int ...$b): int {
+    $c = 1;
+    $d = 2;
+    return 3;
+};`,
+			`echo function (?\Foo\Bar &$a, int ...$b): int {
+    $c = 1;
+    $d = 2;
+    return 3;
+};`,
 		},
 	}
 
