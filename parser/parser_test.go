@@ -937,6 +937,42 @@ EOL;`,
     return $a;
 };`,
 		},
+		{
+			`<?php echo function () use ($d) {
+    $c = 1;
+    $d = 2;
+    return 3;
+};`,
+			`echo function () use ($d) {
+    $c = 1;
+    $d = 2;
+    return 3;
+};`,
+		},
+		{
+			`<?php echo function () use ($d, $e, $f) {
+    $c = 1;
+    $d = 2;
+    return 3;
+};`,
+			`echo function () use ($d, $e, $f) {
+    $c = 1;
+    $d = 2;
+    return 3;
+};`,
+		},
+		{
+			`<?php echo function () use ($d, &$e, $f) {
+    $c = 1;
+    $d = 2;
+    return 3;
+};`,
+			`echo function () use ($d, &$e, $f) {
+    $c = 1;
+    $d = 2;
+    return 3;
+};`,
+		},
 	}
 
 	for idx, test := range tests {

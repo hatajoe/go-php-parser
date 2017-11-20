@@ -147,7 +147,7 @@ import (
 %token <tok> T_CATCH
 %token <tok> T_FINALLY
 %token <tok> T_THROW
-%token T_USE
+%token <tok> T_USE
 %token T_INSTEADOF
 %token <tok> T_GLOBAL
 %token <tok> T_STATIC
@@ -207,7 +207,7 @@ import (
 %type <expr> /*absolute_trait_method_reference trait_method_reference property*/ echo_expr
 %type <expr> new_expr /*anonymous_class*/ class_name class_name_reference simple_variable
 %type <expr> internal_functions_in_yacc
-%type <expr> exit_expr scalar /*lexical_var*/ function_call member_name property_name
+%type <expr> exit_expr scalar lexical_var function_call member_name property_name
 %type <expr> variable_class_name dereferencable_scalar constant dereferencable
 %type <expr> callable_expr callable_variable static_member new_variable
 %type <expr> encaps_var encaps_var_offset 
@@ -219,7 +219,7 @@ import (
 %type <exprs> const_list static_var_list global_var_list for_exprs non_empty_parameter_list non_empty_argument_list non_empty_for_exprs/*
 %type <ast> class_const_list class_const_decl name_list trait_adaptations method_body */
 %type <expr> ctor_arguments /*trait_adaptation_list*/ lexical_vars
-%type <exprs> /*lexical_var_list*/ encaps_list
+%type <exprs> lexical_var_list encaps_list
 %type <exprs> array_pair non_empty_array_pair_list array_pair_list possible_array_pair
 %type <expr> isset_variable type return_type type_expr
 
@@ -989,21 +989,19 @@ returns_ref:
 ;
 
 lexical_vars:
-		/* empty */ { $$ = nil; }/*
-	|	T_USE '(' lexical_var_list ')' { $$ = $3; }*/
+		/* empty */ { $$ = nil; }
+	|	T_USE '(' lexical_var_list ')' { $$ = ast.NewLexicalVariableListExpression($1, $3...); }
 ;
 
-/*
 lexical_var_list:
-		lexical_var_list ',' lexical_var { $$ = zend_ast_list_add($1, $3); }
-	|	lexical_var { $$ = zend_ast_create_list(1, ZEND_AST_CLOSURE_USES, $1); }
+		lexical_var_list ',' lexical_var { $$ = append($1, $3); }
+	|	lexical_var { $$ = append($$, $1); }
 ;
 
 lexical_var:
-		T_VARIABLE		{ $$ = $1; }
-	|	'&' T_VARIABLE	{ $$ = $2; $$->attr = 1; }
+		T_VARIABLE		{ $$ = ast.NewVariableLiteral($1, $1.Literal); }
+	|	'&' T_VARIABLE	{ $$ = ast.NewAmpersandLiteral(ast.NewVariableLiteral($2, $2.Literal)) }
 ;
-*/
 
 function_call:
 		name argument_list
