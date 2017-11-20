@@ -193,7 +193,7 @@ import (
 %token T_ERROR
 
 %type <program> start
-%type <stmt> top_statement statement /*function_declaration_statement*/
+%type <stmt> top_statement statement function_declaration_statement
 %type <expr> namespace_name name/*
 %type <ast> class_declaration_statement trait_declaration_statement
 %type <ast> interface_declaration_statement interface_extends_list
@@ -288,8 +288,8 @@ name:
 ;
 
 top_statement:
-		statement							{ $$ = $1; }/*
-	|	function_declaration_statement		{ $$ = $1; }
+		statement							{ $$ = $1; }
+	|	function_declaration_statement		{ $$ = $1; }/*
 	|	class_declaration_statement			{ $$ = $1; }
 	|	trait_declaration_statement			{ $$ = $1; }
 	|	interface_declaration_statement		{ $$ = $1; }
@@ -461,14 +461,11 @@ unset_variable:
 		variable { $$ = $1; }
 ;
 
-/*
 function_declaration_statement:
 	function returns_ref T_STRING backup_doc_comment '(' parameter_list ')' return_type
 	backup_fn_flags '{' inner_statement_list '}' backup_fn_flags
-		{ $$ = zend_ast_create_decl(ZEND_AST_FUNC_DECL, $2 | $13, $1, $4,
-		      zend_ast_get_str($3), $6, NULL, $11, $8); CG(extra_fn_flags) = $9; }
+		{ $$ = ast.NewFunctionStatement($1, $2, $3, $6, $8, $11); }
 ;
-*/
 
 is_reference:
 		/* empty */	{ $$ = 0; }

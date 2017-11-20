@@ -1897,3 +1897,28 @@ func TestLabelStatement(t *testing.T) {
 		}
 	}
 }
+
+func TestFunctionStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php function one($a): int {
+    return 1;
+}`,
+			`function one($a): int {
+    return 1;
+}`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
