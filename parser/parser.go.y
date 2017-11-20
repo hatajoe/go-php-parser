@@ -984,8 +984,8 @@ backup_fn_flags:
 ;
 
 returns_ref:
-		/* empty */	{ $$ = 0; }/*
-	|	'&'			{ $$ = ZEND_ACC_RETURN_REFERENCE; }*/
+		/* empty */	{ $$ = 0; }
+	|	'&'			{ $$ = 1; }
 ;
 
 lexical_vars:

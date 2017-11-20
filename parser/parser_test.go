@@ -927,6 +927,16 @@ EOL;`,
     return 3;
 };`,
 		},
+		{
+			`<?php echo function & () {
+    $a = new stdClass();
+    return $a;
+};`,
+			`echo function &() {
+    $a = new stdClass();
+    return $a;
+};`,
+		},
 	}
 
 	for idx, test := range tests {
