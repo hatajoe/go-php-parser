@@ -156,7 +156,7 @@ import (
 %token T_PRIVATE
 %token T_PROTECTED
 %token <tok> T_PUBLIC
-%token T_VAR
+%token <tok> T_VAR
 %token <tok> T_UNSET
 %token <tok> T_ISSET
 %token <tok> T_EMPTY
@@ -762,8 +762,8 @@ method_body:
 */
 
 variable_modifiers:
-		non_empty_member_modifiers		{ $$ = $1; }/*
-	|	T_VAR							{ $$ = ZEND_ACC_PUBLIC; }*/
+		non_empty_member_modifiers		{ $$ = $1; }
+	|	T_VAR							{ $$ = []ast.Expression{ast.NewVarLiteral($1, $1.Literal)}; }
 ;
 
 /*

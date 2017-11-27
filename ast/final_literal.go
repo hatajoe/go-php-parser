@@ -16,6 +16,6 @@ func NewFinalLiteral(tok *token.Token, value string) *FinalLiteral {
 	}
 }
 
-func (a *FinalLiteral) expressionNode()      {}
-func (a *FinalLiteral) TokenLiteral() string { return a.Token.Literal }
-func (a *FinalLiteral) String() string       { return a.Value }
+func (f *FinalLiteral) expressionNode()      {}
+func (f *FinalLiteral) TokenLiteral() string { return f.Token.Literal }
+func (f *FinalLiteral) String() string       { return f.Value }

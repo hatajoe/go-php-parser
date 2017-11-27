@@ -2029,6 +2029,17 @@ func TestClassDeclarationStatement(t *testing.T) {
 }
 `,
 		},
+		{
+			`<?php abstract class Foo extends Bar
+{
+    var $bar, $baz;
+}`,
+			`abstract class Foo extends Bar
+{
+    var $bar, $baz;
+}
+`,
+		},
 	}
 
 	for idx, test := range tests {
