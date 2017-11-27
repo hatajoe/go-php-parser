@@ -152,7 +152,7 @@ import (
 %token <tok> T_GLOBAL
 %token <tok> T_STATIC
 %token <tok> T_ABSTRACT
-%token T_FINAL
+%token <tok> T_FINAL
 %token T_PRIVATE
 %token T_PROTECTED
 %token <tok> T_PUBLIC
@@ -487,13 +487,13 @@ class_declaration_statement:
 ;
 
 class_modifiers:
-		class_modifier 					{ $$ = append($$, $1); }/*
-	|	class_modifiers class_modifier 	{ $$ = zend_add_class_modifier($1, $2); }*/
+		class_modifier 					{ $$ = append($$, $1); }
+	|	class_modifiers class_modifier 	{ $$ = append($$, $2); }
 ;
 
 class_modifier:
-		T_ABSTRACT 		{ $$ = ast.NewAbstractLiteral($1, $1.Literal); }/*
-	|	T_FINAL 		{ $$ = ZEND_ACC_FINAL; }*/
+		T_ABSTRACT 		{ $$ = ast.NewAbstractLiteral($1, $1.Literal); }
+	|	T_FINAL 		{ $$ = ast.NewFinalLiteral($1, $1.Literal); }
 ;
 
 /*

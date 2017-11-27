@@ -1974,6 +1974,28 @@ func TestClassDeclarationStatement(t *testing.T) {
 }
 `,
 		},
+		{
+			`<?php final class Foo
+{
+    public $bar, $baz;
+}`,
+			`final class Foo
+{
+    public $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php abstract final class Foo
+{
+    public $bar, $baz;
+}`,
+			`abstract final class Foo
+{
+    public $bar, $baz;
+}
+`,
+		},
 	}
 
 	for idx, test := range tests {
