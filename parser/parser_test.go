@@ -2106,6 +2106,17 @@ func TestClassDeclarationStatement(t *testing.T) {
 }
 `,
 		},
+		{
+			`<?php abstract class Foo
+{
+    public $bar = 1;
+}`,
+			`abstract class Foo
+{
+    public $bar = 1;
+}
+`,
+		},
 	}
 
 	for idx, test := range tests {

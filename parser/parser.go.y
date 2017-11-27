@@ -796,9 +796,9 @@ property_list:
 
 property:
 		T_VARIABLE backup_doc_comment
-			{ $$ = ast.NewVariableLiteral($1, $1.Literal); }/*
+			{ $$ = ast.NewVariableLiteral($1, $1.Literal); }
 	|	T_VARIABLE '=' expr backup_doc_comment
-			{ $$ = zend_ast_create(ZEND_AST_PROP_ELEM, $1, $3, ($4 ? zend_ast_create_zval_from_str($4) : NULL)); }*/
+			{ $$ = ast.NewAssignExpression(ast.Equal, ast.NewVariableLiteral($1, $1.Literal), $3, false); }
 ;
 
 /*
