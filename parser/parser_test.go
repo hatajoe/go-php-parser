@@ -2030,6 +2030,17 @@ func TestClassDeclarationStatement(t *testing.T) {
 `,
 		},
 		{
+			`<?php abstract class Foo
+{
+    public static $bar, $baz;
+}`,
+			`abstract class Foo
+{
+    public static $bar, $baz;
+}
+`,
+		},
+		{
 			`<?php final class Foo
 {
     public $bar, $baz;

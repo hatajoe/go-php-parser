@@ -775,9 +775,9 @@ method_modifiers:
 */
 
 non_empty_member_modifiers:
-		member_modifier			{ $$ = []ast.Expression{$1}; }/*
+		member_modifier			{ $$ = []ast.Expression{$1}; }
 	|	non_empty_member_modifiers member_modifier
-			{ $$ = zend_add_member_modifier($1, $2); }*/
+			{ $$ = append($1, $2); }
 ;
 
 member_modifier:
