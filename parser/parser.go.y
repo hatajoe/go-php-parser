@@ -705,8 +705,8 @@ class_statement:
 ;
 
 name_list:
-		name { $$ = append($$, $1); }/*
-	|	name_list ',' name { $$ = zend_ast_list_add($1, $3); }*/
+		name { $$ = append($$, $1); }
+	|	name_list ',' name { $$ = append($1, $3); }
 ;
 
 /*
