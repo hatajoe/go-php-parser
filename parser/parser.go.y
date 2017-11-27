@@ -151,17 +151,17 @@ import (
 %token T_INSTEADOF
 %token <tok> T_GLOBAL
 %token <tok> T_STATIC
-%token T_ABSTRACT
+%token <tok> T_ABSTRACT
 %token T_FINAL
 %token T_PRIVATE
 %token T_PROTECTED
-%token T_PUBLIC
+%token <tok> T_PUBLIC
 %token T_VAR
 %token <tok> T_UNSET
 %token <tok> T_ISSET
 %token <tok> T_EMPTY
 %token T_HALT_COMPILER
-%token T_CLASS
+%token <tok> T_CLASS
 %token T_TRAIT
 %token T_INTERFACE
 %token T_EXTENDS
@@ -194,41 +194,41 @@ import (
 
 %type <program> start
 %type <stmt> top_statement statement function_declaration_statement
-%type <expr> namespace_name name/*
-%type <ast> class_declaration_statement trait_declaration_statement
+%type <expr> namespace_name name
+%type <stmt> class_declaration_statement /*trait_declaration_statement
 %type <ast> interface_declaration_statement interface_extends_list
 %type <ast> group_use_declaration inline_use_declarations inline_use_declaration
 %type <ast> mixed_group_use_declaration use_declaration unprefixed_use_declaration*/
 %type <stmt> /*unprefixed_use_declarations */ inner_statement declare_statement finally_statement 
 %type <expr> const_decl expr optional_expr foreach_variable
 %type <expr> unset_variable variable
-%type <expr> /*extends_from*/ parameter optional_type argument expr_without_variable global_var
-%type <expr> static_var /*class_statement trait_adaptation trait_precedence trait_alias*/
-%type <expr> /*absolute_trait_method_reference trait_method_reference property*/ echo_expr
+%type <expr> extends_from parameter optional_type argument expr_without_variable global_var
+%type <expr> static_var /*trait_adaptation trait_precedence trait_alias*/
+%type <expr> /*absolute_trait_method_reference trait_method_reference */property echo_expr
 %type <expr> new_expr /*anonymous_class*/ class_name class_name_reference simple_variable
 %type <expr> internal_functions_in_yacc
 %type <expr> exit_expr scalar lexical_var function_call member_name property_name
 %type <expr> variable_class_name dereferencable_scalar constant dereferencable
 %type <expr> callable_expr callable_variable static_member new_variable
 %type <expr> encaps_var encaps_var_offset 
-%type <stmts> top_statement_list /*use_declarations */ inner_statement_list case_list catch_list 
-%type <stmt> foreach_statement for_statement while_statement alt_if_stmt alt_if_stmt_without_else switch_case_list 
-%type <exprs> isset_variables backticks_expr echo_expr_list unset_variables catch_name_list parameter_list /*class_statement_list*/
-%type <stmt> /*implements_list*/ if_stmt if_stmt_without_else
-%type <expr> argument_list /*property_list*/
+%type <stmts> top_statement_list /*use_declarations */ inner_statement_list case_list catch_list class_statement_list
+%type <stmt> foreach_statement for_statement while_statement alt_if_stmt alt_if_stmt_without_else switch_case_list class_statement 
+%type <exprs> isset_variables backticks_expr echo_expr_list unset_variables catch_name_list parameter_list implements_list property_list
+%type <stmt> if_stmt if_stmt_without_else
+%type <expr> argument_list 
 %type <exprs> const_list static_var_list global_var_list for_exprs non_empty_parameter_list non_empty_argument_list non_empty_for_exprs/*
 %type <ast> class_const_list class_const_decl name_list trait_adaptations method_body */
 %type <expr> ctor_arguments /*trait_adaptation_list*/ lexical_vars
 %type <exprs> lexical_var_list encaps_list
-%type <exprs> array_pair non_empty_array_pair_list array_pair_list possible_array_pair
-%type <expr> isset_variable type return_type type_expr
+%type <exprs> array_pair non_empty_array_pair_list array_pair_list possible_array_pair variable_modifiers non_empty_member_modifiers class_modifiers  
+%type <expr> isset_variable type return_type type_expr member_modifier class_modifier 
 
 %type <expr> identifier
 
 %type <tok> function
-%type <num> returns_ref is_reference is_variadic /*variable_modifiers
-%type <num> method_modifiers non_empty_member_modifiers member_modifier
-%type <num> class_modifiers class_modifier use_type 
+%type <num> returns_ref is_reference is_variadic /*
+%type <num> method_modifiers 
+%type <num> use_type 
 */
 
 %type <expr> backup_doc_comment backup_fn_flags
@@ -289,8 +289,8 @@ name:
 
 top_statement:
 		statement							{ $$ = $1; }
-	|	function_declaration_statement		{ $$ = $1; }/*
-	|	class_declaration_statement			{ $$ = $1; }
+	|	function_declaration_statement		{ $$ = $1; }
+	|	class_declaration_statement			{ $$ = $1; }/*
 	|	trait_declaration_statement			{ $$ = $1; }
 	|	interface_declaration_statement		{ $$ = $1; }
 	|	T_HALT_COMPILER '(' ')' ';'
@@ -390,9 +390,10 @@ inner_statement_list:
 ;
 
 inner_statement:
-		statement { $$ = $1; }/*
-	|	function_declaration_statement 		{ $$ = $1; }
+		statement { $$ = $1; }
+	|	function_declaration_statement 		{ $$ = $1; }/*
 	|	class_declaration_statement 		{ $$ = $1; }
+
 	|	trait_declaration_statement			{ $$ = $1; }
 	|	interface_declaration_statement		{ $$ = $1; }
 	|	T_HALT_COMPILER '(' ')' ';'
@@ -477,26 +478,25 @@ is_variadic:
 	|	T_ELLIPSIS  { $$ = 1; }
 ;
 
-/*
 class_declaration_statement:
-		class_modifiers T_CLASS { $<num>$ = CG(zend_lineno); }
-		T_STRING extends_from implements_list backup_doc_comment '{' class_statement_list '}'
-			{ $$ = zend_ast_create_decl(ZEND_AST_CLASS, $1, $<num>3, $7, zend_ast_get_str($4), $5, $6, $9, NULL); }
+		class_modifiers T_CLASS T_STRING extends_from implements_list backup_doc_comment '{' class_statement_list '}'
+			{ $$ = ast.NewClassDeclarationStatement($1, $2, $3, $4, $5, $8); }/*
 	|	T_CLASS { $<num>$ = CG(zend_lineno); }
 		T_STRING extends_from implements_list backup_doc_comment '{' class_statement_list '}'
-			{ $$ = zend_ast_create_decl(ZEND_AST_CLASS, 0, $<num>2, $6, zend_ast_get_str($3), $4, $5, $8, NULL); }
+			{ $$ = zend_ast_create_decl(ZEND_AST_CLASS, 0, $<num>2, $6, zend_ast_get_str($3), $4, $5, $8, NULL); }*/
 ;
 
 class_modifiers:
-		class_modifier 					{ $$ = $1; }
-	|	class_modifiers class_modifier 	{ $$ = zend_add_class_modifier($1, $2); }
+		class_modifier 					{ $$ = append($$, $1); }/*
+	|	class_modifiers class_modifier 	{ $$ = zend_add_class_modifier($1, $2); }*/
 ;
 
 class_modifier:
-		T_ABSTRACT 		{ $$ = ZEND_ACC_EXPLICIT_ABSTRACT_CLASS; }
-	|	T_FINAL 		{ $$ = ZEND_ACC_FINAL; }
+		T_ABSTRACT 		{ $$ = ast.NewAbstractLiteral($1, $1.Literal); }/*
+	|	T_FINAL 		{ $$ = ZEND_ACC_FINAL; }*/
 ;
 
+/*
 trait_declaration_statement:
 		T_TRAIT { $<num>$ = CG(zend_lineno); }
 		T_STRING backup_doc_comment '{' class_statement_list '}'
@@ -508,22 +508,24 @@ interface_declaration_statement:
 		T_STRING interface_extends_list backup_doc_comment '{' class_statement_list '}'
 			{ $$ = zend_ast_create_decl(ZEND_AST_CLASS, ZEND_ACC_INTERFACE, $<num>2, $5, zend_ast_get_str($3), NULL, $4, $7, NULL); }
 ;
+*/
 
 extends_from:
-		/* empty *//*		{ $$ = NULL; }
-	|	T_EXTENDS name	{ $$ = $2; }
+		/* empty */		{ $$ = nil; }/*
+	|	T_EXTENDS name	{ $$ = $2; }*/
 ;
 
+/*
 interface_extends_list:
 		/* empty *//*			{ $$ = NULL; }
 	|	T_EXTENDS name_list	{ $$ = $2; }
 ;
+*/
 
 implements_list:
-		/* empty *//*				{ $$ = NULL; }
-	|	T_IMPLEMENTS name_list	{ $$ = $2; }
+		/* empty */				{ $$ = []ast.Expression{}; }/*
+	|	T_IMPLEMENTS name_list	{ $$ = $2; }*/
 ;
-*/
 
 foreach_variable:
 		variable			{ $$ = $1; }
@@ -682,18 +684,16 @@ static_var:
 	|	T_VARIABLE '=' expr	{ $$ = ast.NewAssignExpression(ast.Equal, ast.NewVariableLiteral($1, $1.Literal), $3, false); }
 ;
 
-/*
 class_statement_list:
 		class_statement_list class_statement
-			{ $$ = zend_ast_list_add($1, $2); }
-	|	/* empty *//*
-			{ $$ = zend_ast_create_list(0, ZEND_AST_STMT_LIST); }
+			{ $$ = append($$, $2); }
+	|	/* empty */
+			{ $$ = []ast.Statement{} }
 ;
-
 
 class_statement:
 		variable_modifiers property_list ';'
-			{ $$ = $2; $$->attr = $1; }
+			{ $$ = ast.NewClassStatement($1, $2); }/*
 	|	method_modifiers T_CONST class_const_list ';'
 			{ $$ = $3; $$->attr = $1; }
 	|	T_USE name_list trait_adaptations
@@ -701,9 +701,10 @@ class_statement:
 	|	method_modifiers function returns_ref identifier backup_doc_comment '(' parameter_list ')'
 		return_type backup_fn_flags method_body backup_fn_flags
 			{ $$ = zend_ast_create_decl(ZEND_AST_METHOD, $3 | $1 | $12, $2, $5,
-				  zend_ast_get_str($4), $7, NULL, $11, $9); CG(extra_fn_flags) = $10; }
+				  zend_ast_get_str($4), $7, NULL, $11, $9); CG(extra_fn_flags) = $10; }*/
 ;
 
+/*
 name_list:
 		name { $$ = zend_ast_create_list(1, ZEND_AST_NAME_LIST, $1); }
 	|	name_list ',' name { $$ = zend_ast_list_add($1, $3); }
@@ -758,45 +759,50 @@ method_body:
 		';' /* abstract method *//*		{ $$ = NULL; }
 	|	'{' inner_statement_list '}'	{ $$ = $2; }
 ;
+*/
 
 variable_modifiers:
-		non_empty_member_modifiers		{ $$ = $1; }
-	|	T_VAR							{ $$ = ZEND_ACC_PUBLIC; }
+		non_empty_member_modifiers		{ $$ = $1; }/*
+	|	T_VAR							{ $$ = ZEND_ACC_PUBLIC; }*/
 ;
 
+/*
 method_modifiers:
 		/* empty *//*						{ $$ = ZEND_ACC_PUBLIC; }
 	|	non_empty_member_modifiers
 			{ $$ = $1; if (!($$ & ZEND_ACC_PPP_MASK)) { $$ |= ZEND_ACC_PUBLIC; } }
 ;
+*/
 
 non_empty_member_modifiers:
-		member_modifier			{ $$ = $1; }
+		member_modifier			{ $$ = []ast.Expression{$1}; }/*
 	|	non_empty_member_modifiers member_modifier
-			{ $$ = zend_add_member_modifier($1, $2); }
+			{ $$ = zend_add_member_modifier($1, $2); }*/
 ;
 
 member_modifier:
-		T_PUBLIC				{ $$ = ZEND_ACC_PUBLIC; }
+		T_PUBLIC				{ $$ = ast.NewPublicLiteral($1, $1.Literal); }/*
 	|	T_PROTECTED				{ $$ = ZEND_ACC_PROTECTED; }
 	|	T_PRIVATE				{ $$ = ZEND_ACC_PRIVATE; }
 	|	T_STATIC				{ $$ = ZEND_ACC_STATIC; }
 	|	T_ABSTRACT				{ $$ = ZEND_ACC_ABSTRACT; }
-	|	T_FINAL					{ $$ = ZEND_ACC_FINAL; }
+	|	T_FINAL					{ $$ = ZEND_ACC_FINAL; }*/
 ;
 
+
 property_list:
-		property_list ',' property { $$ = zend_ast_list_add($1, $3); }
-	|	property { $$ = zend_ast_create_list(1, ZEND_AST_PROP_DECL, $1); }
+		property_list ',' property { $$ = append($1, $3); }
+	|	property { $$ = append($$, $1); }
 ;
 
 property:
 		T_VARIABLE backup_doc_comment
-			{ $$ = zend_ast_create(ZEND_AST_PROP_ELEM, $1, NULL, ($2 ? zend_ast_create_zval_from_str($2) : NULL)); }
+			{ $$ = ast.NewVariableLiteral($1, $1.Literal); }/*
 	|	T_VARIABLE '=' expr backup_doc_comment
-			{ $$ = zend_ast_create(ZEND_AST_PROP_ELEM, $1, $3, ($4 ? zend_ast_create_zval_from_str($4) : NULL)); }
+			{ $$ = zend_ast_create(ZEND_AST_PROP_ELEM, $1, $3, ($4 ? zend_ast_create_zval_from_str($4) : NULL)); }*/
 ;
 
+/*
 class_const_list:
 		class_const_list ',' class_const_decl { $$ = zend_ast_list_add($1, $3); }
 	|	class_const_decl { $$ = zend_ast_create_list(1, ZEND_AST_CLASS_CONST_DECL, $1); }
@@ -960,12 +966,10 @@ expr_without_variable:
 	|	T_YIELD_FROM expr { $$ = ast.NewYieldExpression($1, $2); }
 	|	function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type
 		backup_fn_flags '{' inner_statement_list '}' backup_fn_flags
-			{ $$ = ast.NewFunctionExpression($1, $2, $5, $7, $8, $11); }/*
+			{ $$ = ast.NewFunctionExpression($1, $2, $5, $7, $8, $11, false); }
 	|	T_STATIC function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars
 		return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags
-			{ $$ = zend_ast_create_decl(ZEND_AST_CLOSURE, $3 | $14 | ZEND_ACC_STATIC, $2, $4,
-			      zend_string_init("{closure}", sizeof("{closure}") - 1, 0),
-			      $6, $8, $12, $9); CG(extra_fn_flags) = $10; }*/
+			{ $$ = ast.NewFunctionExpression($2, $3, $6, $8, $9, $12, true); }
 ;
 
 function:

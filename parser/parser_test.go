@@ -973,6 +973,18 @@ EOL;`,
     return 3;
 };`,
 		},
+		{
+			`<?php echo static function () use ($d, &$e, $f) {
+    $c = 1;
+    $d = 2;
+    return 3;
+};`,
+			`echo static function () use ($d, &$e, $f) {
+    $c = 1;
+    $d = 2;
+    return 3;
+};`,
+		},
 	}
 
 	for idx, test := range tests {
@@ -1910,6 +1922,57 @@ func TestFunctionStatement(t *testing.T) {
 			`function one($a): int {
     return 1;
 }`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
+
+func TestClassDeclarationStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php abstract class Foo
+{
+}`,
+			`abstract class Foo
+{
+
+}
+`,
+		},
+		{
+			`<?php abstract class Foo
+{
+    public $bar;
+    public $baz;
+}`,
+			`abstract class Foo
+{
+    public $bar;
+    public $baz;
+}
+`,
+		},
+		{
+			`<?php abstract class Foo
+{
+    public $bar, $baz;
+}`,
+			`abstract class Foo
+{
+    public $bar, $baz;
+}
+`,
 		},
 	}
 

@@ -14,9 +14,10 @@ type FunctionExpression struct {
 	LexicalVar Expression
 	ReturnType Expression
 	Stmts      []Statement
+	IsStatic   bool
 }
 
-func NewFunctionExpression(tok *token.Token, returnRef int, params []Expression, lexicalVar, returnType Expression, stmts []Statement) *FunctionExpression {
+func NewFunctionExpression(tok *token.Token, returnRef int, params []Expression, lexicalVar, returnType Expression, stmts []Statement, isStatic bool) *FunctionExpression {
 	return &FunctionExpression{
 		Token:      tok,
 		ReturnRef:  returnRef,
@@ -24,6 +25,7 @@ func NewFunctionExpression(tok *token.Token, returnRef int, params []Expression,
 		LexicalVar: lexicalVar,
 		ReturnType: returnType,
 		Stmts:      stmts,
+		IsStatic:   isStatic,
 	}
 }
 
@@ -51,6 +53,9 @@ func (fe *FunctionExpression) String() string {
 	stmts := make([]string, 0, len(fe.Stmts))
 	for _, stmt := range fe.Stmts {
 		stmts = append(stmts, "    "+stmt.String())
+	}
+	if fe.IsStatic {
+		return fmt.Sprintf("static %s %s(%s)%s%s{\n%s\n}", fe.TokenLiteral(), ref, strings.Join(params, ", "), lexical, ret, strings.Join(stmts, "\n"))
 	}
 	return fmt.Sprintf("%s %s(%s)%s%s{\n%s\n}", fe.TokenLiteral(), ref, strings.Join(params, ", "), lexical, ret, strings.Join(stmts, "\n"))
 }
