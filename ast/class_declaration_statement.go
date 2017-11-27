@@ -41,7 +41,7 @@ func (cds *ClassDeclarationStatement) String() string {
 
 	extends := ""
 	if cds.ExtendsFrom != nil {
-		extends = cds.ExtendsFrom.String() + " "
+		extends = " extends " + cds.ExtendsFrom.String()
 	}
 
 	implements := ""

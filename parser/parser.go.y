@@ -511,8 +511,8 @@ interface_declaration_statement:
 */
 
 extends_from:
-		/* empty */		{ $$ = nil; }/*
-	|	T_EXTENDS name	{ $$ = $2; }*/
+		/* empty */		{ $$ = nil; }
+	|	T_EXTENDS name	{ $$ = $2; }
 ;
 
 /*

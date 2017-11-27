@@ -292,7 +292,7 @@ state 13
 
 state 14
 	statement:  T_BREAK.optional_expr ';' 
-	optional_expr: .    (265)
+	optional_expr: .    (266)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -346,7 +346,7 @@ state 14
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 265 (src line 1083)
+	.  reduce 266 (src line 1083)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -371,7 +371,7 @@ state 14
 
 state 15
 	statement:  T_CONTINUE.optional_expr ';' 
-	optional_expr: .    (265)
+	optional_expr: .    (266)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -425,7 +425,7 @@ state 15
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 265 (src line 1083)
+	.  reduce 266 (src line 1083)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -450,7 +450,7 @@ state 15
 
 state 16
 	statement:  T_RETURN.optional_expr ';' 
-	optional_expr: .    (265)
+	optional_expr: .    (266)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -504,7 +504,7 @@ state 16
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 265 (src line 1083)
+	.  reduce 266 (src line 1083)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -541,11 +541,11 @@ state 17
 state 18
 	statement:  T_STATIC.static_var_list ';' 
 	expr_without_variable:  T_STATIC.function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	class_name:  T_STATIC.    (230)
+	class_name:  T_STATIC.    (231)
 
 	T_VARIABLE  shift 123
 	T_FUNCTION  shift 36
-	.  reduce 230 (src line 1018)
+	.  reduce 231 (src line 1018)
 
 	static_var  goto 122
 	static_var_list  goto 120
@@ -832,10 +832,10 @@ state 29
 state 30
 	function_declaration_statement:  function.returns_ref T_STRING backup_doc_comment '(' parameter_list ')' return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
 	expr_without_variable:  function.returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	returns_ref: .    (218)
+	returns_ref: .    (219)
 
 	'&'  shift 165
-	.  reduce 218 (src line 987)
+	.  reduce 219 (src line 987)
 
 	returns_ref  goto 164
 
@@ -852,12 +852,12 @@ state 31
 
 state 32
 	if_stmt_without_else:  if_stmt_without_else.T_ELSEIF '(' expr ')' statement 
-	if_stmt:  if_stmt_without_else.    (87)
+	if_stmt:  if_stmt_without_else.    (88)
 	if_stmt:  if_stmt_without_else.T_ELSE statement 
 
 	T_ELSEIF  shift 168
 	T_ELSE  shift 169
-	.  reduce 87 (src line 583)
+	.  reduce 88 (src line 583)
 
 
 state 33
@@ -888,8 +888,8 @@ state 34
 	expr_without_variable:  variable.T_SR_EQUAL expr 
 	expr_without_variable:  variable.T_INC 
 	expr_without_variable:  variable.T_DEC 
-	expr:  variable.    (263)
-	dereferencable:  variable.    (268)
+	expr:  variable.    (264)
+	dereferencable:  variable.    (269)
 
 	'='  shift 173
 	T_PLUS_EQUAL  shift 174
@@ -906,23 +906,23 @@ state 34
 	T_POW_EQUAL  shift 177
 	T_INC  shift 186
 	T_DEC  shift 187
-	'['  reduce 268 (src line 1092)
-	T_OBJECT_OPERATOR  reduce 268 (src line 1092)
-	T_PAAMAYIM_NEKUDOTAYIM  reduce 268 (src line 1092)
-	'{'  reduce 268 (src line 1092)
-	.  reduce 263 (src line 1078)
+	'['  reduce 269 (src line 1092)
+	T_OBJECT_OPERATOR  reduce 269 (src line 1092)
+	T_PAAMAYIM_NEKUDOTAYIM  reduce 269 (src line 1092)
+	'{'  reduce 269 (src line 1092)
+	.  reduce 264 (src line 1078)
 
 
 state 35
-	expr:  expr_without_variable.    (264)
+	expr:  expr_without_variable.    (265)
 
-	.  reduce 264 (src line 1080)
+	.  reduce 265 (src line 1080)
 
 
 state 36
-	function:  T_FUNCTION.    (215)
+	function:  T_FUNCTION.    (216)
 
-	.  reduce 215 (src line 975)
+	.  reduce 216 (src line 975)
 
 
 state 37
@@ -940,21 +940,21 @@ state 38
 
 
 state 39
-	callable_expr:  callable_variable.    (271)
-	variable:  callable_variable.    (280)
+	callable_expr:  callable_variable.    (272)
+	variable:  callable_variable.    (281)
 
-	'('  reduce 271 (src line 1098)
-	.  reduce 280 (src line 1118)
+	'('  reduce 272 (src line 1098)
+	.  reduce 281 (src line 1118)
 
 
 state 40
-	variable:  static_member.    (281)
+	variable:  static_member.    (282)
 
-	.  reduce 281 (src line 1121)
+	.  reduce 282 (src line 1121)
 
 
 state 41
-	variable_class_name:  dereferencable.    (267)
+	variable_class_name:  dereferencable.    (268)
 	callable_variable:  dereferencable.'[' optional_expr ']' 
 	callable_variable:  dereferencable.'{' expr '}' 
 	callable_variable:  dereferencable.T_OBJECT_OPERATOR property_name argument_list 
@@ -963,7 +963,7 @@ state 41
 	'['  shift 189
 	T_OBJECT_OPERATOR  shift 191
 	'{'  shift 190
-	.  reduce 267 (src line 1088)
+	.  reduce 268 (src line 1088)
 
 
 state 42
@@ -976,7 +976,7 @@ state 42
 state 43
 	expr_without_variable:  '['.array_pair_list ']' '=' expr 
 	dereferencable_scalar:  '['.array_pair_list ']' 
-	possible_array_pair: .    (301)
+	possible_array_pair: .    (302)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -1031,7 +1031,7 @@ state 43
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 301 (src line 1172)
+	.  reduce 302 (src line 1172)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -1580,15 +1580,15 @@ state 51
 	function  goto 108
 
 state 52
-	expr_without_variable:  new_expr.    (192)
+	expr_without_variable:  new_expr.    (193)
 
-	.  reduce 192 (src line 943)
+	.  reduce 193 (src line 943)
 
 
 state 53
-	expr_without_variable:  internal_functions_in_yacc.    (196)
+	expr_without_variable:  internal_functions_in_yacc.    (197)
 
-	.  reduce 196 (src line 950)
+	.  reduce 197 (src line 950)
 
 
 state 54
@@ -2132,10 +2132,10 @@ state 60
 
 state 61
 	expr_without_variable:  T_EXIT.exit_expr 
-	exit_expr: .    (234)
+	exit_expr: .    (235)
 
 	'('  shift 221
-	.  reduce 234 (src line 1028)
+	.  reduce 235 (src line 1028)
 
 	exit_expr  goto 220
 
@@ -2217,20 +2217,20 @@ state 62
 	function  goto 108
 
 state 63
-	expr_without_variable:  scalar.    (206)
+	expr_without_variable:  scalar.    (207)
 
-	.  reduce 206 (src line 960)
+	.  reduce 207 (src line 960)
 
 
 state 64
 	expr_without_variable:  '`'.backticks_expr '`' 
-	backticks_expr: .    (236)
+	backticks_expr: .    (237)
 
 	T_VARIABLE  shift 227
 	T_ENCAPSED_AND_WHITESPACE  shift 224
 	T_DOLLAR_OPEN_CURLY_BRACES  shift 228
 	T_CURLY_OPEN  shift 229
-	.  reduce 236 (src line 1033)
+	.  reduce 237 (src line 1033)
 
 	encaps_var  goto 226
 	backticks_expr  goto 223
@@ -2314,7 +2314,7 @@ state 65
 	function  goto 108
 
 state 66
-	expr_without_variable:  T_YIELD.    (209)
+	expr_without_variable:  T_YIELD.    (210)
 	expr_without_variable:  T_YIELD.expr 
 	expr_without_variable:  T_YIELD.expr T_DOUBLE_ARROW expr 
 
@@ -2370,7 +2370,7 @@ state 66
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 209 (src line 963)
+	.  reduce 210 (src line 963)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -2482,23 +2482,23 @@ state 69
 
 
 state 70
-	callable_variable:  simple_variable.    (274)
+	callable_variable:  simple_variable.    (275)
 
-	.  reduce 274 (src line 1104)
+	.  reduce 275 (src line 1104)
 
 
 state 71
-	scalar:  constant.    (259)
+	scalar:  constant.    (260)
 	callable_variable:  constant.'[' optional_expr ']' 
 
 	'['  shift 233
-	.  reduce 259 (src line 1067)
+	.  reduce 260 (src line 1067)
 
 
 state 72
-	callable_variable:  function_call.    (279)
+	callable_variable:  function_call.    (280)
 
-	.  reduce 279 (src line 1115)
+	.  reduce 280 (src line 1115)
 
 
 state 73
@@ -2520,16 +2520,16 @@ state 74
 
 
 state 75
-	scalar:  dereferencable_scalar.    (258)
-	dereferencable:  dereferencable_scalar.    (270)
-	callable_expr:  dereferencable_scalar.    (273)
+	scalar:  dereferencable_scalar.    (259)
+	dereferencable:  dereferencable_scalar.    (271)
+	callable_expr:  dereferencable_scalar.    (274)
 
-	'['  reduce 270 (src line 1095)
-	T_OBJECT_OPERATOR  reduce 270 (src line 1095)
-	T_PAAMAYIM_NEKUDOTAYIM  reduce 270 (src line 1095)
-	'{'  reduce 270 (src line 1095)
-	'('  reduce 273 (src line 1101)
-	.  reduce 258 (src line 1066)
+	'['  reduce 271 (src line 1095)
+	T_OBJECT_OPERATOR  reduce 271 (src line 1095)
+	T_PAAMAYIM_NEKUDOTAYIM  reduce 271 (src line 1095)
+	'{'  reduce 271 (src line 1095)
+	'('  reduce 274 (src line 1101)
+	.  reduce 259 (src line 1066)
 
 
 state 76
@@ -2880,63 +2880,63 @@ state 83
 	function  goto 108
 
 state 84
-	scalar:  T_LNUMBER.    (244)
+	scalar:  T_LNUMBER.    (245)
 
-	.  reduce 244 (src line 1051)
+	.  reduce 245 (src line 1051)
 
 
 state 85
-	scalar:  T_DNUMBER.    (245)
+	scalar:  T_DNUMBER.    (246)
 
-	.  reduce 245 (src line 1053)
+	.  reduce 246 (src line 1053)
 
 
 state 86
-	scalar:  T_LINE.    (246)
+	scalar:  T_LINE.    (247)
 
-	.  reduce 246 (src line 1054)
+	.  reduce 247 (src line 1054)
 
 
 state 87
-	scalar:  T_FILE.    (247)
+	scalar:  T_FILE.    (248)
 
-	.  reduce 247 (src line 1055)
+	.  reduce 248 (src line 1055)
 
 
 state 88
-	scalar:  T_DIR.    (248)
+	scalar:  T_DIR.    (249)
 
-	.  reduce 248 (src line 1056)
+	.  reduce 249 (src line 1056)
 
 
 state 89
-	scalar:  T_TRAIT_C.    (249)
+	scalar:  T_TRAIT_C.    (250)
 
-	.  reduce 249 (src line 1057)
+	.  reduce 250 (src line 1057)
 
 
 state 90
-	scalar:  T_METHOD_C.    (250)
+	scalar:  T_METHOD_C.    (251)
 
-	.  reduce 250 (src line 1058)
+	.  reduce 251 (src line 1058)
 
 
 state 91
-	scalar:  T_FUNC_C.    (251)
+	scalar:  T_FUNC_C.    (252)
 
-	.  reduce 251 (src line 1059)
+	.  reduce 252 (src line 1059)
 
 
 state 92
-	scalar:  T_NS_C.    (252)
+	scalar:  T_NS_C.    (253)
 
-	.  reduce 252 (src line 1060)
+	.  reduce 253 (src line 1060)
 
 
 state 93
-	scalar:  T_CLASS_C.    (253)
+	scalar:  T_CLASS_C.    (254)
 
-	.  reduce 253 (src line 1061)
+	.  reduce 254 (src line 1061)
 
 
 state 94
@@ -2967,9 +2967,9 @@ state 95
 	encaps_list  goto 251
 
 state 96
-	simple_variable:  T_VARIABLE.    (283)
+	simple_variable:  T_VARIABLE.    (284)
 
-	.  reduce 283 (src line 1127)
+	.  reduce 284 (src line 1127)
 
 
 state 97
@@ -2985,12 +2985,12 @@ state 97
 
 state 98
 	function_call:  name.argument_list 
-	class_name:  name.    (231)
-	constant:  name.    (260)
+	class_name:  name.    (232)
+	constant:  name.    (261)
 
-	T_PAAMAYIM_NEKUDOTAYIM  reduce 231 (src line 1020)
+	T_PAAMAYIM_NEKUDOTAYIM  reduce 232 (src line 1020)
 	'('  shift 256
-	.  reduce 260 (src line 1070)
+	.  reduce 261 (src line 1070)
 
 	argument_list  goto 255
 
@@ -3010,9 +3010,9 @@ state 100
 
 
 state 101
-	dereferencable_scalar:  T_CONSTANT_ENCAPSED_STRING.    (243)
+	dereferencable_scalar:  T_CONSTANT_ENCAPSED_STRING.    (244)
 
-	.  reduce 243 (src line 1048)
+	.  reduce 244 (src line 1048)
 
 
 state 102
@@ -3229,16 +3229,16 @@ state 107
 
 state 108
 	expr_without_variable:  function.returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	returns_ref: .    (218)
+	returns_ref: .    (219)
 
 	'&'  shift 165
-	.  reduce 218 (src line 987)
+	.  reduce 219 (src line 987)
 
 	returns_ref  goto 268
 
 state 109
 	statement:  T_FOR '('.for_exprs ';' for_exprs ';' for_exprs ')' for_statement 
-	for_exprs: .    (134)
+	for_exprs: .    (135)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -3292,7 +3292,7 @@ state 109
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 134 (src line 829)
+	.  reduce 135 (src line 829)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -3431,7 +3431,7 @@ state 112
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	optional_expr:  expr.    (266)
+	optional_expr:  expr.    (267)
 
 	T_LOGICAL_OR  shift 130
 	T_LOGICAL_XOR  shift 132
@@ -3462,15 +3462,15 @@ state 112
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 266 (src line 1085)
+	.  reduce 267 (src line 1085)
 
 
 state 113
 	expr_without_variable:  T_STATIC.function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	class_name:  T_STATIC.    (230)
+	class_name:  T_STATIC.    (231)
 
 	T_FUNCTION  shift 36
-	.  reduce 230 (src line 1018)
+	.  reduce 231 (src line 1018)
 
 	function  goto 121
 
@@ -3504,15 +3504,15 @@ state 117
 
 
 state 118
-	global_var_list:  global_var.    (115)
+	global_var_list:  global_var.    (116)
 
-	.  reduce 115 (src line 669)
+	.  reduce 116 (src line 669)
 
 
 state 119
-	global_var:  simple_variable.    (116)
+	global_var:  simple_variable.    (117)
 
-	.  reduce 116 (src line 672)
+	.  reduce 117 (src line 672)
 
 
 state 120
@@ -3526,25 +3526,25 @@ state 120
 
 state 121
 	expr_without_variable:  T_STATIC function.returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	returns_ref: .    (218)
+	returns_ref: .    (219)
 
 	'&'  shift 165
-	.  reduce 218 (src line 987)
+	.  reduce 219 (src line 987)
 
 	returns_ref  goto 280
 
 state 122
-	static_var_list:  static_var.    (118)
+	static_var_list:  static_var.    (119)
 
-	.  reduce 118 (src line 679)
+	.  reduce 119 (src line 679)
 
 
 state 123
-	static_var:  T_VARIABLE.    (119)
+	static_var:  T_VARIABLE.    (120)
 	static_var:  T_VARIABLE.'=' expr 
 
 	'='  shift 281
-	.  reduce 119 (src line 682)
+	.  reduce 120 (src line 682)
 
 
 state 124
@@ -3557,13 +3557,13 @@ state 124
 
 
 state 125
-	echo_expr_list:  echo_expr.    (132)
+	echo_expr_list:  echo_expr.    (133)
 
-	.  reduce 132 (src line 822)
+	.  reduce 133 (src line 822)
 
 
 state 126
-	echo_expr:  expr.    (133)
+	echo_expr:  expr.    (134)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -3624,7 +3624,7 @@ state 126
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 133 (src line 825)
+	.  reduce 134 (src line 825)
 
 
 state 127
@@ -6017,17 +6017,17 @@ state 163
 state 164
 	function_declaration_statement:  function returns_ref.T_STRING backup_doc_comment '(' parameter_list ')' return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
 	expr_without_variable:  function returns_ref.backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	backup_doc_comment: .    (216)
+	backup_doc_comment: .    (217)
 
 	T_STRING  shift 324
-	.  reduce 216 (src line 979)
+	.  reduce 217 (src line 979)
 
 	backup_doc_comment  goto 325
 
 state 165
-	returns_ref:  '&'.    (219)
+	returns_ref:  '&'.    (220)
 
-	.  reduce 219 (src line 989)
+	.  reduce 220 (src line 989)
 
 
 state 166
@@ -7176,15 +7176,15 @@ state 185
 	function  goto 108
 
 state 186
-	expr_without_variable:  variable T_INC.    (156)
+	expr_without_variable:  variable T_INC.    (157)
 
-	.  reduce 156 (src line 892)
+	.  reduce 157 (src line 892)
 
 
 state 187
-	expr_without_variable:  variable T_DEC.    (158)
+	expr_without_variable:  variable T_DEC.    (159)
 
-	.  reduce 158 (src line 894)
+	.  reduce 159 (src line 894)
 
 
 state 188
@@ -7267,7 +7267,7 @@ state 188
 
 state 189
 	callable_variable:  dereferencable '['.optional_expr ']' 
-	optional_expr: .    (265)
+	optional_expr: .    (266)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -7321,7 +7321,7 @@ state 189
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 265 (src line 1083)
+	.  reduce 266 (src line 1083)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -7436,7 +7436,7 @@ state 191
 
 state 192
 	expr_without_variable:  T_LIST '('.array_pair_list ')' '=' expr 
-	possible_array_pair: .    (301)
+	possible_array_pair: .    (302)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -7491,7 +7491,7 @@ state 192
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 301 (src line 1172)
+	.  reduce 302 (src line 1172)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -7526,23 +7526,23 @@ state 193
 
 
 state 194
-	array_pair_list:  non_empty_array_pair_list.    (300)
+	array_pair_list:  non_empty_array_pair_list.    (301)
 	non_empty_array_pair_list:  non_empty_array_pair_list.',' possible_array_pair 
 
 	','  shift 355
-	.  reduce 300 (src line 1167)
+	.  reduce 301 (src line 1167)
 
 
 state 195
-	non_empty_array_pair_list:  possible_array_pair.    (304)
+	non_empty_array_pair_list:  possible_array_pair.    (305)
 
-	.  reduce 304 (src line 1180)
+	.  reduce 305 (src line 1180)
 
 
 state 196
-	possible_array_pair:  array_pair.    (302)
+	possible_array_pair:  array_pair.    (303)
 
-	.  reduce 302 (src line 1174)
+	.  reduce 303 (src line 1174)
 
 
 state 197
@@ -7577,7 +7577,7 @@ state 197
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
 	array_pair:  expr.T_DOUBLE_ARROW expr 
-	array_pair:  expr.    (306)
+	array_pair:  expr.    (307)
 	array_pair:  expr.T_DOUBLE_ARROW '&' variable 
 	array_pair:  expr.T_DOUBLE_ARROW T_LIST '(' array_pair_list ')' 
 
@@ -7611,7 +7611,7 @@ state 197
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 306 (src line 1187)
+	.  reduce 307 (src line 1187)
 
 
 state 198
@@ -7652,7 +7652,7 @@ state 199
 
 
 state 200
-	expr_without_variable:  T_CLONE expr.    (143)
+	expr_without_variable:  T_CLONE expr.    (144)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -7684,18 +7684,18 @@ state 200
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
 
-	.  reduce 143 (src line 867)
+	.  reduce 144 (src line 867)
 
 
 state 201
-	expr_without_variable:  T_INC variable.    (157)
-	dereferencable:  variable.    (268)
+	expr_without_variable:  T_INC variable.    (158)
+	dereferencable:  variable.    (269)
 
-	'['  reduce 268 (src line 1092)
-	T_OBJECT_OPERATOR  reduce 268 (src line 1092)
-	T_PAAMAYIM_NEKUDOTAYIM  reduce 268 (src line 1092)
-	'{'  reduce 268 (src line 1092)
-	.  reduce 157 (src line 893)
+	'['  reduce 269 (src line 1092)
+	T_OBJECT_OPERATOR  reduce 269 (src line 1092)
+	T_PAAMAYIM_NEKUDOTAYIM  reduce 269 (src line 1092)
+	'{'  reduce 269 (src line 1092)
+	.  reduce 158 (src line 893)
 
 
 state 202
@@ -7784,22 +7784,22 @@ state 203
 	function  goto 108
 
 state 204
-	dereferencable:  dereferencable_scalar.    (270)
-	callable_expr:  dereferencable_scalar.    (273)
+	dereferencable:  dereferencable_scalar.    (271)
+	callable_expr:  dereferencable_scalar.    (274)
 
-	'('  reduce 273 (src line 1101)
-	.  reduce 270 (src line 1095)
+	'('  reduce 274 (src line 1101)
+	.  reduce 271 (src line 1095)
 
 
 state 205
-	class_name:  T_STATIC.    (230)
+	class_name:  T_STATIC.    (231)
 
-	.  reduce 230 (src line 1018)
+	.  reduce 231 (src line 1018)
 
 
 state 206
 	dereferencable_scalar:  '['.array_pair_list ']' 
-	possible_array_pair: .    (301)
+	possible_array_pair: .    (302)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -7854,7 +7854,7 @@ state 206
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 301 (src line 1172)
+	.  reduce 302 (src line 1172)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -7881,14 +7881,14 @@ state 206
 	function  goto 108
 
 state 207
-	expr_without_variable:  T_DEC variable.    (159)
-	dereferencable:  variable.    (268)
+	expr_without_variable:  T_DEC variable.    (160)
+	dereferencable:  variable.    (269)
 
-	'['  reduce 268 (src line 1092)
-	T_OBJECT_OPERATOR  reduce 268 (src line 1092)
-	T_PAAMAYIM_NEKUDOTAYIM  reduce 268 (src line 1092)
-	'{'  reduce 268 (src line 1092)
-	.  reduce 159 (src line 895)
+	'['  reduce 269 (src line 1092)
+	T_OBJECT_OPERATOR  reduce 269 (src line 1092)
+	T_PAAMAYIM_NEKUDOTAYIM  reduce 269 (src line 1092)
+	'{'  reduce 269 (src line 1092)
+	.  reduce 160 (src line 895)
 
 
 state 208
@@ -7909,7 +7909,7 @@ state 208
 	expr_without_variable:  expr.'%' expr 
 	expr_without_variable:  expr.T_SL expr 
 	expr_without_variable:  expr.T_SR expr 
-	expr_without_variable:  '+' expr.    (177)
+	expr_without_variable:  '+' expr.    (178)
 	expr_without_variable:  expr.T_IS_IDENTICAL expr 
 	expr_without_variable:  expr.T_IS_NOT_IDENTICAL expr 
 	expr_without_variable:  expr.T_IS_EQUAL expr 
@@ -7925,7 +7925,7 @@ state 208
 	expr_without_variable:  expr.T_COALESCE expr 
 
 	T_POW  shift 140
-	.  reduce 177 (src line 918)
+	.  reduce 178 (src line 918)
 
 
 state 209
@@ -7946,7 +7946,7 @@ state 209
 	expr_without_variable:  expr.'%' expr 
 	expr_without_variable:  expr.T_SL expr 
 	expr_without_variable:  expr.T_SR expr 
-	expr_without_variable:  '-' expr.    (178)
+	expr_without_variable:  '-' expr.    (179)
 	expr_without_variable:  expr.T_IS_IDENTICAL expr 
 	expr_without_variable:  expr.T_IS_NOT_IDENTICAL expr 
 	expr_without_variable:  expr.T_IS_EQUAL expr 
@@ -7962,7 +7962,7 @@ state 209
 	expr_without_variable:  expr.T_COALESCE expr 
 
 	T_POW  shift 140
-	.  reduce 178 (src line 919)
+	.  reduce 179 (src line 919)
 
 
 state 210
@@ -7983,7 +7983,7 @@ state 210
 	expr_without_variable:  expr.'%' expr 
 	expr_without_variable:  expr.T_SL expr 
 	expr_without_variable:  expr.T_SR expr 
-	expr_without_variable:  '!' expr.    (179)
+	expr_without_variable:  '!' expr.    (180)
 	expr_without_variable:  expr.T_IS_IDENTICAL expr 
 	expr_without_variable:  expr.T_IS_NOT_IDENTICAL expr 
 	expr_without_variable:  expr.T_IS_EQUAL expr 
@@ -8000,7 +8000,7 @@ state 210
 
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 179 (src line 920)
+	.  reduce 180 (src line 920)
 
 
 state 211
@@ -8021,7 +8021,7 @@ state 211
 	expr_without_variable:  expr.'%' expr 
 	expr_without_variable:  expr.T_SL expr 
 	expr_without_variable:  expr.T_SR expr 
-	expr_without_variable:  '~' expr.    (180)
+	expr_without_variable:  '~' expr.    (181)
 	expr_without_variable:  expr.T_IS_IDENTICAL expr 
 	expr_without_variable:  expr.T_IS_NOT_IDENTICAL expr 
 	expr_without_variable:  expr.T_IS_EQUAL expr 
@@ -8037,7 +8037,7 @@ state 211
 	expr_without_variable:  expr.T_COALESCE expr 
 
 	T_POW  shift 140
-	.  reduce 180 (src line 921)
+	.  reduce 181 (src line 921)
 
 
 state 212
@@ -8139,10 +8139,10 @@ state 213
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	expr_without_variable:  T_INT_CAST expr.    (197)
+	expr_without_variable:  T_INT_CAST expr.    (198)
 
 	T_POW  shift 140
-	.  reduce 197 (src line 951)
+	.  reduce 198 (src line 951)
 
 
 state 214
@@ -8176,10 +8176,10 @@ state 214
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	expr_without_variable:  T_DOUBLE_CAST expr.    (198)
+	expr_without_variable:  T_DOUBLE_CAST expr.    (199)
 
 	T_POW  shift 140
-	.  reduce 198 (src line 952)
+	.  reduce 199 (src line 952)
 
 
 state 215
@@ -8213,10 +8213,10 @@ state 215
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	expr_without_variable:  T_STRING_CAST expr.    (199)
+	expr_without_variable:  T_STRING_CAST expr.    (200)
 
 	T_POW  shift 140
-	.  reduce 199 (src line 953)
+	.  reduce 200 (src line 953)
 
 
 state 216
@@ -8250,10 +8250,10 @@ state 216
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	expr_without_variable:  T_ARRAY_CAST expr.    (200)
+	expr_without_variable:  T_ARRAY_CAST expr.    (201)
 
 	T_POW  shift 140
-	.  reduce 200 (src line 954)
+	.  reduce 201 (src line 954)
 
 
 state 217
@@ -8287,10 +8287,10 @@ state 217
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	expr_without_variable:  T_OBJECT_CAST expr.    (201)
+	expr_without_variable:  T_OBJECT_CAST expr.    (202)
 
 	T_POW  shift 140
-	.  reduce 201 (src line 955)
+	.  reduce 202 (src line 955)
 
 
 state 218
@@ -8324,10 +8324,10 @@ state 218
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	expr_without_variable:  T_BOOL_CAST expr.    (202)
+	expr_without_variable:  T_BOOL_CAST expr.    (203)
 
 	T_POW  shift 140
-	.  reduce 202 (src line 956)
+	.  reduce 203 (src line 956)
 
 
 state 219
@@ -8361,21 +8361,21 @@ state 219
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	expr_without_variable:  T_UNSET_CAST expr.    (203)
+	expr_without_variable:  T_UNSET_CAST expr.    (204)
 
 	T_POW  shift 140
-	.  reduce 203 (src line 957)
+	.  reduce 204 (src line 957)
 
 
 state 220
-	expr_without_variable:  T_EXIT exit_expr.    (204)
+	expr_without_variable:  T_EXIT exit_expr.    (205)
 
-	.  reduce 204 (src line 958)
+	.  reduce 205 (src line 958)
 
 
 state 221
 	exit_expr:  '('.optional_expr ')' 
-	optional_expr: .    (265)
+	optional_expr: .    (266)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -8429,7 +8429,7 @@ state 221
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 265 (src line 1083)
+	.  reduce 266 (src line 1083)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -8483,10 +8483,10 @@ state 222
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	expr_without_variable:  '@' expr.    (205)
+	expr_without_variable:  '@' expr.    (206)
 
 	T_POW  shift 140
-	.  reduce 205 (src line 959)
+	.  reduce 206 (src line 959)
 
 
 state 223
@@ -8497,18 +8497,18 @@ state 223
 
 
 state 224
-	backticks_expr:  T_ENCAPSED_AND_WHITESPACE.    (237)
+	backticks_expr:  T_ENCAPSED_AND_WHITESPACE.    (238)
 	encaps_list:  T_ENCAPSED_AND_WHITESPACE.encaps_var 
 
 	T_VARIABLE  shift 227
 	T_DOLLAR_OPEN_CURLY_BRACES  shift 228
 	T_CURLY_OPEN  shift 229
-	.  reduce 237 (src line 1036)
+	.  reduce 238 (src line 1036)
 
 	encaps_var  goto 364
 
 state 225
-	backticks_expr:  encaps_list.    (238)
+	backticks_expr:  encaps_list.    (239)
 	encaps_list:  encaps_list.encaps_var 
 	encaps_list:  encaps_list.T_ENCAPSED_AND_WHITESPACE 
 
@@ -8516,24 +8516,24 @@ state 225
 	T_ENCAPSED_AND_WHITESPACE  shift 366
 	T_DOLLAR_OPEN_CURLY_BRACES  shift 228
 	T_CURLY_OPEN  shift 229
-	.  reduce 238 (src line 1037)
+	.  reduce 239 (src line 1037)
 
 	encaps_var  goto 365
 
 state 226
-	encaps_list:  encaps_var.    (313)
+	encaps_list:  encaps_var.    (314)
 
-	.  reduce 313 (src line 1204)
+	.  reduce 314 (src line 1204)
 
 
 state 227
-	encaps_var:  T_VARIABLE.    (315)
+	encaps_var:  T_VARIABLE.    (316)
 	encaps_var:  T_VARIABLE.'[' encaps_var_offset ']' 
 	encaps_var:  T_VARIABLE.T_OBJECT_OPERATOR T_STRING 
 
 	'['  shift 367
 	T_OBJECT_OPERATOR  shift 368
-	.  reduce 315 (src line 1210)
+	.  reduce 316 (src line 1210)
 
 
 state 228
@@ -8676,7 +8676,7 @@ state 230
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	expr_without_variable:  T_PRINT expr.    (208)
+	expr_without_variable:  T_PRINT expr.    (209)
 
 	'?'  shift 155
 	T_COALESCE  shift 156
@@ -8704,7 +8704,7 @@ state 230
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 208 (src line 962)
+	.  reduce 209 (src line 962)
 
 
 state 231
@@ -8738,7 +8738,7 @@ state 231
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	expr_without_variable:  T_YIELD expr.    (210)
+	expr_without_variable:  T_YIELD expr.    (211)
 	expr_without_variable:  T_YIELD expr.T_DOUBLE_ARROW expr 
 
 	T_DOUBLE_ARROW  shift 372
@@ -8768,7 +8768,7 @@ state 231
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 210 (src line 964)
+	.  reduce 211 (src line 964)
 
 
 state 232
@@ -8802,7 +8802,7 @@ state 232
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	expr_without_variable:  T_YIELD_FROM expr.    (212)
+	expr_without_variable:  T_YIELD_FROM expr.    (213)
 
 	'?'  shift 155
 	T_COALESCE  shift 156
@@ -8830,12 +8830,12 @@ state 232
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 212 (src line 966)
+	.  reduce 213 (src line 966)
 
 
 state 233
 	callable_variable:  constant '['.optional_expr ']' 
-	optional_expr: .    (265)
+	optional_expr: .    (266)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -8889,7 +8889,7 @@ state 233
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 265 (src line 1083)
+	.  reduce 266 (src line 1083)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -8944,24 +8944,24 @@ state 235
 
 state 236
 	new_expr:  T_NEW class_name_reference.ctor_arguments 
-	ctor_arguments: .    (239)
+	ctor_arguments: .    (240)
 
 	'('  shift 256
-	.  reduce 239 (src line 1040)
+	.  reduce 240 (src line 1040)
 
 	argument_list  goto 383
 	ctor_arguments  goto 382
 
 state 237
-	class_name_reference:  class_name.    (232)
+	class_name_reference:  class_name.    (233)
 	new_variable:  class_name.T_PAAMAYIM_NEKUDOTAYIM simple_variable 
 
 	T_PAAMAYIM_NEKUDOTAYIM  shift 384
-	.  reduce 232 (src line 1023)
+	.  reduce 233 (src line 1023)
 
 
 state 238
-	class_name_reference:  new_variable.    (233)
+	class_name_reference:  new_variable.    (234)
 	new_variable:  new_variable.'[' optional_expr ']' 
 	new_variable:  new_variable.'{' expr '}' 
 	new_variable:  new_variable.T_OBJECT_OPERATOR property_name 
@@ -8971,19 +8971,19 @@ state 238
 	T_OBJECT_OPERATOR  shift 387
 	T_PAAMAYIM_NEKUDOTAYIM  shift 388
 	'{'  shift 386
-	.  reduce 233 (src line 1025)
+	.  reduce 234 (src line 1025)
 
 
 state 239
-	class_name:  name.    (231)
+	class_name:  name.    (232)
 
-	.  reduce 231 (src line 1020)
+	.  reduce 232 (src line 1020)
 
 
 state 240
-	new_variable:  simple_variable.    (288)
+	new_variable:  simple_variable.    (289)
 
-	.  reduce 288 (src line 1140)
+	.  reduce 289 (src line 1140)
 
 
 state 241
@@ -9173,7 +9173,7 @@ state 243
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	internal_functions_in_yacc:  T_INCLUDE expr.    (328)
+	internal_functions_in_yacc:  T_INCLUDE expr.    (329)
 
 	T_LOGICAL_OR  shift 130
 	T_LOGICAL_XOR  shift 132
@@ -9204,7 +9204,7 @@ state 243
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 328 (src line 1237)
+	.  reduce 329 (src line 1237)
 
 
 state 244
@@ -9238,7 +9238,7 @@ state 244
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	internal_functions_in_yacc:  T_INCLUDE_ONCE expr.    (329)
+	internal_functions_in_yacc:  T_INCLUDE_ONCE expr.    (330)
 
 	T_LOGICAL_OR  shift 130
 	T_LOGICAL_XOR  shift 132
@@ -9269,7 +9269,7 @@ state 244
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 329 (src line 1239)
+	.  reduce 330 (src line 1239)
 
 
 state 245
@@ -9380,7 +9380,7 @@ state 246
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	internal_functions_in_yacc:  T_REQUIRE expr.    (331)
+	internal_functions_in_yacc:  T_REQUIRE expr.    (332)
 
 	T_LOGICAL_OR  shift 130
 	T_LOGICAL_XOR  shift 132
@@ -9411,7 +9411,7 @@ state 246
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 331 (src line 1243)
+	.  reduce 332 (src line 1243)
 
 
 state 247
@@ -9445,7 +9445,7 @@ state 247
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	internal_functions_in_yacc:  T_REQUIRE_ONCE expr.    (332)
+	internal_functions_in_yacc:  T_REQUIRE_ONCE expr.    (333)
 
 	T_LOGICAL_OR  shift 130
 	T_LOGICAL_XOR  shift 132
@@ -9476,7 +9476,7 @@ state 247
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 332 (src line 1245)
+	.  reduce 333 (src line 1245)
 
 
 state 248
@@ -9492,9 +9492,9 @@ state 248
 	encaps_var  goto 364
 
 state 249
-	scalar:  T_START_HEREDOC T_END_HEREDOC.    (255)
+	scalar:  T_START_HEREDOC T_END_HEREDOC.    (256)
 
-	.  reduce 255 (src line 1063)
+	.  reduce 256 (src line 1063)
 
 
 state 250
@@ -9613,15 +9613,15 @@ state 253
 	function  goto 108
 
 state 254
-	simple_variable:  '$' simple_variable.    (285)
+	simple_variable:  '$' simple_variable.    (286)
 
-	.  reduce 285 (src line 1130)
+	.  reduce 286 (src line 1130)
 
 
 state 255
-	function_call:  name argument_list.    (226)
+	function_call:  name argument_list.    (227)
 
-	.  reduce 226 (src line 1007)
+	.  reduce 227 (src line 1007)
 
 
 state 256
@@ -9707,14 +9707,14 @@ state 256
 	function  goto 108
 
 state 257
-	function_call:  callable_expr argument_list.    (229)
+	function_call:  callable_expr argument_list.    (230)
 
-	.  reduce 229 (src line 1014)
+	.  reduce 230 (src line 1014)
 
 
 state 258
 	dereferencable_scalar:  T_ARRAY '('.array_pair_list ')' 
-	possible_array_pair: .    (301)
+	possible_array_pair: .    (302)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -9769,7 +9769,7 @@ state 258
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 301 (src line 1172)
+	.  reduce 302 (src line 1172)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -9917,9 +9917,9 @@ state 267
 
 state 268
 	expr_without_variable:  function returns_ref.backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	backup_doc_comment: .    (216)
+	backup_doc_comment: .    (217)
 
-	.  reduce 216 (src line 979)
+	.  reduce 217 (src line 979)
 
 	backup_doc_comment  goto 325
 
@@ -9931,15 +9931,15 @@ state 269
 
 
 state 270
-	for_exprs:  non_empty_for_exprs.    (135)
+	for_exprs:  non_empty_for_exprs.    (136)
 	non_empty_for_exprs:  non_empty_for_exprs.',' expr 
 
 	','  shift 409
-	.  reduce 135 (src line 831)
+	.  reduce 136 (src line 831)
 
 
 state 271
-	non_empty_for_exprs:  expr.    (137)
+	non_empty_for_exprs:  expr.    (138)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -10000,7 +10000,7 @@ state 271
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 137 (src line 836)
+	.  reduce 138 (src line 836)
 
 
 state 272
@@ -10119,9 +10119,9 @@ state 279
 
 state 280
 	expr_without_variable:  T_STATIC function returns_ref.backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	backup_doc_comment: .    (216)
+	backup_doc_comment: .    (217)
 
-	.  reduce 216 (src line 979)
+	.  reduce 217 (src line 979)
 
 	backup_doc_comment  goto 413
 
@@ -10288,7 +10288,7 @@ state 283
 
 state 284
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
-	expr_without_variable:  expr T_BOOLEAN_OR expr.    (160)
+	expr_without_variable:  expr T_BOOLEAN_OR expr.    (161)
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
 	expr_without_variable:  expr.T_LOGICAL_AND expr 
@@ -10342,13 +10342,13 @@ state 284
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 160 (src line 896)
+	.  reduce 161 (src line 896)
 
 
 state 285
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
-	expr_without_variable:  expr T_BOOLEAN_AND expr.    (161)
+	expr_without_variable:  expr T_BOOLEAN_AND expr.    (162)
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
 	expr_without_variable:  expr.T_LOGICAL_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_XOR expr 
@@ -10400,14 +10400,14 @@ state 285
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 161 (src line 898)
+	.  reduce 162 (src line 898)
 
 
 state 286
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
-	expr_without_variable:  expr T_LOGICAL_OR expr.    (162)
+	expr_without_variable:  expr T_LOGICAL_OR expr.    (163)
 	expr_without_variable:  expr.T_LOGICAL_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_XOR expr 
 	expr_without_variable:  expr.'|' expr 
@@ -10464,7 +10464,7 @@ state 286
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 162 (src line 900)
+	.  reduce 163 (src line 900)
 
 
 state 287
@@ -10472,7 +10472,7 @@ state 287
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
 	expr_without_variable:  expr.T_LOGICAL_AND expr 
-	expr_without_variable:  expr T_LOGICAL_AND expr.    (163)
+	expr_without_variable:  expr T_LOGICAL_AND expr.    (164)
 	expr_without_variable:  expr.T_LOGICAL_XOR expr 
 	expr_without_variable:  expr.'|' expr 
 	expr_without_variable:  expr.'&' expr 
@@ -10526,7 +10526,7 @@ state 287
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 163 (src line 902)
+	.  reduce 164 (src line 902)
 
 
 state 288
@@ -10535,7 +10535,7 @@ state 288
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
 	expr_without_variable:  expr.T_LOGICAL_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_XOR expr 
-	expr_without_variable:  expr T_LOGICAL_XOR expr.    (164)
+	expr_without_variable:  expr T_LOGICAL_XOR expr.    (165)
 	expr_without_variable:  expr.'|' expr 
 	expr_without_variable:  expr.'&' expr 
 	expr_without_variable:  expr.'^' expr 
@@ -10589,7 +10589,7 @@ state 288
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 164 (src line 904)
+	.  reduce 165 (src line 904)
 
 
 state 289
@@ -10599,7 +10599,7 @@ state 289
 	expr_without_variable:  expr.T_LOGICAL_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_XOR expr 
 	expr_without_variable:  expr.'|' expr 
-	expr_without_variable:  expr '|' expr.    (165)
+	expr_without_variable:  expr '|' expr.    (166)
 	expr_without_variable:  expr.'&' expr 
 	expr_without_variable:  expr.'^' expr 
 	expr_without_variable:  expr.'.' expr 
@@ -10646,7 +10646,7 @@ state 289
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 165 (src line 906)
+	.  reduce 166 (src line 906)
 
 
 state 290
@@ -10657,7 +10657,7 @@ state 290
 	expr_without_variable:  expr.T_LOGICAL_XOR expr 
 	expr_without_variable:  expr.'|' expr 
 	expr_without_variable:  expr.'&' expr 
-	expr_without_variable:  expr '&' expr.    (166)
+	expr_without_variable:  expr '&' expr.    (167)
 	expr_without_variable:  expr.'^' expr 
 	expr_without_variable:  expr.'.' expr 
 	expr_without_variable:  expr.'+' expr 
@@ -10701,7 +10701,7 @@ state 290
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 166 (src line 907)
+	.  reduce 167 (src line 907)
 
 
 state 291
@@ -10713,7 +10713,7 @@ state 291
 	expr_without_variable:  expr.'|' expr 
 	expr_without_variable:  expr.'&' expr 
 	expr_without_variable:  expr.'^' expr 
-	expr_without_variable:  expr '^' expr.    (167)
+	expr_without_variable:  expr '^' expr.    (168)
 	expr_without_variable:  expr.'.' expr 
 	expr_without_variable:  expr.'+' expr 
 	expr_without_variable:  expr.'-' expr 
@@ -10757,7 +10757,7 @@ state 291
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 167 (src line 908)
+	.  reduce 168 (src line 908)
 
 
 state 292
@@ -10770,7 +10770,7 @@ state 292
 	expr_without_variable:  expr.'&' expr 
 	expr_without_variable:  expr.'^' expr 
 	expr_without_variable:  expr.'.' expr 
-	expr_without_variable:  expr '.' expr.    (168)
+	expr_without_variable:  expr '.' expr.    (169)
 	expr_without_variable:  expr.'+' expr 
 	expr_without_variable:  expr.'-' expr 
 	expr_without_variable:  expr.'*' expr 
@@ -10798,7 +10798,7 @@ state 292
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 168 (src line 909)
+	.  reduce 169 (src line 909)
 
 
 state 293
@@ -10812,7 +10812,7 @@ state 293
 	expr_without_variable:  expr.'^' expr 
 	expr_without_variable:  expr.'.' expr 
 	expr_without_variable:  expr.'+' expr 
-	expr_without_variable:  expr '+' expr.    (169)
+	expr_without_variable:  expr '+' expr.    (170)
 	expr_without_variable:  expr.'-' expr 
 	expr_without_variable:  expr.'*' expr 
 	expr_without_variable:  expr.T_POW expr 
@@ -10839,7 +10839,7 @@ state 293
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 169 (src line 910)
+	.  reduce 170 (src line 910)
 
 
 state 294
@@ -10854,7 +10854,7 @@ state 294
 	expr_without_variable:  expr.'.' expr 
 	expr_without_variable:  expr.'+' expr 
 	expr_without_variable:  expr.'-' expr 
-	expr_without_variable:  expr '-' expr.    (170)
+	expr_without_variable:  expr '-' expr.    (171)
 	expr_without_variable:  expr.'*' expr 
 	expr_without_variable:  expr.T_POW expr 
 	expr_without_variable:  expr.'/' expr 
@@ -10880,7 +10880,7 @@ state 294
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 170 (src line 911)
+	.  reduce 171 (src line 911)
 
 
 state 295
@@ -10896,7 +10896,7 @@ state 295
 	expr_without_variable:  expr.'+' expr 
 	expr_without_variable:  expr.'-' expr 
 	expr_without_variable:  expr.'*' expr 
-	expr_without_variable:  expr '*' expr.    (171)
+	expr_without_variable:  expr '*' expr.    (172)
 	expr_without_variable:  expr.T_POW expr 
 	expr_without_variable:  expr.'/' expr 
 	expr_without_variable:  expr.'%' expr 
@@ -10918,7 +10918,7 @@ state 295
 
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 171 (src line 912)
+	.  reduce 172 (src line 912)
 
 
 state 296
@@ -10935,7 +10935,7 @@ state 296
 	expr_without_variable:  expr.'-' expr 
 	expr_without_variable:  expr.'*' expr 
 	expr_without_variable:  expr.T_POW expr 
-	expr_without_variable:  expr T_POW expr.    (172)
+	expr_without_variable:  expr T_POW expr.    (173)
 	expr_without_variable:  expr.'/' expr 
 	expr_without_variable:  expr.'%' expr 
 	expr_without_variable:  expr.T_SL expr 
@@ -10955,7 +10955,7 @@ state 296
 	expr_without_variable:  expr.T_COALESCE expr 
 
 	T_POW  shift 140
-	.  reduce 172 (src line 913)
+	.  reduce 173 (src line 913)
 
 
 state 297
@@ -10973,7 +10973,7 @@ state 297
 	expr_without_variable:  expr.'*' expr 
 	expr_without_variable:  expr.T_POW expr 
 	expr_without_variable:  expr.'/' expr 
-	expr_without_variable:  expr '/' expr.    (173)
+	expr_without_variable:  expr '/' expr.    (174)
 	expr_without_variable:  expr.'%' expr 
 	expr_without_variable:  expr.T_SL expr 
 	expr_without_variable:  expr.T_SR expr 
@@ -10993,7 +10993,7 @@ state 297
 
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 173 (src line 914)
+	.  reduce 174 (src line 914)
 
 
 state 298
@@ -11012,7 +11012,7 @@ state 298
 	expr_without_variable:  expr.T_POW expr 
 	expr_without_variable:  expr.'/' expr 
 	expr_without_variable:  expr.'%' expr 
-	expr_without_variable:  expr '%' expr.    (174)
+	expr_without_variable:  expr '%' expr.    (175)
 	expr_without_variable:  expr.T_SL expr 
 	expr_without_variable:  expr.T_SR expr 
 	expr_without_variable:  expr.T_IS_IDENTICAL expr 
@@ -11031,7 +11031,7 @@ state 298
 
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 174 (src line 915)
+	.  reduce 175 (src line 915)
 
 
 state 299
@@ -11051,7 +11051,7 @@ state 299
 	expr_without_variable:  expr.'/' expr 
 	expr_without_variable:  expr.'%' expr 
 	expr_without_variable:  expr.T_SL expr 
-	expr_without_variable:  expr T_SL expr.    (175)
+	expr_without_variable:  expr T_SL expr.    (176)
 	expr_without_variable:  expr.T_SR expr 
 	expr_without_variable:  expr.T_IS_IDENTICAL expr 
 	expr_without_variable:  expr.T_IS_NOT_IDENTICAL expr 
@@ -11075,7 +11075,7 @@ state 299
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 175 (src line 916)
+	.  reduce 176 (src line 916)
 
 
 state 300
@@ -11096,7 +11096,7 @@ state 300
 	expr_without_variable:  expr.'%' expr 
 	expr_without_variable:  expr.T_SL expr 
 	expr_without_variable:  expr.T_SR expr 
-	expr_without_variable:  expr T_SR expr.    (176)
+	expr_without_variable:  expr T_SR expr.    (177)
 	expr_without_variable:  expr.T_IS_IDENTICAL expr 
 	expr_without_variable:  expr.T_IS_NOT_IDENTICAL expr 
 	expr_without_variable:  expr.T_IS_EQUAL expr 
@@ -11119,7 +11119,7 @@ state 300
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 176 (src line 917)
+	.  reduce 177 (src line 917)
 
 
 state 301
@@ -11141,7 +11141,7 @@ state 301
 	expr_without_variable:  expr.T_SL expr 
 	expr_without_variable:  expr.T_SR expr 
 	expr_without_variable:  expr.T_IS_IDENTICAL expr 
-	expr_without_variable:  expr T_IS_IDENTICAL expr.    (181)
+	expr_without_variable:  expr T_IS_IDENTICAL expr.    (182)
 	expr_without_variable:  expr.T_IS_NOT_IDENTICAL expr 
 	expr_without_variable:  expr.T_IS_EQUAL expr 
 	expr_without_variable:  expr.T_IS_NOT_EQUAL expr 
@@ -11174,7 +11174,7 @@ state 301
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 181 (src line 922)
+	.  reduce 182 (src line 922)
 
 
 state 302
@@ -11197,7 +11197,7 @@ state 302
 	expr_without_variable:  expr.T_SR expr 
 	expr_without_variable:  expr.T_IS_IDENTICAL expr 
 	expr_without_variable:  expr.T_IS_NOT_IDENTICAL expr 
-	expr_without_variable:  expr T_IS_NOT_IDENTICAL expr.    (182)
+	expr_without_variable:  expr T_IS_NOT_IDENTICAL expr.    (183)
 	expr_without_variable:  expr.T_IS_EQUAL expr 
 	expr_without_variable:  expr.T_IS_NOT_EQUAL expr 
 	expr_without_variable:  expr.'<' expr 
@@ -11229,7 +11229,7 @@ state 302
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 182 (src line 924)
+	.  reduce 183 (src line 924)
 
 
 state 303
@@ -11253,7 +11253,7 @@ state 303
 	expr_without_variable:  expr.T_IS_IDENTICAL expr 
 	expr_without_variable:  expr.T_IS_NOT_IDENTICAL expr 
 	expr_without_variable:  expr.T_IS_EQUAL expr 
-	expr_without_variable:  expr T_IS_EQUAL expr.    (183)
+	expr_without_variable:  expr T_IS_EQUAL expr.    (184)
 	expr_without_variable:  expr.T_IS_NOT_EQUAL expr 
 	expr_without_variable:  expr.'<' expr 
 	expr_without_variable:  expr.T_IS_SMALLER_OR_EQUAL expr 
@@ -11284,7 +11284,7 @@ state 303
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 183 (src line 926)
+	.  reduce 184 (src line 926)
 
 
 state 304
@@ -11309,7 +11309,7 @@ state 304
 	expr_without_variable:  expr.T_IS_NOT_IDENTICAL expr 
 	expr_without_variable:  expr.T_IS_EQUAL expr 
 	expr_without_variable:  expr.T_IS_NOT_EQUAL expr 
-	expr_without_variable:  expr T_IS_NOT_EQUAL expr.    (184)
+	expr_without_variable:  expr T_IS_NOT_EQUAL expr.    (185)
 	expr_without_variable:  expr.'<' expr 
 	expr_without_variable:  expr.T_IS_SMALLER_OR_EQUAL expr 
 	expr_without_variable:  expr.'>' expr 
@@ -11339,7 +11339,7 @@ state 304
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 184 (src line 928)
+	.  reduce 185 (src line 928)
 
 
 state 305
@@ -11365,7 +11365,7 @@ state 305
 	expr_without_variable:  expr.T_IS_EQUAL expr 
 	expr_without_variable:  expr.T_IS_NOT_EQUAL expr 
 	expr_without_variable:  expr.'<' expr 
-	expr_without_variable:  expr '<' expr.    (185)
+	expr_without_variable:  expr '<' expr.    (186)
 	expr_without_variable:  expr.T_IS_SMALLER_OR_EQUAL expr 
 	expr_without_variable:  expr.'>' expr 
 	expr_without_variable:  expr.T_IS_GREATER_OR_EQUAL expr 
@@ -11389,7 +11389,7 @@ state 305
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 185 (src line 930)
+	.  reduce 186 (src line 930)
 
 
 state 306
@@ -11416,7 +11416,7 @@ state 306
 	expr_without_variable:  expr.T_IS_NOT_EQUAL expr 
 	expr_without_variable:  expr.'<' expr 
 	expr_without_variable:  expr.T_IS_SMALLER_OR_EQUAL expr 
-	expr_without_variable:  expr T_IS_SMALLER_OR_EQUAL expr.    (186)
+	expr_without_variable:  expr T_IS_SMALLER_OR_EQUAL expr.    (187)
 	expr_without_variable:  expr.'>' expr 
 	expr_without_variable:  expr.T_IS_GREATER_OR_EQUAL expr 
 	expr_without_variable:  expr.T_SPACESHIP expr 
@@ -11439,7 +11439,7 @@ state 306
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 186 (src line 932)
+	.  reduce 187 (src line 932)
 
 
 state 307
@@ -11467,7 +11467,7 @@ state 307
 	expr_without_variable:  expr.'<' expr 
 	expr_without_variable:  expr.T_IS_SMALLER_OR_EQUAL expr 
 	expr_without_variable:  expr.'>' expr 
-	expr_without_variable:  expr '>' expr.    (187)
+	expr_without_variable:  expr '>' expr.    (188)
 	expr_without_variable:  expr.T_IS_GREATER_OR_EQUAL expr 
 	expr_without_variable:  expr.T_SPACESHIP expr 
 	expr_without_variable:  expr.T_INSTANCEOF class_name_reference 
@@ -11489,7 +11489,7 @@ state 307
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 187 (src line 934)
+	.  reduce 188 (src line 934)
 
 
 state 308
@@ -11518,7 +11518,7 @@ state 308
 	expr_without_variable:  expr.T_IS_SMALLER_OR_EQUAL expr 
 	expr_without_variable:  expr.'>' expr 
 	expr_without_variable:  expr.T_IS_GREATER_OR_EQUAL expr 
-	expr_without_variable:  expr T_IS_GREATER_OR_EQUAL expr.    (188)
+	expr_without_variable:  expr T_IS_GREATER_OR_EQUAL expr.    (189)
 	expr_without_variable:  expr.T_SPACESHIP expr 
 	expr_without_variable:  expr.T_INSTANCEOF class_name_reference 
 	expr_without_variable:  expr.'?' expr ':' expr 
@@ -11539,7 +11539,7 @@ state 308
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 188 (src line 936)
+	.  reduce 189 (src line 936)
 
 
 state 309
@@ -11569,7 +11569,7 @@ state 309
 	expr_without_variable:  expr.'>' expr 
 	expr_without_variable:  expr.T_IS_GREATER_OR_EQUAL expr 
 	expr_without_variable:  expr.T_SPACESHIP expr 
-	expr_without_variable:  expr T_SPACESHIP expr.    (189)
+	expr_without_variable:  expr T_SPACESHIP expr.    (190)
 	expr_without_variable:  expr.T_INSTANCEOF class_name_reference 
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
@@ -11594,13 +11594,13 @@ state 309
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 189 (src line 938)
+	.  reduce 190 (src line 938)
 
 
 state 310
-	expr_without_variable:  expr T_INSTANCEOF class_name_reference.    (190)
+	expr_without_variable:  expr T_INSTANCEOF class_name_reference.    (191)
 
-	.  reduce 190 (src line 940)
+	.  reduce 191 (src line 940)
 
 
 state 311
@@ -11777,7 +11777,7 @@ state 313
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	expr_without_variable:  expr T_COALESCE expr.    (195)
+	expr_without_variable:  expr T_COALESCE expr.    (196)
 
 	T_COALESCE  shift 156
 	T_BOOLEAN_OR  shift 128
@@ -11804,7 +11804,7 @@ state 313
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 195 (src line 948)
+	.  reduce 196 (src line 948)
 
 
 state 314
@@ -11824,11 +11824,11 @@ state 315
 
 state 316
 	unset_variable:  variable.    (51)
-	dereferencable:  variable.    (268)
+	dereferencable:  variable.    (269)
 
 	','  reduce 51 (src line 461)
 	')'  reduce 51 (src line 461)
-	.  reduce 268 (src line 1092)
+	.  reduce 269 (src line 1092)
 
 
 state 317
@@ -12039,9 +12039,9 @@ state 323
 
 state 324
 	function_declaration_statement:  function returns_ref T_STRING.backup_doc_comment '(' parameter_list ')' return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	backup_doc_comment: .    (216)
+	backup_doc_comment: .    (217)
 
-	.  reduce 216 (src line 979)
+	.  reduce 217 (src line 979)
 
 	backup_doc_comment  goto 425
 
@@ -12056,95 +12056,13 @@ state 326
 	class_declaration_statement:  class_modifiers T_CLASS T_STRING.extends_from implements_list backup_doc_comment '{' class_statement_list '}' 
 	extends_from: .    (62)
 
+	T_EXTENDS  shift 428
 	.  reduce 62 (src line 513)
 
 	extends_from  goto 427
 
 state 327
 	if_stmt_without_else:  if_stmt_without_else T_ELSEIF '('.expr ')' statement 
-
-	T_INCLUDE  shift 79
-	T_INCLUDE_ONCE  shift 80
-	T_EVAL  shift 81
-	T_REQUIRE  shift 82
-	T_REQUIRE_ONCE  shift 83
-	T_PRINT  shift 65
-	T_YIELD  shift 66
-	T_YIELD_FROM  shift 67
-	'+'  shift 47
-	'-'  shift 48
-	'!'  shift 49
-	'~'  shift 50
-	T_INC  shift 45
-	T_DEC  shift 46
-	T_INT_CAST  shift 54
-	T_DOUBLE_CAST  shift 55
-	T_STRING_CAST  shift 56
-	T_ARRAY_CAST  shift 57
-	T_OBJECT_CAST  shift 58
-	T_BOOL_CAST  shift 59
-	T_UNSET_CAST  shift 60
-	'@'  shift 62
-	'['  shift 43
-	T_NEW  shift 76
-	T_CLONE  shift 44
-	T_STATIC  shift 113
-	T_LNUMBER  shift 84
-	T_DNUMBER  shift 85
-	T_STRING  shift 114
-	T_VARIABLE  shift 96
-	T_CONSTANT_ENCAPSED_STRING  shift 101
-	T_LINE  shift 86
-	T_FILE  shift 87
-	T_DIR  shift 88
-	T_CLASS_C  shift 93
-	T_TRAIT_C  shift 89
-	T_METHOD_C  shift 90
-	T_FUNC_C  shift 91
-	T_NS_C  shift 92
-	T_EXIT  shift 61
-	T_FUNCTION  shift 36
-	T_ISSET  shift 77
-	T_EMPTY  shift 78
-	T_LIST  shift 42
-	T_ARRAY  shift 100
-	T_START_HEREDOC  shift 94
-	T_NAMESPACE  shift 103
-	T_NS_SEPARATOR  shift 104
-	'('  shift 51
-	'`'  shift 64
-	'"'  shift 95
-	'$'  shift 97
-	.  error
-
-	namespace_name  goto 102
-	name  goto 98
-	expr  goto 428
-	variable  goto 34
-	expr_without_variable  goto 35
-	new_expr  goto 52
-	class_name  goto 73
-	simple_variable  goto 70
-	internal_functions_in_yacc  goto 53
-	scalar  goto 63
-	function_call  goto 72
-	variable_class_name  goto 74
-	dereferencable_scalar  goto 75
-	constant  goto 71
-	dereferencable  goto 41
-	callable_expr  goto 99
-	callable_variable  goto 39
-	static_member  goto 40
-	function  goto 108
-
-state 328
-	if_stmt:  if_stmt_without_else T_ELSE statement.    (88)
-
-	.  reduce 88 (src line 585)
-
-
-state 329
-	alt_if_stmt_without_else:  alt_if_stmt_without_else T_ELSEIF '('.expr ')' ':' inner_statement_list 
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -12220,10 +12138,93 @@ state 329
 	static_member  goto 40
 	function  goto 108
 
-state 330
-	alt_if_stmt:  alt_if_stmt_without_else T_ENDIF ';'.    (91)
+state 328
+	if_stmt:  if_stmt_without_else T_ELSE statement.    (89)
 
-	.  reduce 91 (src line 597)
+	.  reduce 89 (src line 585)
+
+
+state 329
+	alt_if_stmt_without_else:  alt_if_stmt_without_else T_ELSEIF '('.expr ')' ':' inner_statement_list 
+
+	T_INCLUDE  shift 79
+	T_INCLUDE_ONCE  shift 80
+	T_EVAL  shift 81
+	T_REQUIRE  shift 82
+	T_REQUIRE_ONCE  shift 83
+	T_PRINT  shift 65
+	T_YIELD  shift 66
+	T_YIELD_FROM  shift 67
+	'+'  shift 47
+	'-'  shift 48
+	'!'  shift 49
+	'~'  shift 50
+	T_INC  shift 45
+	T_DEC  shift 46
+	T_INT_CAST  shift 54
+	T_DOUBLE_CAST  shift 55
+	T_STRING_CAST  shift 56
+	T_ARRAY_CAST  shift 57
+	T_OBJECT_CAST  shift 58
+	T_BOOL_CAST  shift 59
+	T_UNSET_CAST  shift 60
+	'@'  shift 62
+	'['  shift 43
+	T_NEW  shift 76
+	T_CLONE  shift 44
+	T_STATIC  shift 113
+	T_LNUMBER  shift 84
+	T_DNUMBER  shift 85
+	T_STRING  shift 114
+	T_VARIABLE  shift 96
+	T_CONSTANT_ENCAPSED_STRING  shift 101
+	T_LINE  shift 86
+	T_FILE  shift 87
+	T_DIR  shift 88
+	T_CLASS_C  shift 93
+	T_TRAIT_C  shift 89
+	T_METHOD_C  shift 90
+	T_FUNC_C  shift 91
+	T_NS_C  shift 92
+	T_EXIT  shift 61
+	T_FUNCTION  shift 36
+	T_ISSET  shift 77
+	T_EMPTY  shift 78
+	T_LIST  shift 42
+	T_ARRAY  shift 100
+	T_START_HEREDOC  shift 94
+	T_NAMESPACE  shift 103
+	T_NS_SEPARATOR  shift 104
+	'('  shift 51
+	'`'  shift 64
+	'"'  shift 95
+	'$'  shift 97
+	.  error
+
+	namespace_name  goto 102
+	name  goto 98
+	expr  goto 430
+	variable  goto 34
+	expr_without_variable  goto 35
+	new_expr  goto 52
+	class_name  goto 73
+	simple_variable  goto 70
+	internal_functions_in_yacc  goto 53
+	scalar  goto 63
+	function_call  goto 72
+	variable_class_name  goto 74
+	dereferencable_scalar  goto 75
+	constant  goto 71
+	dereferencable  goto 41
+	callable_expr  goto 99
+	callable_variable  goto 39
+	static_member  goto 40
+	function  goto 108
+
+state 330
+	alt_if_stmt:  alt_if_stmt_without_else T_ENDIF ';'.    (92)
+
+	.  reduce 92 (src line 597)
 
 
 state 331
@@ -12232,10 +12233,10 @@ state 331
 
 	.  reduce 16 (src line 388)
 
-	inner_statement_list  goto 430
+	inner_statement_list  goto 431
 
 state 332
-	expr_without_variable:  variable '=' expr.    (141)
+	expr_without_variable:  variable '=' expr.    (142)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -12293,7 +12294,7 @@ state 332
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 141 (src line 863)
+	.  reduce 142 (src line 863)
 
 
 state 333
@@ -12313,7 +12314,7 @@ state 333
 
 	namespace_name  goto 102
 	name  goto 98
-	variable  goto 431
+	variable  goto 432
 	class_name  goto 73
 	simple_variable  goto 70
 	function_call  goto 72
@@ -12326,7 +12327,7 @@ state 333
 	static_member  goto 40
 
 state 334
-	expr_without_variable:  variable T_PLUS_EQUAL expr.    (144)
+	expr_without_variable:  variable T_PLUS_EQUAL expr.    (145)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -12384,11 +12385,11 @@ state 334
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 144 (src line 868)
+	.  reduce 145 (src line 868)
 
 
 state 335
-	expr_without_variable:  variable T_MINUS_EQUAL expr.    (145)
+	expr_without_variable:  variable T_MINUS_EQUAL expr.    (146)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -12446,11 +12447,11 @@ state 335
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 145 (src line 870)
+	.  reduce 146 (src line 870)
 
 
 state 336
-	expr_without_variable:  variable T_MUL_EQUAL expr.    (146)
+	expr_without_variable:  variable T_MUL_EQUAL expr.    (147)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -12508,11 +12509,11 @@ state 336
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 146 (src line 872)
+	.  reduce 147 (src line 872)
 
 
 state 337
-	expr_without_variable:  variable T_POW_EQUAL expr.    (147)
+	expr_without_variable:  variable T_POW_EQUAL expr.    (148)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -12570,11 +12571,11 @@ state 337
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 147 (src line 874)
+	.  reduce 148 (src line 874)
 
 
 state 338
-	expr_without_variable:  variable T_DIV_EQUAL expr.    (148)
+	expr_without_variable:  variable T_DIV_EQUAL expr.    (149)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -12632,11 +12633,11 @@ state 338
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 148 (src line 876)
+	.  reduce 149 (src line 876)
 
 
 state 339
-	expr_without_variable:  variable T_CONCAT_EQUAL expr.    (149)
+	expr_without_variable:  variable T_CONCAT_EQUAL expr.    (150)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -12694,11 +12695,11 @@ state 339
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 149 (src line 878)
+	.  reduce 150 (src line 878)
 
 
 state 340
-	expr_without_variable:  variable T_MOD_EQUAL expr.    (150)
+	expr_without_variable:  variable T_MOD_EQUAL expr.    (151)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -12756,11 +12757,11 @@ state 340
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 150 (src line 880)
+	.  reduce 151 (src line 880)
 
 
 state 341
-	expr_without_variable:  variable T_AND_EQUAL expr.    (151)
+	expr_without_variable:  variable T_AND_EQUAL expr.    (152)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -12818,11 +12819,11 @@ state 341
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 151 (src line 882)
+	.  reduce 152 (src line 882)
 
 
 state 342
-	expr_without_variable:  variable T_OR_EQUAL expr.    (152)
+	expr_without_variable:  variable T_OR_EQUAL expr.    (153)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -12880,11 +12881,11 @@ state 342
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 152 (src line 884)
+	.  reduce 153 (src line 884)
 
 
 state 343
-	expr_without_variable:  variable T_XOR_EQUAL expr.    (153)
+	expr_without_variable:  variable T_XOR_EQUAL expr.    (154)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -12942,11 +12943,11 @@ state 343
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 153 (src line 886)
+	.  reduce 154 (src line 886)
 
 
 state 344
-	expr_without_variable:  variable T_SL_EQUAL expr.    (154)
+	expr_without_variable:  variable T_SL_EQUAL expr.    (155)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -13004,11 +13005,11 @@ state 344
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 154 (src line 888)
+	.  reduce 155 (src line 888)
 
 
 state 345
-	expr_without_variable:  variable T_SR_EQUAL expr.    (155)
+	expr_without_variable:  variable T_SR_EQUAL expr.    (156)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -13066,7 +13067,7 @@ state 345
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 155 (src line 890)
+	.  reduce 156 (src line 890)
 
 
 state 346
@@ -13132,14 +13133,14 @@ state 346
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	')'  shift 432
+	')'  shift 433
 	.  error
 
 
 state 347
 	callable_variable:  dereferencable '[' optional_expr.']' 
 
-	']'  shift 433
+	']'  shift 434
 	.  error
 
 
@@ -13205,23 +13206,23 @@ state 348
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	'}'  shift 434
+	'}'  shift 435
 	.  error
 
 
 state 349
 	callable_variable:  dereferencable T_OBJECT_OPERATOR property_name.argument_list 
-	variable:  dereferencable T_OBJECT_OPERATOR property_name.    (282)
+	variable:  dereferencable T_OBJECT_OPERATOR property_name.    (283)
 
 	'('  shift 256
-	.  reduce 282 (src line 1123)
+	.  reduce 283 (src line 1123)
 
-	argument_list  goto 435
+	argument_list  goto 436
 
 state 350
-	property_name:  T_STRING.    (297)
+	property_name:  T_STRING.    (298)
 
-	.  reduce 297 (src line 1161)
+	.  reduce 298 (src line 1161)
 
 
 state 351
@@ -13283,7 +13284,7 @@ state 351
 
 	namespace_name  goto 102
 	name  goto 98
-	expr  goto 436
+	expr  goto 437
 	variable  goto 34
 	expr_without_variable  goto 35
 	new_expr  goto 52
@@ -13302,29 +13303,29 @@ state 351
 	function  goto 108
 
 state 352
-	property_name:  simple_variable.    (299)
+	property_name:  simple_variable.    (300)
 
-	.  reduce 299 (src line 1164)
+	.  reduce 300 (src line 1164)
 
 
 state 353
 	expr_without_variable:  T_LIST '(' array_pair_list.')' '=' expr 
 
-	')'  shift 437
+	')'  shift 438
 	.  error
 
 
 state 354
 	expr_without_variable:  '[' array_pair_list ']'.'=' expr 
-	dereferencable_scalar:  '[' array_pair_list ']'.    (242)
+	dereferencable_scalar:  '[' array_pair_list ']'.    (243)
 
-	'='  shift 438
-	.  reduce 242 (src line 1047)
+	'='  shift 439
+	.  reduce 243 (src line 1047)
 
 
 state 355
 	non_empty_array_pair_list:  non_empty_array_pair_list ','.possible_array_pair 
-	possible_array_pair: .    (301)
+	possible_array_pair: .    (302)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -13379,7 +13380,7 @@ state 355
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 301 (src line 1172)
+	.  reduce 302 (src line 1172)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -13400,7 +13401,7 @@ state 355
 	callable_variable  goto 39
 	static_member  goto 40
 	array_pair  goto 196
-	possible_array_pair  goto 439
+	possible_array_pair  goto 440
 	function  goto 108
 
 state 356
@@ -13416,7 +13417,7 @@ state 356
 	T_PRINT  shift 65
 	T_YIELD  shift 66
 	T_YIELD_FROM  shift 67
-	'&'  shift 441
+	'&'  shift 442
 	'+'  shift 47
 	'-'  shift 48
 	'!'  shift 49
@@ -13452,7 +13453,7 @@ state 356
 	T_FUNCTION  shift 36
 	T_ISSET  shift 77
 	T_EMPTY  shift 78
-	T_LIST  shift 442
+	T_LIST  shift 443
 	T_ARRAY  shift 100
 	T_START_HEREDOC  shift 94
 	T_NAMESPACE  shift 103
@@ -13465,7 +13466,7 @@ state 356
 
 	namespace_name  goto 102
 	name  goto 98
-	expr  goto 440
+	expr  goto 441
 	variable  goto 34
 	expr_without_variable  goto 35
 	new_expr  goto 52
@@ -13484,19 +13485,19 @@ state 356
 	function  goto 108
 
 state 357
-	dereferencable:  variable.    (268)
-	array_pair:  '&' variable.    (308)
+	dereferencable:  variable.    (269)
+	array_pair:  '&' variable.    (309)
 
-	','  reduce 308 (src line 1191)
-	')'  reduce 308 (src line 1191)
-	']'  reduce 308 (src line 1191)
-	.  reduce 268 (src line 1092)
+	','  reduce 309 (src line 1191)
+	')'  reduce 309 (src line 1191)
+	']'  reduce 309 (src line 1191)
+	.  reduce 269 (src line 1092)
 
 
 state 358
 	expr_without_variable:  T_LIST '('.array_pair_list ')' '=' expr 
 	array_pair:  T_LIST '('.array_pair_list ')' 
-	possible_array_pair: .    (301)
+	possible_array_pair: .    (302)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -13551,7 +13552,7 @@ state 358
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 301 (src line 1172)
+	.  reduce 302 (src line 1172)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -13573,7 +13574,7 @@ state 358
 	static_member  goto 40
 	array_pair  goto 196
 	non_empty_array_pair_list  goto 194
-	array_pair_list  goto 443
+	array_pair_list  goto 444
 	possible_array_pair  goto 195
 	function  goto 108
 
@@ -13640,76 +13641,76 @@ state 359
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	')'  shift 444
+	')'  shift 445
 	.  error
 
 
 state 360
 	dereferencable_scalar:  '[' array_pair_list.']' 
 
-	']'  shift 445
+	']'  shift 446
 	.  error
 
 
 state 361
-	expr_without_variable:  '(' expr ')'.    (191)
-	dereferencable:  '(' expr ')'.    (269)
-	callable_expr:  '(' expr ')'.    (272)
+	expr_without_variable:  '(' expr ')'.    (192)
+	dereferencable:  '(' expr ')'.    (270)
+	callable_expr:  '(' expr ')'.    (273)
 
-	'['  reduce 269 (src line 1094)
-	T_OBJECT_OPERATOR  reduce 269 (src line 1094)
-	T_PAAMAYIM_NEKUDOTAYIM  reduce 269 (src line 1094)
-	'{'  reduce 269 (src line 1094)
-	'('  reduce 272 (src line 1100)
-	.  reduce 191 (src line 942)
+	'['  reduce 270 (src line 1094)
+	T_OBJECT_OPERATOR  reduce 270 (src line 1094)
+	T_PAAMAYIM_NEKUDOTAYIM  reduce 270 (src line 1094)
+	'{'  reduce 270 (src line 1094)
+	'('  reduce 273 (src line 1100)
+	.  reduce 192 (src line 942)
 
 
 state 362
 	exit_expr:  '(' optional_expr.')' 
 
-	')'  shift 446
+	')'  shift 447
 	.  error
 
 
 state 363
-	expr_without_variable:  '`' backticks_expr '`'.    (207)
+	expr_without_variable:  '`' backticks_expr '`'.    (208)
 
-	.  reduce 207 (src line 961)
+	.  reduce 208 (src line 961)
 
 
 state 364
-	encaps_list:  T_ENCAPSED_AND_WHITESPACE encaps_var.    (314)
+	encaps_list:  T_ENCAPSED_AND_WHITESPACE encaps_var.    (315)
 
-	.  reduce 314 (src line 1206)
+	.  reduce 315 (src line 1206)
 
 
 state 365
-	encaps_list:  encaps_list encaps_var.    (311)
+	encaps_list:  encaps_list encaps_var.    (312)
 
-	.  reduce 311 (src line 1199)
+	.  reduce 312 (src line 1199)
 
 
 state 366
-	encaps_list:  encaps_list T_ENCAPSED_AND_WHITESPACE.    (312)
+	encaps_list:  encaps_list T_ENCAPSED_AND_WHITESPACE.    (313)
 
-	.  reduce 312 (src line 1202)
+	.  reduce 313 (src line 1202)
 
 
 state 367
 	encaps_var:  T_VARIABLE '['.encaps_var_offset ']' 
 
-	'-'  shift 450
-	T_STRING  shift 448
-	T_VARIABLE  shift 451
-	T_NUM_STRING  shift 449
+	'-'  shift 451
+	T_STRING  shift 449
+	T_VARIABLE  shift 452
+	T_NUM_STRING  shift 450
 	.  error
 
-	encaps_var_offset  goto 447
+	encaps_var_offset  goto 448
 
 state 368
 	encaps_var:  T_VARIABLE T_OBJECT_OPERATOR.T_STRING 
 
-	T_STRING  shift 452
+	T_STRING  shift 453
 	.  error
 
 
@@ -13775,7 +13776,7 @@ state 369
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	'}'  shift 453
+	'}'  shift 454
 	.  error
 
 
@@ -13783,17 +13784,17 @@ state 370
 	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME.'}' 
 	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME.'[' expr ']' '}' 
 
-	'['  shift 455
-	'}'  shift 454
+	'['  shift 456
+	'}'  shift 455
 	.  error
 
 
 state 371
-	dereferencable:  variable.    (268)
+	dereferencable:  variable.    (269)
 	encaps_var:  T_CURLY_OPEN variable.'}' 
 
-	'}'  shift 456
-	.  reduce 268 (src line 1092)
+	'}'  shift 457
+	.  reduce 269 (src line 1092)
 
 
 state 372
@@ -13855,7 +13856,7 @@ state 372
 
 	namespace_name  goto 102
 	name  goto 98
-	expr  goto 457
+	expr  goto 458
 	variable  goto 34
 	expr_without_variable  goto 35
 	new_expr  goto 52
@@ -13876,7 +13877,7 @@ state 372
 state 373
 	callable_variable:  constant '[' optional_expr.']' 
 
-	']'  shift 458
+	']'  shift 459
 	.  error
 
 
@@ -13886,22 +13887,22 @@ state 374
 	'('  shift 256
 	.  error
 
-	argument_list  goto 459
+	argument_list  goto 460
 
 state 375
-	constant:  class_name T_PAAMAYIM_NEKUDOTAYIM identifier.    (261)
-	member_name:  identifier.    (294)
+	constant:  class_name T_PAAMAYIM_NEKUDOTAYIM identifier.    (262)
+	member_name:  identifier.    (295)
 
-	'('  reduce 294 (src line 1155)
-	.  reduce 261 (src line 1072)
+	'('  reduce 295 (src line 1155)
+	.  reduce 262 (src line 1072)
 
 
 state 376
-	static_member:  class_name T_PAAMAYIM_NEKUDOTAYIM simple_variable.    (286)
-	member_name:  simple_variable.    (296)
+	static_member:  class_name T_PAAMAYIM_NEKUDOTAYIM simple_variable.    (287)
+	member_name:  simple_variable.    (297)
 
-	'('  reduce 296 (src line 1158)
-	.  reduce 286 (src line 1133)
+	'('  reduce 297 (src line 1158)
+	.  reduce 287 (src line 1133)
 
 
 state 377
@@ -13963,7 +13964,7 @@ state 377
 
 	namespace_name  goto 102
 	name  goto 98
-	expr  goto 460
+	expr  goto 461
 	variable  goto 34
 	expr_without_variable  goto 35
 	new_expr  goto 52
@@ -13993,34 +13994,34 @@ state 379
 	'('  shift 256
 	.  error
 
-	argument_list  goto 461
+	argument_list  goto 462
 
 state 380
-	constant:  variable_class_name T_PAAMAYIM_NEKUDOTAYIM identifier.    (262)
-	member_name:  identifier.    (294)
+	constant:  variable_class_name T_PAAMAYIM_NEKUDOTAYIM identifier.    (263)
+	member_name:  identifier.    (295)
 
-	'('  reduce 294 (src line 1155)
-	.  reduce 262 (src line 1074)
+	'('  reduce 295 (src line 1155)
+	.  reduce 263 (src line 1074)
 
 
 state 381
-	static_member:  variable_class_name T_PAAMAYIM_NEKUDOTAYIM simple_variable.    (287)
-	member_name:  simple_variable.    (296)
+	static_member:  variable_class_name T_PAAMAYIM_NEKUDOTAYIM simple_variable.    (288)
+	member_name:  simple_variable.    (297)
 
-	'('  reduce 296 (src line 1158)
-	.  reduce 287 (src line 1136)
+	'('  reduce 297 (src line 1158)
+	.  reduce 288 (src line 1136)
 
 
 state 382
-	new_expr:  T_NEW class_name_reference ctor_arguments.    (138)
+	new_expr:  T_NEW class_name_reference ctor_arguments.    (139)
 
-	.  reduce 138 (src line 851)
+	.  reduce 139 (src line 851)
 
 
 state 383
-	ctor_arguments:  argument_list.    (240)
+	ctor_arguments:  argument_list.    (241)
 
-	.  reduce 240 (src line 1042)
+	.  reduce 241 (src line 1042)
 
 
 state 384
@@ -14030,11 +14031,11 @@ state 384
 	'$'  shift 97
 	.  error
 
-	simple_variable  goto 462
+	simple_variable  goto 463
 
 state 385
 	new_variable:  new_variable '['.optional_expr ']' 
-	optional_expr: .    (265)
+	optional_expr: .    (266)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -14088,12 +14089,12 @@ state 385
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 265 (src line 1083)
+	.  reduce 266 (src line 1083)
 
 	namespace_name  goto 102
 	name  goto 98
 	expr  goto 112
-	optional_expr  goto 463
+	optional_expr  goto 464
 	variable  goto 34
 	expr_without_variable  goto 35
 	new_expr  goto 52
@@ -14170,7 +14171,7 @@ state 386
 
 	namespace_name  goto 102
 	name  goto 98
-	expr  goto 464
+	expr  goto 465
 	variable  goto 34
 	expr_without_variable  goto 35
 	new_expr  goto 52
@@ -14198,7 +14199,7 @@ state 387
 	.  error
 
 	simple_variable  goto 352
-	property_name  goto 465
+	property_name  goto 466
 
 state 388
 	new_variable:  new_variable T_PAAMAYIM_NEKUDOTAYIM.simple_variable 
@@ -14207,21 +14208,21 @@ state 388
 	'$'  shift 97
 	.  error
 
-	simple_variable  goto 466
+	simple_variable  goto 467
 
 state 389
 	internal_functions_in_yacc:  T_ISSET '(' isset_variables.')' 
 	isset_variables:  isset_variables.',' isset_variable 
 
-	','  shift 468
-	')'  shift 467
+	','  shift 469
+	')'  shift 468
 	.  error
 
 
 state 390
-	isset_variables:  isset_variable.    (333)
+	isset_variables:  isset_variable.    (334)
 
-	.  reduce 333 (src line 1249)
+	.  reduce 334 (src line 1249)
 
 
 state 391
@@ -14255,7 +14256,7 @@ state 391
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	isset_variable:  expr.    (335)
+	isset_variable:  expr.    (336)
 
 	T_LOGICAL_OR  shift 130
 	T_LOGICAL_XOR  shift 132
@@ -14286,7 +14287,7 @@ state 391
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 335 (src line 1255)
+	.  reduce 336 (src line 1255)
 
 
 state 392
@@ -14351,7 +14352,7 @@ state 392
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	')'  shift 469
+	')'  shift 470
 	.  error
 
 
@@ -14417,26 +14418,26 @@ state 393
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	')'  shift 470
+	')'  shift 471
 	.  error
 
 
 state 394
-	scalar:  T_START_HEREDOC T_ENCAPSED_AND_WHITESPACE T_END_HEREDOC.    (254)
+	scalar:  T_START_HEREDOC T_ENCAPSED_AND_WHITESPACE T_END_HEREDOC.    (255)
 
-	.  reduce 254 (src line 1062)
+	.  reduce 255 (src line 1062)
 
 
 state 395
-	scalar:  T_START_HEREDOC encaps_list T_END_HEREDOC.    (257)
+	scalar:  T_START_HEREDOC encaps_list T_END_HEREDOC.    (258)
 
-	.  reduce 257 (src line 1065)
+	.  reduce 258 (src line 1065)
 
 
 state 396
-	scalar:  '\"' encaps_list '\"'.    (256)
+	scalar:  '\"' encaps_list '\"'.    (257)
 
-	.  reduce 256 (src line 1064)
+	.  reduce 257 (src line 1064)
 
 
 state 397
@@ -14501,33 +14502,33 @@ state 397
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	'}'  shift 471
+	'}'  shift 472
 	.  error
 
 
 state 398
-	argument_list:  '(' ')'.    (108)
+	argument_list:  '(' ')'.    (109)
 
-	.  reduce 108 (src line 650)
+	.  reduce 109 (src line 650)
 
 
 state 399
 	argument_list:  '(' non_empty_argument_list.')' 
 	non_empty_argument_list:  non_empty_argument_list.',' argument 
 
-	','  shift 473
-	')'  shift 472
+	','  shift 474
+	')'  shift 473
 	.  error
 
 
 state 400
-	non_empty_argument_list:  argument.    (110)
+	non_empty_argument_list:  argument.    (111)
 
-	.  reduce 110 (src line 655)
+	.  reduce 111 (src line 655)
 
 
 state 401
-	argument:  expr.    (112)
+	argument:  expr.    (113)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -14588,7 +14589,7 @@ state 401
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 112 (src line 662)
+	.  reduce 113 (src line 662)
 
 
 state 402
@@ -14650,7 +14651,7 @@ state 402
 
 	namespace_name  goto 102
 	name  goto 98
-	expr  goto 474
+	expr  goto 475
 	variable  goto 34
 	expr_without_variable  goto 35
 	new_expr  goto 52
@@ -14671,7 +14672,7 @@ state 402
 state 403
 	dereferencable_scalar:  T_ARRAY '(' array_pair_list.')' 
 
-	')'  shift 475
+	')'  shift 476
 	.  error
 
 
@@ -14700,7 +14701,7 @@ state 406
 	T_PRINT  shift 65
 	T_YIELD  shift 66
 	T_YIELD_FROM  shift 67
-	':'  shift 478
+	':'  shift 479
 	'+'  shift 47
 	'-'  shift 48
 	'!'  shift 49
@@ -14766,7 +14767,7 @@ state 406
 	'$'  shift 97
 	.  error
 
-	statement  goto 477
+	statement  goto 478
 	namespace_name  goto 102
 	name  goto 98
 	expr  goto 21
@@ -14785,7 +14786,7 @@ state 406
 	callable_expr  goto 99
 	callable_variable  goto 39
 	static_member  goto 40
-	while_statement  goto 476
+	while_statement  goto 477
 	alt_if_stmt  goto 9
 	alt_if_stmt_without_else  goto 33
 	if_stmt  goto 8
@@ -14851,7 +14852,7 @@ state 407
 
 	namespace_name  goto 102
 	name  goto 98
-	expr  goto 479
+	expr  goto 480
 	variable  goto 34
 	expr_without_variable  goto 35
 	new_expr  goto 52
@@ -14871,7 +14872,7 @@ state 407
 
 state 408
 	statement:  T_FOR '(' for_exprs ';'.for_exprs ';' for_exprs ')' for_statement 
-	for_exprs: .    (134)
+	for_exprs: .    (135)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -14925,7 +14926,7 @@ state 408
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 134 (src line 829)
+	.  reduce 135 (src line 829)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -14945,7 +14946,7 @@ state 408
 	callable_expr  goto 99
 	callable_variable  goto 39
 	static_member  goto 40
-	for_exprs  goto 480
+	for_exprs  goto 481
 	non_empty_for_exprs  goto 270
 	function  goto 108
 
@@ -15008,7 +15009,7 @@ state 409
 
 	namespace_name  goto 102
 	name  goto 98
-	expr  goto 481
+	expr  goto 482
 	variable  goto 34
 	expr_without_variable  goto 35
 	new_expr  goto 52
@@ -15029,33 +15030,33 @@ state 409
 state 410
 	statement:  T_SWITCH '(' expr ')'.switch_case_list 
 
-	':'  shift 484
-	'{'  shift 483
+	':'  shift 485
+	'{'  shift 484
 	.  error
 
-	switch_case_list  goto 482
+	switch_case_list  goto 483
 
 state 411
-	global_var_list:  global_var_list ',' global_var.    (114)
+	global_var_list:  global_var_list ',' global_var.    (115)
 
-	.  reduce 114 (src line 667)
+	.  reduce 115 (src line 667)
 
 
 state 412
-	static_var_list:  static_var_list ',' static_var.    (117)
+	static_var_list:  static_var_list ',' static_var.    (118)
 
-	.  reduce 117 (src line 677)
+	.  reduce 118 (src line 677)
 
 
 state 413
 	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment.'(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
 
-	'('  shift 485
+	'('  shift 486
 	.  error
 
 
 state 414
-	static_var:  T_VARIABLE '=' expr.    (120)
+	static_var:  T_VARIABLE '=' expr.    (121)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -15116,13 +15117,13 @@ state 414
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 120 (src line 684)
+	.  reduce 121 (src line 684)
 
 
 state 415
-	echo_expr_list:  echo_expr_list ',' echo_expr.    (131)
+	echo_expr_list:  echo_expr_list ',' echo_expr.    (132)
 
-	.  reduce 131 (src line 820)
+	.  reduce 132 (src line 820)
 
 
 state 416
@@ -15184,7 +15185,7 @@ state 416
 
 	namespace_name  goto 102
 	name  goto 98
-	expr  goto 486
+	expr  goto 487
 	variable  goto 34
 	expr_without_variable  goto 35
 	new_expr  goto 52
@@ -15232,7 +15233,7 @@ state 417
 	expr_without_variable:  expr.T_INSTANCEOF class_name_reference 
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
-	expr_without_variable:  expr '?' ':' expr.    (194)
+	expr_without_variable:  expr '?' ':' expr.    (195)
 	expr_without_variable:  expr.T_COALESCE expr 
 
 	T_COALESCE  shift 156
@@ -15260,13 +15261,13 @@ state 417
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 194 (src line 946)
+	.  reduce 195 (src line 946)
 
 
 state 418
 	statement:  T_UNSET '(' unset_variables ')'.';' 
 
-	';'  shift 487
+	';'  shift 488
 	.  error
 
 
@@ -15287,7 +15288,7 @@ state 419
 
 	namespace_name  goto 102
 	name  goto 98
-	unset_variable  goto 488
+	unset_variable  goto 489
 	variable  goto 316
 	class_name  goto 73
 	simple_variable  goto 70
@@ -15304,13 +15305,13 @@ state 420
 	statement:  T_FOREACH '(' expr T_AS.foreach_variable ')' foreach_statement 
 	statement:  T_FOREACH '(' expr T_AS.foreach_variable T_DOUBLE_ARROW foreach_variable ')' foreach_statement 
 
-	'&'  shift 491
-	'['  shift 493
+	'&'  shift 492
+	'['  shift 494
 	T_STATIC  shift 205
 	T_STRING  shift 114
 	T_VARIABLE  shift 96
 	T_CONSTANT_ENCAPSED_STRING  shift 101
-	T_LIST  shift 492
+	T_LIST  shift 493
 	T_ARRAY  shift 100
 	T_NAMESPACE  shift 103
 	T_NS_SEPARATOR  shift 104
@@ -15320,8 +15321,8 @@ state 420
 
 	namespace_name  goto 102
 	name  goto 98
-	foreach_variable  goto 489
-	variable  goto 490
+	foreach_variable  goto 490
+	variable  goto 491
 	class_name  goto 73
 	simple_variable  goto 70
 	function_call  goto 72
@@ -15339,7 +15340,7 @@ state 421
 	T_STRING  shift 320
 	.  error
 
-	const_decl  goto 494
+	const_decl  goto 495
 
 state 422
 	statement:  T_DECLARE '(' const_list ')'.declare_statement 
@@ -15352,7 +15353,7 @@ state 422
 	T_PRINT  shift 65
 	T_YIELD  shift 66
 	T_YIELD_FROM  shift 67
-	':'  shift 497
+	':'  shift 498
 	'+'  shift 47
 	'-'  shift 48
 	'!'  shift 49
@@ -15418,10 +15419,10 @@ state 422
 	'$'  shift 97
 	.  error
 
-	statement  goto 496
+	statement  goto 497
 	namespace_name  goto 102
 	name  goto 98
-	declare_statement  goto 495
+	declare_statement  goto 496
 	expr  goto 21
 	variable  goto 34
 	expr_without_variable  goto 35
@@ -15503,7 +15504,7 @@ state 423
 
 	namespace_name  goto 102
 	name  goto 98
-	expr  goto 498
+	expr  goto 499
 	variable  goto 34
 	expr_without_variable  goto 35
 	new_expr  goto 52
@@ -15527,47 +15528,58 @@ state 424
 
 	.  reduce 43 (src line 439)
 
-	catch_list  goto 499
+	catch_list  goto 500
 
 state 425
 	function_declaration_statement:  function returns_ref T_STRING backup_doc_comment.'(' parameter_list ')' return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
 
-	'('  shift 500
+	'('  shift 501
 	.  error
 
 
 state 426
 	expr_without_variable:  function returns_ref backup_doc_comment '('.parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	parameter_list: .    (94)
-	optional_type: .    (99)
+	parameter_list: .    (95)
+	optional_type: .    (100)
 
-	'?'  shift 507
+	'?'  shift 508
 	T_STRING  shift 114
-	T_ARRAY  shift 508
-	T_CALLABLE  shift 509
+	T_ARRAY  shift 509
+	T_CALLABLE  shift 510
 	T_NAMESPACE  shift 103
 	T_NS_SEPARATOR  shift 104
-	')'  reduce 94 (src line 612)
-	.  reduce 99 (src line 629)
+	')'  reduce 95 (src line 612)
+	.  reduce 100 (src line 629)
 
 	namespace_name  goto 102
-	name  goto 510
-	parameter  goto 503
-	optional_type  goto 504
-	parameter_list  goto 501
-	non_empty_parameter_list  goto 502
-	type  goto 506
-	type_expr  goto 505
+	name  goto 511
+	parameter  goto 504
+	optional_type  goto 505
+	parameter_list  goto 502
+	non_empty_parameter_list  goto 503
+	type  goto 507
+	type_expr  goto 506
 
 state 427
 	class_declaration_statement:  class_modifiers T_CLASS T_STRING extends_from.implements_list backup_doc_comment '{' class_statement_list '}' 
-	implements_list: .    (63)
+	implements_list: .    (64)
 
-	.  reduce 63 (src line 525)
+	.  reduce 64 (src line 525)
 
-	implements_list  goto 511
+	implements_list  goto 512
 
 state 428
+	extends_from:  T_EXTENDS.name 
+
+	T_STRING  shift 114
+	T_NAMESPACE  shift 103
+	T_NS_SEPARATOR  shift 104
+	.  error
+
+	namespace_name  goto 102
+	name  goto 513
+
+state 429
 	if_stmt_without_else:  if_stmt_without_else T_ELSEIF '(' expr.')' statement 
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
@@ -15629,11 +15641,11 @@ state 428
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	')'  shift 512
+	')'  shift 514
 	.  error
 
 
-state 429
+state 430
 	alt_if_stmt_without_else:  alt_if_stmt_without_else T_ELSEIF '(' expr.')' ':' inner_statement_list 
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
@@ -15695,11 +15707,11 @@ state 429
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	')'  shift 513
+	')'  shift 515
 	.  error
 
 
-state 430
+state 431
 	inner_statement_list:  inner_statement_list.inner_statement 
 	alt_if_stmt:  alt_if_stmt_without_else T_ELSE ':' inner_statement_list.T_ENDIF ';' 
 
@@ -15728,7 +15740,7 @@ state 430
 	'['  shift 43
 	T_NEW  shift 76
 	T_CLONE  shift 44
-	T_ENDIF  shift 514
+	T_ENDIF  shift 516
 	T_STATIC  shift 18
 	T_ECHO  shift 19
 	T_LNUMBER  shift 84
@@ -15804,18 +15816,18 @@ state 430
 	if_stmt_without_else  goto 32
 	function  goto 30
 
-state 431
-	expr_without_variable:  variable '=' '&' variable.    (142)
-	dereferencable:  variable.    (268)
-
-	'['  reduce 268 (src line 1092)
-	T_OBJECT_OPERATOR  reduce 268 (src line 1092)
-	T_PAAMAYIM_NEKUDOTAYIM  reduce 268 (src line 1092)
-	'{'  reduce 268 (src line 1092)
-	.  reduce 142 (src line 865)
-
-
 state 432
+	expr_without_variable:  variable '=' '&' variable.    (143)
+	dereferencable:  variable.    (269)
+
+	'['  reduce 269 (src line 1092)
+	T_OBJECT_OPERATOR  reduce 269 (src line 1092)
+	T_PAAMAYIM_NEKUDOTAYIM  reduce 269 (src line 1092)
+	'{'  reduce 269 (src line 1092)
+	.  reduce 143 (src line 865)
+
+
+state 433
 	if_stmt_without_else:  T_IF '(' expr ')'.statement 
 	alt_if_stmt_without_else:  T_IF '(' expr ')'.':' inner_statement_list 
 
@@ -15827,7 +15839,7 @@ state 432
 	T_PRINT  shift 65
 	T_YIELD  shift 66
 	T_YIELD_FROM  shift 67
-	':'  shift 516
+	':'  shift 518
 	'+'  shift 47
 	'-'  shift 48
 	'!'  shift 49
@@ -15893,7 +15905,7 @@ state 432
 	'$'  shift 97
 	.  error
 
-	statement  goto 515
+	statement  goto 517
 	namespace_name  goto 102
 	name  goto 98
 	expr  goto 21
@@ -15918,25 +15930,25 @@ state 432
 	if_stmt_without_else  goto 32
 	function  goto 108
 
-state 433
-	callable_variable:  dereferencable '[' optional_expr ']'.    (275)
-
-	.  reduce 275 (src line 1107)
-
-
 state 434
-	callable_variable:  dereferencable '{' expr '}'.    (277)
+	callable_variable:  dereferencable '[' optional_expr ']'.    (276)
 
-	.  reduce 277 (src line 1111)
+	.  reduce 276 (src line 1107)
 
 
 state 435
-	callable_variable:  dereferencable T_OBJECT_OPERATOR property_name argument_list.    (278)
+	callable_variable:  dereferencable '{' expr '}'.    (278)
 
-	.  reduce 278 (src line 1113)
+	.  reduce 278 (src line 1111)
 
 
 state 436
+	callable_variable:  dereferencable T_OBJECT_OPERATOR property_name argument_list.    (279)
+
+	.  reduce 279 (src line 1113)
+
+
+state 437
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -15998,18 +16010,18 @@ state 436
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	'}'  shift 517
-	.  error
-
-
-state 437
-	expr_without_variable:  T_LIST '(' array_pair_list ')'.'=' expr 
-
-	'='  shift 518
+	'}'  shift 519
 	.  error
 
 
 state 438
+	expr_without_variable:  T_LIST '(' array_pair_list ')'.'=' expr 
+
+	'='  shift 520
+	.  error
+
+
+state 439
 	expr_without_variable:  '[' array_pair_list ']' '='.expr 
 
 	T_INCLUDE  shift 79
@@ -16068,7 +16080,7 @@ state 438
 
 	namespace_name  goto 102
 	name  goto 98
-	expr  goto 519
+	expr  goto 521
 	variable  goto 34
 	expr_without_variable  goto 35
 	new_expr  goto 52
@@ -16086,13 +16098,13 @@ state 438
 	static_member  goto 40
 	function  goto 108
 
-state 439
-	non_empty_array_pair_list:  non_empty_array_pair_list ',' possible_array_pair.    (303)
-
-	.  reduce 303 (src line 1177)
-
-
 state 440
+	non_empty_array_pair_list:  non_empty_array_pair_list ',' possible_array_pair.    (304)
+
+	.  reduce 304 (src line 1177)
+
+
+state 441
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -16123,7 +16135,7 @@ state 440
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	array_pair:  expr T_DOUBLE_ARROW expr.    (305)
+	array_pair:  expr T_DOUBLE_ARROW expr.    (306)
 
 	T_LOGICAL_OR  shift 130
 	T_LOGICAL_XOR  shift 132
@@ -16154,10 +16166,10 @@ state 440
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 305 (src line 1184)
+	.  reduce 306 (src line 1184)
 
 
-state 441
+state 442
 	array_pair:  expr T_DOUBLE_ARROW '&'.variable 
 
 	'['  shift 206
@@ -16174,7 +16186,7 @@ state 441
 
 	namespace_name  goto 102
 	name  goto 98
-	variable  goto 520
+	variable  goto 522
 	class_name  goto 73
 	simple_variable  goto 70
 	function_call  goto 72
@@ -16186,93 +16198,93 @@ state 441
 	callable_variable  goto 39
 	static_member  goto 40
 
-state 442
+state 443
 	expr_without_variable:  T_LIST.'(' array_pair_list ')' '=' expr 
 	array_pair:  expr T_DOUBLE_ARROW T_LIST.'(' array_pair_list ')' 
 
-	'('  shift 521
-	.  error
-
-
-state 443
-	expr_without_variable:  T_LIST '(' array_pair_list.')' '=' expr 
-	array_pair:  T_LIST '(' array_pair_list.')' 
-
-	')'  shift 522
+	'('  shift 523
 	.  error
 
 
 state 444
-	dereferencable:  '(' expr ')'.    (269)
-	callable_expr:  '(' expr ')'.    (272)
+	expr_without_variable:  T_LIST '(' array_pair_list.')' '=' expr 
+	array_pair:  T_LIST '(' array_pair_list.')' 
 
-	'('  reduce 272 (src line 1100)
-	.  reduce 269 (src line 1094)
+	')'  shift 524
+	.  error
 
 
 state 445
-	dereferencable_scalar:  '[' array_pair_list ']'.    (242)
+	dereferencable:  '(' expr ')'.    (270)
+	callable_expr:  '(' expr ')'.    (273)
 
-	.  reduce 242 (src line 1047)
+	'('  reduce 273 (src line 1100)
+	.  reduce 270 (src line 1094)
 
 
 state 446
-	exit_expr:  '(' optional_expr ')'.    (235)
+	dereferencable_scalar:  '[' array_pair_list ']'.    (243)
 
-	.  reduce 235 (src line 1030)
+	.  reduce 243 (src line 1047)
 
 
 state 447
-	encaps_var:  T_VARIABLE '[' encaps_var_offset.']' 
+	exit_expr:  '(' optional_expr ')'.    (236)
 
-	']'  shift 523
-	.  error
+	.  reduce 236 (src line 1030)
 
 
 state 448
-	encaps_var_offset:  T_STRING.    (322)
+	encaps_var:  T_VARIABLE '[' encaps_var_offset.']' 
 
-	.  reduce 322 (src line 1226)
-
-
-state 449
-	encaps_var_offset:  T_NUM_STRING.    (323)
-
-	.  reduce 323 (src line 1228)
-
-
-state 450
-	encaps_var_offset:  '-'.T_NUM_STRING 
-
-	T_NUM_STRING  shift 524
+	']'  shift 525
 	.  error
 
 
-state 451
-	encaps_var_offset:  T_VARIABLE.    (325)
+state 449
+	encaps_var_offset:  T_STRING.    (323)
 
-	.  reduce 325 (src line 1230)
+	.  reduce 323 (src line 1226)
+
+
+state 450
+	encaps_var_offset:  T_NUM_STRING.    (324)
+
+	.  reduce 324 (src line 1228)
+
+
+state 451
+	encaps_var_offset:  '-'.T_NUM_STRING 
+
+	T_NUM_STRING  shift 526
+	.  error
 
 
 state 452
-	encaps_var:  T_VARIABLE T_OBJECT_OPERATOR T_STRING.    (317)
+	encaps_var_offset:  T_VARIABLE.    (326)
 
-	.  reduce 317 (src line 1215)
+	.  reduce 326 (src line 1230)
 
 
 state 453
-	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES expr '}'.    (318)
+	encaps_var:  T_VARIABLE T_OBJECT_OPERATOR T_STRING.    (318)
 
-	.  reduce 318 (src line 1217)
+	.  reduce 318 (src line 1215)
 
 
 state 454
-	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '}'.    (319)
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES expr '}'.    (319)
 
-	.  reduce 319 (src line 1219)
+	.  reduce 319 (src line 1217)
 
 
 state 455
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '}'.    (320)
+
+	.  reduce 320 (src line 1219)
+
+
+state 456
 	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '['.expr ']' '}' 
 
 	T_INCLUDE  shift 79
@@ -16331,7 +16343,7 @@ state 455
 
 	namespace_name  goto 102
 	name  goto 98
-	expr  goto 525
+	expr  goto 527
 	variable  goto 34
 	expr_without_variable  goto 35
 	new_expr  goto 52
@@ -16349,13 +16361,13 @@ state 455
 	static_member  goto 40
 	function  goto 108
 
-state 456
-	encaps_var:  T_CURLY_OPEN variable '}'.    (321)
-
-	.  reduce 321 (src line 1223)
-
-
 state 457
+	encaps_var:  T_CURLY_OPEN variable '}'.    (322)
+
+	.  reduce 322 (src line 1223)
+
+
+state 458
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -16386,7 +16398,7 @@ state 457
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	expr_without_variable:  T_YIELD expr T_DOUBLE_ARROW expr.    (211)
+	expr_without_variable:  T_YIELD expr T_DOUBLE_ARROW expr.    (212)
 
 	'?'  shift 155
 	T_COALESCE  shift 156
@@ -16414,22 +16426,22 @@ state 457
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 211 (src line 965)
-
-
-state 458
-	callable_variable:  constant '[' optional_expr ']'.    (276)
-
-	.  reduce 276 (src line 1109)
+	.  reduce 212 (src line 965)
 
 
 state 459
-	function_call:  class_name T_PAAMAYIM_NEKUDOTAYIM member_name argument_list.    (227)
+	callable_variable:  constant '[' optional_expr ']'.    (277)
 
-	.  reduce 227 (src line 1010)
+	.  reduce 277 (src line 1109)
 
 
 state 460
+	function_call:  class_name T_PAAMAYIM_NEKUDOTAYIM member_name argument_list.    (228)
+
+	.  reduce 228 (src line 1010)
+
+
+state 461
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -16491,30 +16503,30 @@ state 460
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	'}'  shift 526
+	'}'  shift 528
 	.  error
-
-
-state 461
-	function_call:  variable_class_name T_PAAMAYIM_NEKUDOTAYIM member_name argument_list.    (228)
-
-	.  reduce 228 (src line 1012)
 
 
 state 462
-	new_variable:  class_name T_PAAMAYIM_NEKUDOTAYIM simple_variable.    (292)
+	function_call:  variable_class_name T_PAAMAYIM_NEKUDOTAYIM member_name argument_list.    (229)
 
-	.  reduce 292 (src line 1149)
+	.  reduce 229 (src line 1012)
 
 
 state 463
-	new_variable:  new_variable '[' optional_expr.']' 
+	new_variable:  class_name T_PAAMAYIM_NEKUDOTAYIM simple_variable.    (293)
 
-	']'  shift 527
-	.  error
+	.  reduce 293 (src line 1149)
 
 
 state 464
+	new_variable:  new_variable '[' optional_expr.']' 
+
+	']'  shift 529
+	.  error
+
+
+state 465
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -16576,29 +16588,29 @@ state 464
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	'}'  shift 528
+	'}'  shift 530
 	.  error
 
 
-state 465
-	new_variable:  new_variable T_OBJECT_OPERATOR property_name.    (291)
-
-	.  reduce 291 (src line 1147)
-
-
 state 466
-	new_variable:  new_variable T_PAAMAYIM_NEKUDOTAYIM simple_variable.    (293)
+	new_variable:  new_variable T_OBJECT_OPERATOR property_name.    (292)
 
-	.  reduce 293 (src line 1151)
+	.  reduce 292 (src line 1147)
 
 
 state 467
-	internal_functions_in_yacc:  T_ISSET '(' isset_variables ')'.    (326)
+	new_variable:  new_variable T_PAAMAYIM_NEKUDOTAYIM simple_variable.    (294)
 
-	.  reduce 326 (src line 1234)
+	.  reduce 294 (src line 1151)
 
 
 state 468
+	internal_functions_in_yacc:  T_ISSET '(' isset_variables ')'.    (327)
+
+	.  reduce 327 (src line 1234)
+
+
+state 469
 	isset_variables:  isset_variables ','.isset_variable 
 
 	T_INCLUDE  shift 79
@@ -16673,34 +16685,34 @@ state 468
 	callable_expr  goto 99
 	callable_variable  goto 39
 	static_member  goto 40
-	isset_variable  goto 529
+	isset_variable  goto 531
 	function  goto 108
 
-state 469
-	internal_functions_in_yacc:  T_EMPTY '(' expr ')'.    (327)
-
-	.  reduce 327 (src line 1236)
-
-
 state 470
-	internal_functions_in_yacc:  T_EVAL '(' expr ')'.    (330)
+	internal_functions_in_yacc:  T_EMPTY '(' expr ')'.    (328)
 
-	.  reduce 330 (src line 1241)
+	.  reduce 328 (src line 1236)
 
 
 state 471
-	simple_variable:  '$' '{' expr '}'.    (284)
+	internal_functions_in_yacc:  T_EVAL '(' expr ')'.    (331)
 
-	.  reduce 284 (src line 1129)
+	.  reduce 331 (src line 1241)
 
 
 state 472
-	argument_list:  '(' non_empty_argument_list ')'.    (109)
+	simple_variable:  '$' '{' expr '}'.    (285)
 
-	.  reduce 109 (src line 652)
+	.  reduce 285 (src line 1129)
 
 
 state 473
+	argument_list:  '(' non_empty_argument_list ')'.    (110)
+
+	.  reduce 110 (src line 652)
+
+
+state 474
 	non_empty_argument_list:  non_empty_argument_list ','.argument 
 
 	T_INCLUDE  shift 79
@@ -16762,7 +16774,7 @@ state 473
 	name  goto 98
 	expr  goto 401
 	variable  goto 34
-	argument  goto 530
+	argument  goto 532
 	expr_without_variable  goto 35
 	new_expr  goto 52
 	class_name  goto 73
@@ -16779,8 +16791,8 @@ state 473
 	static_member  goto 40
 	function  goto 108
 
-state 474
-	argument:  T_ELLIPSIS expr.    (113)
+state 475
+	argument:  T_ELLIPSIS expr.    (114)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -16841,36 +16853,36 @@ state 474
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 113 (src line 664)
-
-
-state 475
-	dereferencable_scalar:  T_ARRAY '(' array_pair_list ')'.    (241)
-
-	.  reduce 241 (src line 1045)
+	.  reduce 114 (src line 664)
 
 
 state 476
+	dereferencable_scalar:  T_ARRAY '(' array_pair_list ')'.    (242)
+
+	.  reduce 242 (src line 1045)
+
+
+state 477
 	statement:  T_WHILE '(' expr ')' while_statement.    (22)
 
 	.  reduce 22 (src line 408)
 
 
-state 477
-	while_statement:  statement.    (83)
-
-	.  reduce 83 (src line 571)
-
-
 state 478
+	while_statement:  statement.    (84)
+
+	.  reduce 84 (src line 571)
+
+
+state 479
 	while_statement:  ':'.inner_statement_list T_ENDWHILE ';' 
 	inner_statement_list: .    (16)
 
 	.  reduce 16 (src line 388)
 
-	inner_statement_list  goto 531
+	inner_statement_list  goto 533
 
-state 479
+state 480
 	statement:  T_DO statement T_WHILE '(' expr.')' ';' 
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
@@ -16932,19 +16944,19 @@ state 479
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	')'  shift 532
-	.  error
-
-
-state 480
-	statement:  T_FOR '(' for_exprs ';' for_exprs.';' for_exprs ')' for_statement 
-
-	';'  shift 533
+	')'  shift 534
 	.  error
 
 
 state 481
-	non_empty_for_exprs:  non_empty_for_exprs ',' expr.    (136)
+	statement:  T_FOR '(' for_exprs ';' for_exprs.';' for_exprs ')' for_statement 
+
+	';'  shift 535
+	.  error
+
+
+state 482
+	non_empty_for_exprs:  non_empty_for_exprs ',' expr.    (137)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -17005,59 +17017,59 @@ state 481
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 136 (src line 834)
+	.  reduce 137 (src line 834)
 
 
-state 482
+state 483
 	statement:  T_SWITCH '(' expr ')' switch_case_list.    (25)
 
 	.  reduce 25 (src line 414)
 
 
-state 483
+state 484
 	switch_case_list:  '{'.case_list '}' 
 	switch_case_list:  '{'.';' case_list '}' 
-	case_list: .    (78)
-
-	';'  shift 535
-	.  reduce 78 (src line 559)
-
-	case_list  goto 534
-
-state 484
-	switch_case_list:  ':'.case_list T_ENDSWITCH ';' 
-	switch_case_list:  ':'.';' case_list T_ENDSWITCH ';' 
-	case_list: .    (78)
+	case_list: .    (79)
 
 	';'  shift 537
-	.  reduce 78 (src line 559)
+	.  reduce 79 (src line 559)
 
 	case_list  goto 536
 
 state 485
-	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment '('.parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	parameter_list: .    (94)
-	optional_type: .    (99)
+	switch_case_list:  ':'.case_list T_ENDSWITCH ';' 
+	switch_case_list:  ':'.';' case_list T_ENDSWITCH ';' 
+	case_list: .    (79)
 
-	'?'  shift 507
-	T_STRING  shift 114
-	T_ARRAY  shift 508
-	T_CALLABLE  shift 509
-	T_NAMESPACE  shift 103
-	T_NS_SEPARATOR  shift 104
-	')'  reduce 94 (src line 612)
-	.  reduce 99 (src line 629)
+	';'  shift 539
+	.  reduce 79 (src line 559)
 
-	namespace_name  goto 102
-	name  goto 510
-	parameter  goto 503
-	optional_type  goto 504
-	parameter_list  goto 538
-	non_empty_parameter_list  goto 502
-	type  goto 506
-	type_expr  goto 505
+	case_list  goto 538
 
 state 486
+	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment '('.parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
+	parameter_list: .    (95)
+	optional_type: .    (100)
+
+	'?'  shift 508
+	T_STRING  shift 114
+	T_ARRAY  shift 509
+	T_CALLABLE  shift 510
+	T_NAMESPACE  shift 103
+	T_NS_SEPARATOR  shift 104
+	')'  reduce 95 (src line 612)
+	.  reduce 100 (src line 629)
+
+	namespace_name  goto 102
+	name  goto 511
+	parameter  goto 504
+	optional_type  goto 505
+	parameter_list  goto 540
+	non_empty_parameter_list  goto 503
+	type  goto 507
+	type_expr  goto 506
+
+state 487
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -17086,7 +17098,7 @@ state 486
 	expr_without_variable:  expr.T_SPACESHIP expr 
 	expr_without_variable:  expr.T_INSTANCEOF class_name_reference 
 	expr_without_variable:  expr.'?' expr ':' expr 
-	expr_without_variable:  expr '?' expr ':' expr.    (193)
+	expr_without_variable:  expr '?' expr ':' expr.    (194)
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
 
@@ -17115,40 +17127,40 @@ state 486
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 193 (src line 944)
+	.  reduce 194 (src line 944)
 
 
-state 487
+state 488
 	statement:  T_UNSET '(' unset_variables ')' ';'.    (34)
 
 	.  reduce 34 (src line 424)
 
 
-state 488
+state 489
 	unset_variables:  unset_variables ',' unset_variable.    (50)
 
 	.  reduce 50 (src line 458)
 
 
-state 489
+state 490
 	statement:  T_FOREACH '(' expr T_AS foreach_variable.')' foreach_statement 
 	statement:  T_FOREACH '(' expr T_AS foreach_variable.T_DOUBLE_ARROW foreach_variable ')' foreach_statement 
 
-	T_DOUBLE_ARROW  shift 540
-	')'  shift 539
+	T_DOUBLE_ARROW  shift 542
+	')'  shift 541
 	.  error
 
 
-state 490
-	foreach_variable:  variable.    (64)
-	dereferencable:  variable.    (268)
-
-	T_DOUBLE_ARROW  reduce 64 (src line 530)
-	')'  reduce 64 (src line 530)
-	.  reduce 268 (src line 1092)
-
-
 state 491
+	foreach_variable:  variable.    (65)
+	dereferencable:  variable.    (269)
+
+	T_DOUBLE_ARROW  reduce 65 (src line 530)
+	')'  reduce 65 (src line 530)
+	.  reduce 269 (src line 1092)
+
+
+state 492
 	foreach_variable:  '&'.variable 
 
 	'['  shift 206
@@ -17165,7 +17177,7 @@ state 491
 
 	namespace_name  goto 102
 	name  goto 98
-	variable  goto 541
+	variable  goto 543
 	class_name  goto 73
 	simple_variable  goto 70
 	function_call  goto 72
@@ -17177,17 +17189,17 @@ state 491
 	callable_variable  goto 39
 	static_member  goto 40
 
-state 492
+state 493
 	foreach_variable:  T_LIST.'(' array_pair_list ')' 
 
-	'('  shift 542
+	'('  shift 544
 	.  error
 
 
-state 493
+state 494
 	foreach_variable:  '['.array_pair_list ']' 
 	dereferencable_scalar:  '['.array_pair_list ']' 
-	possible_array_pair: .    (301)
+	possible_array_pair: .    (302)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -17242,7 +17254,7 @@ state 493
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 301 (src line 1172)
+	.  reduce 302 (src line 1172)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -17264,37 +17276,37 @@ state 493
 	static_member  goto 40
 	array_pair  goto 196
 	non_empty_array_pair_list  goto 194
-	array_pair_list  goto 543
+	array_pair_list  goto 545
 	possible_array_pair  goto 195
 	function  goto 108
 
-state 494
+state 495
 	const_list:  const_list ',' const_decl.    (13)
 
 	.  reduce 13 (src line 380)
 
 
-state 495
+state 496
 	statement:  T_DECLARE '(' const_list ')' declare_statement.    (37)
 
 	.  reduce 37 (src line 429)
 
 
-state 496
-	declare_statement:  statement.    (72)
-
-	.  reduce 72 (src line 547)
-
-
 state 497
+	declare_statement:  statement.    (73)
+
+	.  reduce 73 (src line 547)
+
+
+state 498
 	declare_statement:  ':'.inner_statement_list T_ENDDECLARE ';' 
 	inner_statement_list: .    (16)
 
 	.  reduce 16 (src line 388)
 
-	inner_statement_list  goto 544
+	inner_statement_list  goto 546
 
-state 498
+state 499
 	const_decl:  T_STRING '=' expr.backup_doc_comment 
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
@@ -17326,7 +17338,7 @@ state 498
 	expr_without_variable:  expr.'?' expr ':' expr 
 	expr_without_variable:  expr.'?' ':' expr 
 	expr_without_variable:  expr.T_COALESCE expr 
-	backup_doc_comment: .    (216)
+	backup_doc_comment: .    (217)
 
 	T_LOGICAL_OR  shift 130
 	T_LOGICAL_XOR  shift 132
@@ -17357,128 +17369,134 @@ state 498
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 216 (src line 979)
+	.  reduce 217 (src line 979)
 
-	backup_doc_comment  goto 545
+	backup_doc_comment  goto 547
 
-state 499
+state 500
 	statement:  T_TRY '{' inner_statement_list '}' catch_list.finally_statement 
 	catch_list:  catch_list.T_CATCH '(' catch_name_list T_VARIABLE ')' '{' inner_statement_list '}' 
 	finally_statement: .    (47)
 
-	T_CATCH  shift 547
-	T_FINALLY  shift 548
+	T_CATCH  shift 549
+	T_FINALLY  shift 550
 	.  reduce 47 (src line 451)
 
-	finally_statement  goto 546
-
-state 500
-	function_declaration_statement:  function returns_ref T_STRING backup_doc_comment '('.parameter_list ')' return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	parameter_list: .    (94)
-	optional_type: .    (99)
-
-	'?'  shift 507
-	T_STRING  shift 114
-	T_ARRAY  shift 508
-	T_CALLABLE  shift 509
-	T_NAMESPACE  shift 103
-	T_NS_SEPARATOR  shift 104
-	')'  reduce 94 (src line 612)
-	.  reduce 99 (src line 629)
-
-	namespace_name  goto 102
-	name  goto 510
-	parameter  goto 503
-	optional_type  goto 504
-	parameter_list  goto 549
-	non_empty_parameter_list  goto 502
-	type  goto 506
-	type_expr  goto 505
+	finally_statement  goto 548
 
 state 501
+	function_declaration_statement:  function returns_ref T_STRING backup_doc_comment '('.parameter_list ')' return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
+	parameter_list: .    (95)
+	optional_type: .    (100)
+
+	'?'  shift 508
+	T_STRING  shift 114
+	T_ARRAY  shift 509
+	T_CALLABLE  shift 510
+	T_NAMESPACE  shift 103
+	T_NS_SEPARATOR  shift 104
+	')'  reduce 95 (src line 612)
+	.  reduce 100 (src line 629)
+
+	namespace_name  goto 102
+	name  goto 511
+	parameter  goto 504
+	optional_type  goto 505
+	parameter_list  goto 551
+	non_empty_parameter_list  goto 503
+	type  goto 507
+	type_expr  goto 506
+
+state 502
 	expr_without_variable:  function returns_ref backup_doc_comment '(' parameter_list.')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
 
-	')'  shift 550
+	')'  shift 552
 	.  error
 
 
-state 502
-	parameter_list:  non_empty_parameter_list.    (93)
+state 503
+	parameter_list:  non_empty_parameter_list.    (94)
 	non_empty_parameter_list:  non_empty_parameter_list.',' parameter 
 
-	','  shift 551
-	.  reduce 93 (src line 610)
-
-
-state 503
-	non_empty_parameter_list:  parameter.    (95)
-
-	.  reduce 95 (src line 615)
+	','  shift 553
+	.  reduce 94 (src line 610)
 
 
 state 504
+	non_empty_parameter_list:  parameter.    (96)
+
+	.  reduce 96 (src line 615)
+
+
+state 505
 	parameter:  optional_type.is_reference is_variadic T_VARIABLE 
 	parameter:  optional_type.is_reference is_variadic T_VARIABLE '=' expr 
 	is_reference: .    (53)
 
-	'&'  shift 553
+	'&'  shift 555
 	.  reduce 53 (src line 471)
 
-	is_reference  goto 552
-
-state 505
-	optional_type:  type_expr.    (100)
-
-	.  reduce 100 (src line 631)
-
+	is_reference  goto 554
 
 state 506
-	type_expr:  type.    (101)
+	optional_type:  type_expr.    (101)
 
-	.  reduce 101 (src line 634)
+	.  reduce 101 (src line 631)
 
 
 state 507
+	type_expr:  type.    (102)
+
+	.  reduce 102 (src line 634)
+
+
+state 508
 	type_expr:  '?'.type 
 
 	T_STRING  shift 114
-	T_ARRAY  shift 508
-	T_CALLABLE  shift 509
+	T_ARRAY  shift 509
+	T_CALLABLE  shift 510
 	T_NAMESPACE  shift 103
 	T_NS_SEPARATOR  shift 104
 	.  error
 
 	namespace_name  goto 102
-	name  goto 510
-	type  goto 554
-
-state 508
-	type:  T_ARRAY.    (103)
-
-	.  reduce 103 (src line 639)
-
+	name  goto 511
+	type  goto 556
 
 state 509
-	type:  T_CALLABLE.    (104)
+	type:  T_ARRAY.    (104)
 
-	.  reduce 104 (src line 641)
+	.  reduce 104 (src line 639)
 
 
 state 510
-	type:  name.    (105)
+	type:  T_CALLABLE.    (105)
 
-	.  reduce 105 (src line 642)
+	.  reduce 105 (src line 641)
 
 
 state 511
-	class_declaration_statement:  class_modifiers T_CLASS T_STRING extends_from implements_list.backup_doc_comment '{' class_statement_list '}' 
-	backup_doc_comment: .    (216)
+	type:  name.    (106)
 
-	.  reduce 216 (src line 979)
+	.  reduce 106 (src line 642)
 
-	backup_doc_comment  goto 555
 
 state 512
+	class_declaration_statement:  class_modifiers T_CLASS T_STRING extends_from implements_list.backup_doc_comment '{' class_statement_list '}' 
+	backup_doc_comment: .    (217)
+
+	.  reduce 217 (src line 979)
+
+	backup_doc_comment  goto 557
+
+state 513
+	extends_from:  T_EXTENDS name.    (63)
+
+	.  reduce 63 (src line 515)
+
+
+state 514
 	if_stmt_without_else:  if_stmt_without_else T_ELSEIF '(' expr ')'.statement 
 
 	T_INCLUDE  shift 79
@@ -17554,7 +17572,7 @@ state 512
 	'$'  shift 97
 	.  error
 
-	statement  goto 556
+	statement  goto 558
 	namespace_name  goto 102
 	name  goto 98
 	expr  goto 21
@@ -17579,41 +17597,41 @@ state 512
 	if_stmt_without_else  goto 32
 	function  goto 108
 
-state 513
+state 515
 	alt_if_stmt_without_else:  alt_if_stmt_without_else T_ELSEIF '(' expr ')'.':' inner_statement_list 
 
-	':'  shift 557
+	':'  shift 559
 	.  error
-
-
-state 514
-	alt_if_stmt:  alt_if_stmt_without_else T_ELSE ':' inner_statement_list T_ENDIF.';' 
-
-	';'  shift 558
-	.  error
-
-
-state 515
-	if_stmt_without_else:  T_IF '(' expr ')' statement.    (85)
-
-	.  reduce 85 (src line 576)
 
 
 state 516
+	alt_if_stmt:  alt_if_stmt_without_else T_ELSE ':' inner_statement_list T_ENDIF.';' 
+
+	';'  shift 560
+	.  error
+
+
+state 517
+	if_stmt_without_else:  T_IF '(' expr ')' statement.    (86)
+
+	.  reduce 86 (src line 576)
+
+
+state 518
 	alt_if_stmt_without_else:  T_IF '(' expr ')' ':'.inner_statement_list 
 	inner_statement_list: .    (16)
 
 	.  reduce 16 (src line 388)
 
-	inner_statement_list  goto 559
+	inner_statement_list  goto 561
 
-state 517
-	property_name:  '{' expr '}'.    (298)
+state 519
+	property_name:  '{' expr '}'.    (299)
 
-	.  reduce 298 (src line 1163)
+	.  reduce 299 (src line 1163)
 
 
-state 518
+state 520
 	expr_without_variable:  T_LIST '(' array_pair_list ')' '='.expr 
 
 	T_INCLUDE  shift 79
@@ -17672,7 +17690,7 @@ state 518
 
 	namespace_name  goto 102
 	name  goto 98
-	expr  goto 560
+	expr  goto 562
 	variable  goto 34
 	expr_without_variable  goto 35
 	new_expr  goto 52
@@ -17690,8 +17708,8 @@ state 518
 	static_member  goto 40
 	function  goto 108
 
-state 519
-	expr_without_variable:  '[' array_pair_list ']' '=' expr.    (140)
+state 521
+	expr_without_variable:  '[' array_pair_list ']' '=' expr.    (141)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -17749,23 +17767,23 @@ state 519
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 140 (src line 861)
+	.  reduce 141 (src line 861)
 
 
-state 520
-	dereferencable:  variable.    (268)
-	array_pair:  expr T_DOUBLE_ARROW '&' variable.    (307)
+state 522
+	dereferencable:  variable.    (269)
+	array_pair:  expr T_DOUBLE_ARROW '&' variable.    (308)
 
-	','  reduce 307 (src line 1189)
-	')'  reduce 307 (src line 1189)
-	']'  reduce 307 (src line 1189)
-	.  reduce 268 (src line 1092)
+	','  reduce 308 (src line 1189)
+	')'  reduce 308 (src line 1189)
+	']'  reduce 308 (src line 1189)
+	.  reduce 269 (src line 1092)
 
 
-state 521
+state 523
 	expr_without_variable:  T_LIST '('.array_pair_list ')' '=' expr 
 	array_pair:  expr T_DOUBLE_ARROW T_LIST '('.array_pair_list ')' 
-	possible_array_pair: .    (301)
+	possible_array_pair: .    (302)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -17820,7 +17838,7 @@ state 521
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 301 (src line 1172)
+	.  reduce 302 (src line 1172)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -17842,31 +17860,31 @@ state 521
 	static_member  goto 40
 	array_pair  goto 196
 	non_empty_array_pair_list  goto 194
-	array_pair_list  goto 561
+	array_pair_list  goto 563
 	possible_array_pair  goto 195
 	function  goto 108
 
-state 522
-	expr_without_variable:  T_LIST '(' array_pair_list ')'.'=' expr 
-	array_pair:  T_LIST '(' array_pair_list ')'.    (310)
-
-	'='  shift 518
-	.  reduce 310 (src line 1195)
-
-
-state 523
-	encaps_var:  T_VARIABLE '[' encaps_var_offset ']'.    (316)
-
-	.  reduce 316 (src line 1213)
-
-
 state 524
-	encaps_var_offset:  '-' T_NUM_STRING.    (324)
+	expr_without_variable:  T_LIST '(' array_pair_list ')'.'=' expr 
+	array_pair:  T_LIST '(' array_pair_list ')'.    (311)
 
-	.  reduce 324 (src line 1229)
+	'='  shift 520
+	.  reduce 311 (src line 1195)
 
 
 state 525
+	encaps_var:  T_VARIABLE '[' encaps_var_offset ']'.    (317)
+
+	.  reduce 317 (src line 1213)
+
+
+state 526
+	encaps_var_offset:  '-' T_NUM_STRING.    (325)
+
+	.  reduce 325 (src line 1229)
+
+
+state 527
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -17928,41 +17946,41 @@ state 525
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	']'  shift 562
+	']'  shift 564
 	.  error
 
 
-state 526
-	member_name:  '{' expr '}'.    (295)
-
-	.  reduce 295 (src line 1157)
-
-
-state 527
-	new_variable:  new_variable '[' optional_expr ']'.    (289)
-
-	.  reduce 289 (src line 1143)
-
-
 state 528
-	new_variable:  new_variable '{' expr '}'.    (290)
+	member_name:  '{' expr '}'.    (296)
 
-	.  reduce 290 (src line 1145)
+	.  reduce 296 (src line 1157)
 
 
 state 529
-	isset_variables:  isset_variables ',' isset_variable.    (334)
+	new_variable:  new_variable '[' optional_expr ']'.    (290)
 
-	.  reduce 334 (src line 1251)
+	.  reduce 290 (src line 1143)
 
 
 state 530
-	non_empty_argument_list:  non_empty_argument_list ',' argument.    (111)
+	new_variable:  new_variable '{' expr '}'.    (291)
 
-	.  reduce 111 (src line 658)
+	.  reduce 291 (src line 1145)
 
 
 state 531
+	isset_variables:  isset_variables ',' isset_variable.    (335)
+
+	.  reduce 335 (src line 1251)
+
+
+state 532
+	non_empty_argument_list:  non_empty_argument_list ',' argument.    (112)
+
+	.  reduce 112 (src line 658)
+
+
+state 533
 	inner_statement_list:  inner_statement_list.inner_statement 
 	while_statement:  ':' inner_statement_list.T_ENDWHILE ';' 
 
@@ -18011,7 +18029,7 @@ state 531
 	T_IF  shift 38
 	T_DO  shift 11
 	T_WHILE  shift 10
-	T_ENDWHILE  shift 563
+	T_ENDWHILE  shift 565
 	T_FOR  shift 12
 	T_FOREACH  shift 23
 	T_DECLARE  shift 24
@@ -18067,16 +18085,16 @@ state 531
 	if_stmt_without_else  goto 32
 	function  goto 30
 
-state 532
+state 534
 	statement:  T_DO statement T_WHILE '(' expr ')'.';' 
 
-	';'  shift 564
+	';'  shift 566
 	.  error
 
 
-state 533
+state 535
 	statement:  T_FOR '(' for_exprs ';' for_exprs ';'.for_exprs ')' for_statement 
-	for_exprs: .    (134)
+	for_exprs: .    (135)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -18130,7 +18148,7 @@ state 533
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 134 (src line 829)
+	.  reduce 135 (src line 829)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -18150,60 +18168,60 @@ state 533
 	callable_expr  goto 99
 	callable_variable  goto 39
 	static_member  goto 40
-	for_exprs  goto 565
+	for_exprs  goto 567
 	non_empty_for_exprs  goto 270
 	function  goto 108
 
-state 534
+state 536
 	switch_case_list:  '{' case_list.'}' 
 	case_list:  case_list.T_CASE expr ':' inner_statement_list 
 	case_list:  case_list.T_CASE expr ';' inner_statement_list 
 	case_list:  case_list.T_DEFAULT ':' inner_statement_list 
 	case_list:  case_list.T_DEFAULT ';' inner_statement_list 
 
-	T_CASE  shift 567
-	T_DEFAULT  shift 568
-	'}'  shift 566
+	T_CASE  shift 569
+	T_DEFAULT  shift 570
+	'}'  shift 568
 	.  error
 
 
-state 535
+state 537
 	switch_case_list:  '{' ';'.case_list '}' 
-	case_list: .    (78)
+	case_list: .    (79)
 
-	.  reduce 78 (src line 559)
+	.  reduce 79 (src line 559)
 
-	case_list  goto 569
+	case_list  goto 571
 
-state 536
+state 538
 	switch_case_list:  ':' case_list.T_ENDSWITCH ';' 
 	case_list:  case_list.T_CASE expr ':' inner_statement_list 
 	case_list:  case_list.T_CASE expr ';' inner_statement_list 
 	case_list:  case_list.T_DEFAULT ':' inner_statement_list 
 	case_list:  case_list.T_DEFAULT ';' inner_statement_list 
 
-	T_ENDSWITCH  shift 570
-	T_CASE  shift 567
-	T_DEFAULT  shift 568
-	.  error
-
-
-state 537
-	switch_case_list:  ':' ';'.case_list T_ENDSWITCH ';' 
-	case_list: .    (78)
-
-	.  reduce 78 (src line 559)
-
-	case_list  goto 571
-
-state 538
-	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment '(' parameter_list.')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-
-	')'  shift 572
+	T_ENDSWITCH  shift 572
+	T_CASE  shift 569
+	T_DEFAULT  shift 570
 	.  error
 
 
 state 539
+	switch_case_list:  ':' ';'.case_list T_ENDSWITCH ';' 
+	case_list: .    (79)
+
+	.  reduce 79 (src line 559)
+
+	case_list  goto 573
+
+state 540
+	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment '(' parameter_list.')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
+
+	')'  shift 574
+	.  error
+
+
+state 541
 	statement:  T_FOREACH '(' expr T_AS foreach_variable ')'.foreach_statement 
 
 	T_INCLUDE  shift 79
@@ -18214,7 +18232,7 @@ state 539
 	T_PRINT  shift 65
 	T_YIELD  shift 66
 	T_YIELD_FROM  shift 67
-	':'  shift 575
+	':'  shift 577
 	'+'  shift 47
 	'-'  shift 48
 	'!'  shift 49
@@ -18280,7 +18298,7 @@ state 539
 	'$'  shift 97
 	.  error
 
-	statement  goto 574
+	statement  goto 576
 	namespace_name  goto 102
 	name  goto 98
 	expr  goto 21
@@ -18299,23 +18317,23 @@ state 539
 	callable_expr  goto 99
 	callable_variable  goto 39
 	static_member  goto 40
-	foreach_statement  goto 573
+	foreach_statement  goto 575
 	alt_if_stmt  goto 9
 	alt_if_stmt_without_else  goto 33
 	if_stmt  goto 8
 	if_stmt_without_else  goto 32
 	function  goto 108
 
-state 540
+state 542
 	statement:  T_FOREACH '(' expr T_AS foreach_variable T_DOUBLE_ARROW.foreach_variable ')' foreach_statement 
 
-	'&'  shift 491
-	'['  shift 493
+	'&'  shift 492
+	'['  shift 494
 	T_STATIC  shift 205
 	T_STRING  shift 114
 	T_VARIABLE  shift 96
 	T_CONSTANT_ENCAPSED_STRING  shift 101
-	T_LIST  shift 492
+	T_LIST  shift 493
 	T_ARRAY  shift 100
 	T_NAMESPACE  shift 103
 	T_NS_SEPARATOR  shift 104
@@ -18325,8 +18343,8 @@ state 540
 
 	namespace_name  goto 102
 	name  goto 98
-	foreach_variable  goto 576
-	variable  goto 490
+	foreach_variable  goto 578
+	variable  goto 491
 	class_name  goto 73
 	simple_variable  goto 70
 	function_call  goto 72
@@ -18338,18 +18356,18 @@ state 540
 	callable_variable  goto 39
 	static_member  goto 40
 
-state 541
-	foreach_variable:  '&' variable.    (65)
-	dereferencable:  variable.    (268)
+state 543
+	foreach_variable:  '&' variable.    (66)
+	dereferencable:  variable.    (269)
 
-	T_DOUBLE_ARROW  reduce 65 (src line 532)
-	')'  reduce 65 (src line 532)
-	.  reduce 268 (src line 1092)
+	T_DOUBLE_ARROW  reduce 66 (src line 532)
+	')'  reduce 66 (src line 532)
+	.  reduce 269 (src line 1092)
 
 
-state 542
+state 544
 	foreach_variable:  T_LIST '('.array_pair_list ')' 
-	possible_array_pair: .    (301)
+	possible_array_pair: .    (302)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -18404,7 +18422,7 @@ state 542
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 301 (src line 1172)
+	.  reduce 302 (src line 1172)
 
 	namespace_name  goto 102
 	name  goto 98
@@ -18426,19 +18444,19 @@ state 542
 	static_member  goto 40
 	array_pair  goto 196
 	non_empty_array_pair_list  goto 194
-	array_pair_list  goto 577
+	array_pair_list  goto 579
 	possible_array_pair  goto 195
 	function  goto 108
 
-state 543
+state 545
 	foreach_variable:  '[' array_pair_list.']' 
 	dereferencable_scalar:  '[' array_pair_list.']' 
 
-	']'  shift 578
+	']'  shift 580
 	.  error
 
 
-state 544
+state 546
 	inner_statement_list:  inner_statement_list.inner_statement 
 	declare_statement:  ':' inner_statement_list.T_ENDDECLARE ';' 
 
@@ -18490,7 +18508,7 @@ state 544
 	T_FOR  shift 12
 	T_FOREACH  shift 23
 	T_DECLARE  shift 24
-	T_ENDDECLARE  shift 579
+	T_ENDDECLARE  shift 581
 	T_SWITCH  shift 13
 	T_BREAK  shift 14
 	T_CONTINUE  shift 15
@@ -18543,119 +18561,119 @@ state 544
 	if_stmt_without_else  goto 32
 	function  goto 30
 
-state 545
-	const_decl:  T_STRING '=' expr backup_doc_comment.    (130)
+state 547
+	const_decl:  T_STRING '=' expr backup_doc_comment.    (131)
 
-	.  reduce 130 (src line 816)
+	.  reduce 131 (src line 816)
 
 
-state 546
+state 548
 	statement:  T_TRY '{' inner_statement_list '}' catch_list finally_statement.    (39)
 
 	.  reduce 39 (src line 432)
 
 
-state 547
+state 549
 	catch_list:  catch_list T_CATCH.'(' catch_name_list T_VARIABLE ')' '{' inner_statement_list '}' 
 
-	'('  shift 580
-	.  error
-
-
-state 548
-	finally_statement:  T_FINALLY.'{' inner_statement_list '}' 
-
-	'{'  shift 581
-	.  error
-
-
-state 549
-	function_declaration_statement:  function returns_ref T_STRING backup_doc_comment '(' parameter_list.')' return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-
-	')'  shift 582
+	'('  shift 582
 	.  error
 
 
 state 550
-	expr_without_variable:  function returns_ref backup_doc_comment '(' parameter_list ')'.lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	lexical_vars: .    (220)
+	finally_statement:  T_FINALLY.'{' inner_statement_list '}' 
 
-	T_USE  shift 584
-	.  reduce 220 (src line 992)
+	'{'  shift 583
+	.  error
 
-	lexical_vars  goto 583
 
 state 551
-	non_empty_parameter_list:  non_empty_parameter_list ','.parameter 
-	optional_type: .    (99)
+	function_declaration_statement:  function returns_ref T_STRING backup_doc_comment '(' parameter_list.')' return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
 
-	'?'  shift 507
-	T_STRING  shift 114
-	T_ARRAY  shift 508
-	T_CALLABLE  shift 509
-	T_NAMESPACE  shift 103
-	T_NS_SEPARATOR  shift 104
-	.  reduce 99 (src line 629)
+	')'  shift 584
+	.  error
 
-	namespace_name  goto 102
-	name  goto 510
-	parameter  goto 585
-	optional_type  goto 504
-	type  goto 506
-	type_expr  goto 505
 
 state 552
+	expr_without_variable:  function returns_ref backup_doc_comment '(' parameter_list ')'.lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
+	lexical_vars: .    (221)
+
+	T_USE  shift 586
+	.  reduce 221 (src line 992)
+
+	lexical_vars  goto 585
+
+state 553
+	non_empty_parameter_list:  non_empty_parameter_list ','.parameter 
+	optional_type: .    (100)
+
+	'?'  shift 508
+	T_STRING  shift 114
+	T_ARRAY  shift 509
+	T_CALLABLE  shift 510
+	T_NAMESPACE  shift 103
+	T_NS_SEPARATOR  shift 104
+	.  reduce 100 (src line 629)
+
+	namespace_name  goto 102
+	name  goto 511
+	parameter  goto 587
+	optional_type  goto 505
+	type  goto 507
+	type_expr  goto 506
+
+state 554
 	parameter:  optional_type is_reference.is_variadic T_VARIABLE 
 	parameter:  optional_type is_reference.is_variadic T_VARIABLE '=' expr 
 	is_variadic: .    (55)
 
-	T_ELLIPSIS  shift 587
+	T_ELLIPSIS  shift 589
 	.  reduce 55 (src line 476)
 
-	is_variadic  goto 586
+	is_variadic  goto 588
 
-state 553
+state 555
 	is_reference:  '&'.    (54)
 
 	.  reduce 54 (src line 473)
 
 
-state 554
-	type_expr:  '?' type.    (102)
-
-	.  reduce 102 (src line 636)
-
-
-state 555
-	class_declaration_statement:  class_modifiers T_CLASS T_STRING extends_from implements_list backup_doc_comment.'{' class_statement_list '}' 
-
-	'{'  shift 588
-	.  error
-
-
 state 556
-	if_stmt_without_else:  if_stmt_without_else T_ELSEIF '(' expr ')' statement.    (86)
+	type_expr:  '?' type.    (103)
 
-	.  reduce 86 (src line 579)
+	.  reduce 103 (src line 636)
 
 
 state 557
+	class_declaration_statement:  class_modifiers T_CLASS T_STRING extends_from implements_list backup_doc_comment.'{' class_statement_list '}' 
+
+	'{'  shift 590
+	.  error
+
+
+state 558
+	if_stmt_without_else:  if_stmt_without_else T_ELSEIF '(' expr ')' statement.    (87)
+
+	.  reduce 87 (src line 579)
+
+
+state 559
 	alt_if_stmt_without_else:  alt_if_stmt_without_else T_ELSEIF '(' expr ')' ':'.inner_statement_list 
 	inner_statement_list: .    (16)
 
 	.  reduce 16 (src line 388)
 
-	inner_statement_list  goto 589
+	inner_statement_list  goto 591
 
-state 558
-	alt_if_stmt:  alt_if_stmt_without_else T_ELSE ':' inner_statement_list T_ENDIF ';'.    (92)
+state 560
+	alt_if_stmt:  alt_if_stmt_without_else T_ELSE ':' inner_statement_list T_ENDIF ';'.    (93)
 
-	.  reduce 92 (src line 603)
+	.  reduce 93 (src line 603)
 
 
-state 559
+state 561
 	inner_statement_list:  inner_statement_list.inner_statement 
-	alt_if_stmt_without_else:  T_IF '(' expr ')' ':' inner_statement_list.    (89)
+	alt_if_stmt_without_else:  T_IF '(' expr ')' ':' inner_statement_list.    (90)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -18728,7 +18746,7 @@ state 559
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 89 (src line 590)
+	.  reduce 90 (src line 590)
 
 	statement  goto 264
 	function_declaration_statement  goto 265
@@ -18757,8 +18775,8 @@ state 559
 	if_stmt_without_else  goto 32
 	function  goto 30
 
-state 560
-	expr_without_variable:  T_LIST '(' array_pair_list ')' '=' expr.    (139)
+state 562
+	expr_without_variable:  T_LIST '(' array_pair_list ')' '=' expr.    (140)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -18816,51 +18834,51 @@ state 560
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 139 (src line 858)
-
-
-state 561
-	expr_without_variable:  T_LIST '(' array_pair_list.')' '=' expr 
-	array_pair:  expr T_DOUBLE_ARROW T_LIST '(' array_pair_list.')' 
-
-	')'  shift 590
-	.  error
-
-
-state 562
-	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '[' expr ']'.'}' 
-
-	'}'  shift 591
-	.  error
+	.  reduce 140 (src line 858)
 
 
 state 563
-	while_statement:  ':' inner_statement_list T_ENDWHILE.';' 
+	expr_without_variable:  T_LIST '(' array_pair_list.')' '=' expr 
+	array_pair:  expr T_DOUBLE_ARROW T_LIST '(' array_pair_list.')' 
 
-	';'  shift 592
+	')'  shift 592
 	.  error
 
 
 state 564
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '[' expr ']'.'}' 
+
+	'}'  shift 593
+	.  error
+
+
+state 565
+	while_statement:  ':' inner_statement_list T_ENDWHILE.';' 
+
+	';'  shift 594
+	.  error
+
+
+state 566
 	statement:  T_DO statement T_WHILE '(' expr ')' ';'.    (23)
 
 	.  reduce 23 (src line 410)
 
 
-state 565
+state 567
 	statement:  T_FOR '(' for_exprs ';' for_exprs ';' for_exprs.')' for_statement 
 
-	')'  shift 593
+	')'  shift 595
 	.  error
 
 
-state 566
-	switch_case_list:  '{' case_list '}'.    (74)
+state 568
+	switch_case_list:  '{' case_list '}'.    (75)
 
-	.  reduce 74 (src line 552)
+	.  reduce 75 (src line 552)
 
 
-state 567
+state 569
 	case_list:  case_list T_CASE.expr ':' inner_statement_list 
 	case_list:  case_list T_CASE.expr ';' inner_statement_list 
 
@@ -18920,7 +18938,7 @@ state 567
 
 	namespace_name  goto 102
 	name  goto 98
-	expr  goto 594
+	expr  goto 596
 	variable  goto 34
 	expr_without_variable  goto 35
 	new_expr  goto 52
@@ -18938,108 +18956,108 @@ state 567
 	static_member  goto 40
 	function  goto 108
 
-state 568
+state 570
 	case_list:  case_list T_DEFAULT.':' inner_statement_list 
 	case_list:  case_list T_DEFAULT.';' inner_statement_list 
 
-	':'  shift 595
-	';'  shift 596
+	':'  shift 597
+	';'  shift 598
 	.  error
 
 
-state 569
+state 571
 	switch_case_list:  '{' ';' case_list.'}' 
 	case_list:  case_list.T_CASE expr ':' inner_statement_list 
 	case_list:  case_list.T_CASE expr ';' inner_statement_list 
 	case_list:  case_list.T_DEFAULT ':' inner_statement_list 
 	case_list:  case_list.T_DEFAULT ';' inner_statement_list 
 
-	T_CASE  shift 567
-	T_DEFAULT  shift 568
-	'}'  shift 597
+	T_CASE  shift 569
+	T_DEFAULT  shift 570
+	'}'  shift 599
 	.  error
 
 
-state 570
+state 572
 	switch_case_list:  ':' case_list T_ENDSWITCH.';' 
 
-	';'  shift 598
+	';'  shift 600
 	.  error
 
 
-state 571
+state 573
 	switch_case_list:  ':' ';' case_list.T_ENDSWITCH ';' 
 	case_list:  case_list.T_CASE expr ':' inner_statement_list 
 	case_list:  case_list.T_CASE expr ';' inner_statement_list 
 	case_list:  case_list.T_DEFAULT ':' inner_statement_list 
 	case_list:  case_list.T_DEFAULT ';' inner_statement_list 
 
-	T_ENDSWITCH  shift 599
-	T_CASE  shift 567
-	T_DEFAULT  shift 568
+	T_ENDSWITCH  shift 601
+	T_CASE  shift 569
+	T_DEFAULT  shift 570
 	.  error
 
 
-state 572
+state 574
 	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment '(' parameter_list ')'.lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	lexical_vars: .    (220)
+	lexical_vars: .    (221)
 
-	T_USE  shift 584
-	.  reduce 220 (src line 992)
+	T_USE  shift 586
+	.  reduce 221 (src line 992)
 
-	lexical_vars  goto 600
+	lexical_vars  goto 602
 
-state 573
+state 575
 	statement:  T_FOREACH '(' expr T_AS foreach_variable ')' foreach_statement.    (35)
 
 	.  reduce 35 (src line 425)
 
 
-state 574
-	foreach_statement:  statement.    (70)
+state 576
+	foreach_statement:  statement.    (71)
 
-	.  reduce 70 (src line 542)
+	.  reduce 71 (src line 542)
 
 
-state 575
+state 577
 	foreach_statement:  ':'.inner_statement_list T_ENDFOREACH ';' 
 	inner_statement_list: .    (16)
 
 	.  reduce 16 (src line 388)
 
-	inner_statement_list  goto 601
-
-state 576
-	statement:  T_FOREACH '(' expr T_AS foreach_variable T_DOUBLE_ARROW foreach_variable.')' foreach_statement 
-
-	')'  shift 602
-	.  error
-
-
-state 577
-	foreach_variable:  T_LIST '(' array_pair_list.')' 
-
-	')'  shift 603
-	.  error
-
+	inner_statement_list  goto 603
 
 state 578
-	foreach_variable:  '[' array_pair_list ']'.    (67)
-	dereferencable_scalar:  '[' array_pair_list ']'.    (242)
+	statement:  T_FOREACH '(' expr T_AS foreach_variable T_DOUBLE_ARROW foreach_variable.')' foreach_statement 
 
-	T_DOUBLE_ARROW  reduce 67 (src line 534)
-	')'  reduce 67 (src line 534)
-	.  reduce 242 (src line 1047)
+	')'  shift 604
+	.  error
 
 
 state 579
-	declare_statement:  ':' inner_statement_list T_ENDDECLARE.';' 
+	foreach_variable:  T_LIST '(' array_pair_list.')' 
 
-	';'  shift 604
+	')'  shift 605
 	.  error
 
 
 state 580
+	foreach_variable:  '[' array_pair_list ']'.    (68)
+	dereferencable_scalar:  '[' array_pair_list ']'.    (243)
+
+	T_DOUBLE_ARROW  reduce 68 (src line 534)
+	')'  reduce 68 (src line 534)
+	.  reduce 243 (src line 1047)
+
+
+state 581
+	declare_statement:  ':' inner_statement_list T_ENDDECLARE.';' 
+
+	';'  shift 606
+	.  error
+
+
+state 582
 	catch_list:  catch_list T_CATCH '('.catch_name_list T_VARIABLE ')' '{' inner_statement_list '}' 
 
 	T_STRING  shift 114
@@ -19048,73 +19066,73 @@ state 580
 	.  error
 
 	namespace_name  goto 102
-	name  goto 606
-	catch_name_list  goto 605
+	name  goto 608
+	catch_name_list  goto 607
 
-state 581
+state 583
 	finally_statement:  T_FINALLY '{'.inner_statement_list '}' 
 	inner_statement_list: .    (16)
 
 	.  reduce 16 (src line 388)
 
-	inner_statement_list  goto 607
+	inner_statement_list  goto 609
 
-state 582
+state 584
 	function_declaration_statement:  function returns_ref T_STRING backup_doc_comment '(' parameter_list ')'.return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	return_type: .    (106)
+	return_type: .    (107)
 
-	':'  shift 609
-	.  reduce 106 (src line 645)
-
-	return_type  goto 608
-
-state 583
-	expr_without_variable:  function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars.return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	return_type: .    (106)
-
-	':'  shift 609
-	.  reduce 106 (src line 645)
+	':'  shift 611
+	.  reduce 107 (src line 645)
 
 	return_type  goto 610
 
-state 584
-	lexical_vars:  T_USE.'(' lexical_var_list ')' 
-
-	'('  shift 611
-	.  error
-
-
 state 585
-	non_empty_parameter_list:  non_empty_parameter_list ',' parameter.    (96)
+	expr_without_variable:  function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars.return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
+	return_type: .    (107)
 
-	.  reduce 96 (src line 618)
+	':'  shift 611
+	.  reduce 107 (src line 645)
 
+	return_type  goto 612
 
 state 586
-	parameter:  optional_type is_reference is_variadic.T_VARIABLE 
-	parameter:  optional_type is_reference is_variadic.T_VARIABLE '=' expr 
+	lexical_vars:  T_USE.'(' lexical_var_list ')' 
 
-	T_VARIABLE  shift 612
+	'('  shift 613
 	.  error
 
 
 state 587
+	non_empty_parameter_list:  non_empty_parameter_list ',' parameter.    (97)
+
+	.  reduce 97 (src line 618)
+
+
+state 588
+	parameter:  optional_type is_reference is_variadic.T_VARIABLE 
+	parameter:  optional_type is_reference is_variadic.T_VARIABLE '=' expr 
+
+	T_VARIABLE  shift 614
+	.  error
+
+
+state 589
 	is_variadic:  T_ELLIPSIS.    (56)
 
 	.  reduce 56 (src line 478)
 
 
-state 588
+state 590
 	class_declaration_statement:  class_modifiers T_CLASS T_STRING extends_from implements_list backup_doc_comment '{'.class_statement_list '}' 
-	class_statement_list: .    (122)
+	class_statement_list: .    (123)
 
-	.  reduce 122 (src line 690)
+	.  reduce 123 (src line 690)
 
-	class_statement_list  goto 613
+	class_statement_list  goto 615
 
-state 589
+state 591
 	inner_statement_list:  inner_statement_list.inner_statement 
-	alt_if_stmt_without_else:  alt_if_stmt_without_else T_ELSEIF '(' expr ')' ':' inner_statement_list.    (90)
+	alt_if_stmt_without_else:  alt_if_stmt_without_else T_ELSEIF '(' expr ')' ':' inner_statement_list.    (91)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -19187,7 +19205,7 @@ state 589
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 90 (src line 593)
+	.  reduce 91 (src line 593)
 
 	statement  goto 264
 	function_declaration_statement  goto 265
@@ -19216,27 +19234,27 @@ state 589
 	if_stmt_without_else  goto 32
 	function  goto 30
 
-state 590
-	expr_without_variable:  T_LIST '(' array_pair_list ')'.'=' expr 
-	array_pair:  expr T_DOUBLE_ARROW T_LIST '(' array_pair_list ')'.    (309)
-
-	'='  shift 518
-	.  reduce 309 (src line 1193)
-
-
-state 591
-	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '[' expr ']' '}'.    (320)
-
-	.  reduce 320 (src line 1221)
-
-
 state 592
-	while_statement:  ':' inner_statement_list T_ENDWHILE ';'.    (84)
+	expr_without_variable:  T_LIST '(' array_pair_list ')'.'=' expr 
+	array_pair:  expr T_DOUBLE_ARROW T_LIST '(' array_pair_list ')'.    (310)
 
-	.  reduce 84 (src line 573)
+	'='  shift 520
+	.  reduce 310 (src line 1193)
 
 
 state 593
+	encaps_var:  T_DOLLAR_OPEN_CURLY_BRACES T_STRING_VARNAME '[' expr ']' '}'.    (321)
+
+	.  reduce 321 (src line 1221)
+
+
+state 594
+	while_statement:  ':' inner_statement_list T_ENDWHILE ';'.    (85)
+
+	.  reduce 85 (src line 573)
+
+
+state 595
 	statement:  T_FOR '(' for_exprs ';' for_exprs ';' for_exprs ')'.for_statement 
 
 	T_INCLUDE  shift 79
@@ -19247,7 +19265,7 @@ state 593
 	T_PRINT  shift 65
 	T_YIELD  shift 66
 	T_YIELD_FROM  shift 67
-	':'  shift 616
+	':'  shift 618
 	'+'  shift 47
 	'-'  shift 48
 	'!'  shift 49
@@ -19313,7 +19331,7 @@ state 593
 	'$'  shift 97
 	.  error
 
-	statement  goto 615
+	statement  goto 617
 	namespace_name  goto 102
 	name  goto 98
 	expr  goto 21
@@ -19332,14 +19350,14 @@ state 593
 	callable_expr  goto 99
 	callable_variable  goto 39
 	static_member  goto 40
-	for_statement  goto 614
+	for_statement  goto 616
 	alt_if_stmt  goto 9
 	alt_if_stmt_without_else  goto 33
 	if_stmt  goto 8
 	if_stmt_without_else  goto 32
 	function  goto 108
 
-state 594
+state 596
 	case_list:  case_list T_CASE expr.':' inner_statement_list 
 	case_list:  case_list T_CASE expr.';' inner_statement_list 
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
@@ -19377,7 +19395,7 @@ state 594
 	T_LOGICAL_XOR  shift 132
 	T_LOGICAL_AND  shift 131
 	'?'  shift 155
-	':'  shift 617
+	':'  shift 619
 	T_COALESCE  shift 156
 	T_BOOLEAN_OR  shift 128
 	T_BOOLEAN_AND  shift 129
@@ -19403,55 +19421,55 @@ state 594
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	';'  shift 618
+	';'  shift 620
 	.  error
 
 
-state 595
+state 597
 	case_list:  case_list T_DEFAULT ':'.inner_statement_list 
 	inner_statement_list: .    (16)
 
 	.  reduce 16 (src line 388)
 
-	inner_statement_list  goto 619
+	inner_statement_list  goto 621
 
-state 596
+state 598
 	case_list:  case_list T_DEFAULT ';'.inner_statement_list 
 	inner_statement_list: .    (16)
 
 	.  reduce 16 (src line 388)
 
-	inner_statement_list  goto 620
-
-state 597
-	switch_case_list:  '{' ';' case_list '}'.    (75)
-
-	.  reduce 75 (src line 554)
-
-
-state 598
-	switch_case_list:  ':' case_list T_ENDSWITCH ';'.    (76)
-
-	.  reduce 76 (src line 555)
-
+	inner_statement_list  goto 622
 
 state 599
-	switch_case_list:  ':' ';' case_list T_ENDSWITCH.';' 
+	switch_case_list:  '{' ';' case_list '}'.    (76)
 
-	';'  shift 621
-	.  error
+	.  reduce 76 (src line 554)
 
 
 state 600
-	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars.return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	return_type: .    (106)
+	switch_case_list:  ':' case_list T_ENDSWITCH ';'.    (77)
 
-	':'  shift 609
-	.  reduce 106 (src line 645)
+	.  reduce 77 (src line 555)
 
-	return_type  goto 622
 
 state 601
+	switch_case_list:  ':' ';' case_list T_ENDSWITCH.';' 
+
+	';'  shift 623
+	.  error
+
+
+state 602
+	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars.return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
+	return_type: .    (107)
+
+	':'  shift 611
+	.  reduce 107 (src line 645)
+
+	return_type  goto 624
+
+state 603
 	inner_statement_list:  inner_statement_list.inner_statement 
 	foreach_statement:  ':' inner_statement_list.T_ENDFOREACH ';' 
 
@@ -19502,7 +19520,7 @@ state 601
 	T_WHILE  shift 10
 	T_FOR  shift 12
 	T_FOREACH  shift 23
-	T_ENDFOREACH  shift 623
+	T_ENDFOREACH  shift 625
 	T_DECLARE  shift 24
 	T_SWITCH  shift 13
 	T_BREAK  shift 14
@@ -19556,7 +19574,7 @@ state 601
 	if_stmt_without_else  goto 32
 	function  goto 30
 
-state 602
+state 604
 	statement:  T_FOREACH '(' expr T_AS foreach_variable T_DOUBLE_ARROW foreach_variable ')'.foreach_statement 
 
 	T_INCLUDE  shift 79
@@ -19567,7 +19585,7 @@ state 602
 	T_PRINT  shift 65
 	T_YIELD  shift 66
 	T_YIELD_FROM  shift 67
-	':'  shift 575
+	':'  shift 577
 	'+'  shift 47
 	'-'  shift 48
 	'!'  shift 49
@@ -19633,7 +19651,7 @@ state 602
 	'$'  shift 97
 	.  error
 
-	statement  goto 574
+	statement  goto 576
 	namespace_name  goto 102
 	name  goto 98
 	expr  goto 21
@@ -19652,41 +19670,41 @@ state 602
 	callable_expr  goto 99
 	callable_variable  goto 39
 	static_member  goto 40
-	foreach_statement  goto 624
+	foreach_statement  goto 626
 	alt_if_stmt  goto 9
 	alt_if_stmt_without_else  goto 33
 	if_stmt  goto 8
 	if_stmt_without_else  goto 32
 	function  goto 108
 
-state 603
-	foreach_variable:  T_LIST '(' array_pair_list ')'.    (66)
-
-	.  reduce 66 (src line 533)
-
-
-state 604
-	declare_statement:  ':' inner_statement_list T_ENDDECLARE ';'.    (73)
-
-	.  reduce 73 (src line 549)
-
-
 state 605
-	catch_list:  catch_list T_CATCH '(' catch_name_list.T_VARIABLE ')' '{' inner_statement_list '}' 
-	catch_name_list:  catch_name_list.'|' name 
+	foreach_variable:  T_LIST '(' array_pair_list ')'.    (67)
 
-	'|'  shift 626
-	T_VARIABLE  shift 625
-	.  error
+	.  reduce 67 (src line 533)
 
 
 state 606
+	declare_statement:  ':' inner_statement_list T_ENDDECLARE ';'.    (74)
+
+	.  reduce 74 (src line 549)
+
+
+state 607
+	catch_list:  catch_list T_CATCH '(' catch_name_list.T_VARIABLE ')' '{' inner_statement_list '}' 
+	catch_name_list:  catch_name_list.'|' name 
+
+	'|'  shift 628
+	T_VARIABLE  shift 627
+	.  error
+
+
+state 608
 	catch_name_list:  name.    (45)
 
 	.  reduce 45 (src line 446)
 
 
-state 607
+state 609
 	inner_statement_list:  inner_statement_list.inner_statement 
 	finally_statement:  T_FINALLY '{' inner_statement_list.'}' 
 
@@ -19756,7 +19774,7 @@ state 607
 	T_NAMESPACE  shift 103
 	T_NS_SEPARATOR  shift 104
 	'{'  shift 7
-	'}'  shift 627
+	'}'  shift 629
 	'('  shift 51
 	';'  shift 25
 	'`'  shift 64
@@ -19791,99 +19809,83 @@ state 607
 	if_stmt_without_else  goto 32
 	function  goto 30
 
-state 608
+state 610
 	function_declaration_statement:  function returns_ref T_STRING backup_doc_comment '(' parameter_list ')' return_type.backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	backup_fn_flags: .    (217)
+	backup_fn_flags: .    (218)
 
-	.  reduce 217 (src line 983)
+	.  reduce 218 (src line 983)
 
-	backup_fn_flags  goto 628
+	backup_fn_flags  goto 630
 
-state 609
+state 611
 	return_type:  ':'.type_expr 
 
-	'?'  shift 507
+	'?'  shift 508
 	T_STRING  shift 114
-	T_ARRAY  shift 508
-	T_CALLABLE  shift 509
+	T_ARRAY  shift 509
+	T_CALLABLE  shift 510
 	T_NAMESPACE  shift 103
 	T_NS_SEPARATOR  shift 104
 	.  error
 
 	namespace_name  goto 102
-	name  goto 510
-	type  goto 506
-	type_expr  goto 629
-
-state 610
-	expr_without_variable:  function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type.backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	backup_fn_flags: .    (217)
-
-	.  reduce 217 (src line 983)
-
-	backup_fn_flags  goto 630
-
-state 611
-	lexical_vars:  T_USE '('.lexical_var_list ')' 
-
-	'&'  shift 634
-	T_VARIABLE  shift 633
-	.  error
-
-	lexical_var  goto 632
-	lexical_var_list  goto 631
+	name  goto 511
+	type  goto 507
+	type_expr  goto 631
 
 state 612
-	parameter:  optional_type is_reference is_variadic T_VARIABLE.    (97)
-	parameter:  optional_type is_reference is_variadic T_VARIABLE.'=' expr 
+	expr_without_variable:  function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type.backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
+	backup_fn_flags: .    (218)
 
-	'='  shift 635
-	.  reduce 97 (src line 622)
+	.  reduce 218 (src line 983)
 
+	backup_fn_flags  goto 632
 
 state 613
+	lexical_vars:  T_USE '('.lexical_var_list ')' 
+
+	'&'  shift 636
+	T_VARIABLE  shift 635
+	.  error
+
+	lexical_var  goto 634
+	lexical_var_list  goto 633
+
+state 614
+	parameter:  optional_type is_reference is_variadic T_VARIABLE.    (98)
+	parameter:  optional_type is_reference is_variadic T_VARIABLE.'=' expr 
+
+	'='  shift 637
+	.  reduce 98 (src line 622)
+
+
+state 615
 	class_declaration_statement:  class_modifiers T_CLASS T_STRING extends_from implements_list backup_doc_comment '{' class_statement_list.'}' 
 	class_statement_list:  class_statement_list.class_statement 
 
-	T_PUBLIC  shift 641
-	'}'  shift 636
+	T_PUBLIC  shift 643
+	'}'  shift 638
 	.  error
 
-	class_statement  goto 637
-	variable_modifiers  goto 638
-	non_empty_member_modifiers  goto 639
-	member_modifier  goto 640
+	class_statement  goto 639
+	variable_modifiers  goto 640
+	non_empty_member_modifiers  goto 641
+	member_modifier  goto 642
 
-state 614
+state 616
 	statement:  T_FOR '(' for_exprs ';' for_exprs ';' for_exprs ')' for_statement.    (24)
 
 	.  reduce 24 (src line 412)
 
 
-state 615
-	for_statement:  statement.    (68)
-
-	.  reduce 68 (src line 537)
-
-
-state 616
-	for_statement:  ':'.inner_statement_list T_ENDFOR ';' 
-	inner_statement_list: .    (16)
-
-	.  reduce 16 (src line 388)
-
-	inner_statement_list  goto 642
-
 state 617
-	case_list:  case_list T_CASE expr ':'.inner_statement_list 
-	inner_statement_list: .    (16)
+	for_statement:  statement.    (69)
 
-	.  reduce 16 (src line 388)
+	.  reduce 69 (src line 537)
 
-	inner_statement_list  goto 643
 
 state 618
-	case_list:  case_list T_CASE expr ';'.inner_statement_list 
+	for_statement:  ':'.inner_statement_list T_ENDFOR ';' 
 	inner_statement_list: .    (16)
 
 	.  reduce 16 (src line 388)
@@ -19891,112 +19893,24 @@ state 618
 	inner_statement_list  goto 644
 
 state 619
-	inner_statement_list:  inner_statement_list.inner_statement 
-	case_list:  case_list T_DEFAULT ':' inner_statement_list.    (81)
+	case_list:  case_list T_CASE expr ':'.inner_statement_list 
+	inner_statement_list: .    (16)
 
-	T_INCLUDE  shift 79
-	T_INCLUDE_ONCE  shift 80
-	T_EVAL  shift 81
-	T_REQUIRE  shift 82
-	T_REQUIRE_ONCE  shift 83
-	T_PRINT  shift 65
-	T_YIELD  shift 66
-	T_YIELD_FROM  shift 67
-	'+'  shift 47
-	'-'  shift 48
-	'!'  shift 49
-	'~'  shift 50
-	T_INC  shift 45
-	T_DEC  shift 46
-	T_INT_CAST  shift 54
-	T_DOUBLE_CAST  shift 55
-	T_STRING_CAST  shift 56
-	T_ARRAY_CAST  shift 57
-	T_OBJECT_CAST  shift 58
-	T_BOOL_CAST  shift 59
-	T_UNSET_CAST  shift 60
-	'@'  shift 62
-	'['  shift 43
-	T_NEW  shift 76
-	T_CLONE  shift 44
-	T_STATIC  shift 18
-	T_ECHO  shift 19
-	T_LNUMBER  shift 84
-	T_DNUMBER  shift 85
-	T_STRING  shift 29
-	T_VARIABLE  shift 96
-	T_INLINE_HTML  shift 20
-	T_CONSTANT_ENCAPSED_STRING  shift 101
-	T_LINE  shift 86
-	T_FILE  shift 87
-	T_DIR  shift 88
-	T_CLASS_C  shift 93
-	T_TRAIT_C  shift 89
-	T_METHOD_C  shift 90
-	T_FUNC_C  shift 91
-	T_NS_C  shift 92
-	T_EXIT  shift 61
-	T_IF  shift 38
-	T_DO  shift 11
-	T_WHILE  shift 10
-	T_FOR  shift 12
-	T_FOREACH  shift 23
-	T_DECLARE  shift 24
-	T_SWITCH  shift 13
-	T_BREAK  shift 14
-	T_CONTINUE  shift 15
-	T_GOTO  shift 28
-	T_FUNCTION  shift 36
-	T_RETURN  shift 16
-	T_TRY  shift 26
-	T_THROW  shift 27
-	T_GLOBAL  shift 17
-	T_UNSET  shift 22
-	T_ISSET  shift 77
-	T_EMPTY  shift 78
-	T_LIST  shift 42
-	T_ARRAY  shift 100
-	T_START_HEREDOC  shift 94
-	T_NAMESPACE  shift 103
-	T_NS_SEPARATOR  shift 104
-	'{'  shift 7
-	'('  shift 51
-	';'  shift 25
-	'`'  shift 64
-	'"'  shift 95
-	'$'  shift 97
-	.  reduce 81 (src line 565)
+	.  reduce 16 (src line 388)
 
-	statement  goto 264
-	function_declaration_statement  goto 265
-	namespace_name  goto 102
-	name  goto 98
-	inner_statement  goto 262
-	expr  goto 21
-	variable  goto 34
-	expr_without_variable  goto 35
-	new_expr  goto 52
-	class_name  goto 73
-	simple_variable  goto 70
-	internal_functions_in_yacc  goto 53
-	scalar  goto 63
-	function_call  goto 72
-	variable_class_name  goto 74
-	dereferencable_scalar  goto 75
-	constant  goto 71
-	dereferencable  goto 41
-	callable_expr  goto 99
-	callable_variable  goto 39
-	static_member  goto 40
-	alt_if_stmt  goto 9
-	alt_if_stmt_without_else  goto 33
-	if_stmt  goto 8
-	if_stmt_without_else  goto 32
-	function  goto 30
+	inner_statement_list  goto 645
 
 state 620
+	case_list:  case_list T_CASE expr ';'.inner_statement_list 
+	inner_statement_list: .    (16)
+
+	.  reduce 16 (src line 388)
+
+	inner_statement_list  goto 646
+
+state 621
 	inner_statement_list:  inner_statement_list.inner_statement 
-	case_list:  case_list T_DEFAULT ';' inner_statement_list.    (82)
+	case_list:  case_list T_DEFAULT ':' inner_statement_list.    (82)
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -20069,7 +19983,7 @@ state 620
 	'`'  shift 64
 	'"'  shift 95
 	'$'  shift 97
-	.  reduce 82 (src line 567)
+	.  reduce 82 (src line 565)
 
 	statement  goto 264
 	function_declaration_statement  goto 265
@@ -20098,41 +20012,145 @@ state 620
 	if_stmt_without_else  goto 32
 	function  goto 30
 
-state 621
-	switch_case_list:  ':' ';' case_list T_ENDSWITCH ';'.    (77)
-
-	.  reduce 77 (src line 556)
-
-
 state 622
-	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type.backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
-	backup_fn_flags: .    (217)
+	inner_statement_list:  inner_statement_list.inner_statement 
+	case_list:  case_list T_DEFAULT ';' inner_statement_list.    (83)
 
-	.  reduce 217 (src line 983)
+	T_INCLUDE  shift 79
+	T_INCLUDE_ONCE  shift 80
+	T_EVAL  shift 81
+	T_REQUIRE  shift 82
+	T_REQUIRE_ONCE  shift 83
+	T_PRINT  shift 65
+	T_YIELD  shift 66
+	T_YIELD_FROM  shift 67
+	'+'  shift 47
+	'-'  shift 48
+	'!'  shift 49
+	'~'  shift 50
+	T_INC  shift 45
+	T_DEC  shift 46
+	T_INT_CAST  shift 54
+	T_DOUBLE_CAST  shift 55
+	T_STRING_CAST  shift 56
+	T_ARRAY_CAST  shift 57
+	T_OBJECT_CAST  shift 58
+	T_BOOL_CAST  shift 59
+	T_UNSET_CAST  shift 60
+	'@'  shift 62
+	'['  shift 43
+	T_NEW  shift 76
+	T_CLONE  shift 44
+	T_STATIC  shift 18
+	T_ECHO  shift 19
+	T_LNUMBER  shift 84
+	T_DNUMBER  shift 85
+	T_STRING  shift 29
+	T_VARIABLE  shift 96
+	T_INLINE_HTML  shift 20
+	T_CONSTANT_ENCAPSED_STRING  shift 101
+	T_LINE  shift 86
+	T_FILE  shift 87
+	T_DIR  shift 88
+	T_CLASS_C  shift 93
+	T_TRAIT_C  shift 89
+	T_METHOD_C  shift 90
+	T_FUNC_C  shift 91
+	T_NS_C  shift 92
+	T_EXIT  shift 61
+	T_IF  shift 38
+	T_DO  shift 11
+	T_WHILE  shift 10
+	T_FOR  shift 12
+	T_FOREACH  shift 23
+	T_DECLARE  shift 24
+	T_SWITCH  shift 13
+	T_BREAK  shift 14
+	T_CONTINUE  shift 15
+	T_GOTO  shift 28
+	T_FUNCTION  shift 36
+	T_RETURN  shift 16
+	T_TRY  shift 26
+	T_THROW  shift 27
+	T_GLOBAL  shift 17
+	T_UNSET  shift 22
+	T_ISSET  shift 77
+	T_EMPTY  shift 78
+	T_LIST  shift 42
+	T_ARRAY  shift 100
+	T_START_HEREDOC  shift 94
+	T_NAMESPACE  shift 103
+	T_NS_SEPARATOR  shift 104
+	'{'  shift 7
+	'('  shift 51
+	';'  shift 25
+	'`'  shift 64
+	'"'  shift 95
+	'$'  shift 97
+	.  reduce 83 (src line 567)
 
-	backup_fn_flags  goto 645
+	statement  goto 264
+	function_declaration_statement  goto 265
+	namespace_name  goto 102
+	name  goto 98
+	inner_statement  goto 262
+	expr  goto 21
+	variable  goto 34
+	expr_without_variable  goto 35
+	new_expr  goto 52
+	class_name  goto 73
+	simple_variable  goto 70
+	internal_functions_in_yacc  goto 53
+	scalar  goto 63
+	function_call  goto 72
+	variable_class_name  goto 74
+	dereferencable_scalar  goto 75
+	constant  goto 71
+	dereferencable  goto 41
+	callable_expr  goto 99
+	callable_variable  goto 39
+	static_member  goto 40
+	alt_if_stmt  goto 9
+	alt_if_stmt_without_else  goto 33
+	if_stmt  goto 8
+	if_stmt_without_else  goto 32
+	function  goto 30
 
 state 623
-	foreach_statement:  ':' inner_statement_list T_ENDFOREACH.';' 
+	switch_case_list:  ':' ';' case_list T_ENDSWITCH ';'.    (78)
 
-	';'  shift 646
-	.  error
+	.  reduce 78 (src line 556)
 
 
 state 624
+	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type.backup_fn_flags '{' inner_statement_list '}' backup_fn_flags 
+	backup_fn_flags: .    (218)
+
+	.  reduce 218 (src line 983)
+
+	backup_fn_flags  goto 647
+
+state 625
+	foreach_statement:  ':' inner_statement_list T_ENDFOREACH.';' 
+
+	';'  shift 648
+	.  error
+
+
+state 626
 	statement:  T_FOREACH '(' expr T_AS foreach_variable T_DOUBLE_ARROW foreach_variable ')' foreach_statement.    (36)
 
 	.  reduce 36 (src line 427)
 
 
-state 625
+state 627
 	catch_list:  catch_list T_CATCH '(' catch_name_list T_VARIABLE.')' '{' inner_statement_list '}' 
 
-	')'  shift 647
+	')'  shift 649
 	.  error
 
 
-state 626
+state 628
 	catch_name_list:  catch_name_list '|'.name 
 
 	T_STRING  shift 114
@@ -20141,63 +20159,63 @@ state 626
 	.  error
 
 	namespace_name  goto 102
-	name  goto 648
+	name  goto 650
 
-state 627
+state 629
 	finally_statement:  T_FINALLY '{' inner_statement_list '}'.    (48)
 
 	.  reduce 48 (src line 453)
 
 
-state 628
+state 630
 	function_declaration_statement:  function returns_ref T_STRING backup_doc_comment '(' parameter_list ')' return_type backup_fn_flags.'{' inner_statement_list '}' backup_fn_flags 
 
-	'{'  shift 649
-	.  error
-
-
-state 629
-	return_type:  ':' type_expr.    (107)
-
-	.  reduce 107 (src line 647)
-
-
-state 630
-	expr_without_variable:  function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags.'{' inner_statement_list '}' backup_fn_flags 
-
-	'{'  shift 650
+	'{'  shift 651
 	.  error
 
 
 state 631
-	lexical_vars:  T_USE '(' lexical_var_list.')' 
-	lexical_var_list:  lexical_var_list.',' lexical_var 
+	return_type:  ':' type_expr.    (108)
 
-	','  shift 652
-	')'  shift 651
-	.  error
+	.  reduce 108 (src line 647)
 
 
 state 632
-	lexical_var_list:  lexical_var.    (223)
+	expr_without_variable:  function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags.'{' inner_statement_list '}' backup_fn_flags 
 
-	.  reduce 223 (src line 999)
-
-
-state 633
-	lexical_var:  T_VARIABLE.    (224)
-
-	.  reduce 224 (src line 1002)
-
-
-state 634
-	lexical_var:  '&'.T_VARIABLE 
-
-	T_VARIABLE  shift 653
+	'{'  shift 652
 	.  error
 
 
+state 633
+	lexical_vars:  T_USE '(' lexical_var_list.')' 
+	lexical_var_list:  lexical_var_list.',' lexical_var 
+
+	','  shift 654
+	')'  shift 653
+	.  error
+
+
+state 634
+	lexical_var_list:  lexical_var.    (224)
+
+	.  reduce 224 (src line 999)
+
+
 state 635
+	lexical_var:  T_VARIABLE.    (225)
+
+	.  reduce 225 (src line 1002)
+
+
+state 636
+	lexical_var:  '&'.T_VARIABLE 
+
+	T_VARIABLE  shift 655
+	.  error
+
+
+state 637
 	parameter:  optional_type is_reference is_variadic T_VARIABLE '='.expr 
 
 	T_INCLUDE  shift 79
@@ -20256,7 +20274,7 @@ state 635
 
 	namespace_name  goto 102
 	name  goto 98
-	expr  goto 654
+	expr  goto 656
 	variable  goto 34
 	expr_without_variable  goto 35
 	new_expr  goto 52
@@ -20274,46 +20292,46 @@ state 635
 	static_member  goto 40
 	function  goto 108
 
-state 636
+state 638
 	class_declaration_statement:  class_modifiers T_CLASS T_STRING extends_from implements_list backup_doc_comment '{' class_statement_list '}'.    (57)
 
 	.  reduce 57 (src line 481)
 
 
-state 637
-	class_statement_list:  class_statement_list class_statement.    (121)
-
-	.  reduce 121 (src line 687)
-
-
-state 638
-	class_statement:  variable_modifiers.property_list ';' 
-
-	T_VARIABLE  shift 657
-	.  error
-
-	property  goto 656
-	property_list  goto 655
-
 state 639
-	variable_modifiers:  non_empty_member_modifiers.    (124)
+	class_statement_list:  class_statement_list class_statement.    (122)
 
-	.  reduce 124 (src line 764)
+	.  reduce 122 (src line 687)
 
 
 state 640
-	non_empty_member_modifiers:  member_modifier.    (125)
+	class_statement:  variable_modifiers.property_list ';' 
 
-	.  reduce 125 (src line 777)
+	T_VARIABLE  shift 659
+	.  error
 
+	property  goto 658
+	property_list  goto 657
 
 state 641
-	member_modifier:  T_PUBLIC.    (126)
+	variable_modifiers:  non_empty_member_modifiers.    (125)
 
-	.  reduce 126 (src line 783)
+	.  reduce 125 (src line 764)
 
 
 state 642
+	non_empty_member_modifiers:  member_modifier.    (126)
+
+	.  reduce 126 (src line 777)
+
+
+state 643
+	member_modifier:  T_PUBLIC.    (127)
+
+	.  reduce 127 (src line 783)
+
+
+state 644
 	inner_statement_list:  inner_statement_list.inner_statement 
 	for_statement:  ':' inner_statement_list.T_ENDFOR ';' 
 
@@ -20363,7 +20381,7 @@ state 642
 	T_DO  shift 11
 	T_WHILE  shift 10
 	T_FOR  shift 12
-	T_ENDFOR  shift 658
+	T_ENDFOR  shift 660
 	T_FOREACH  shift 23
 	T_DECLARE  shift 24
 	T_SWITCH  shift 13
@@ -20390,214 +20408,6 @@ state 642
 	'"'  shift 95
 	'$'  shift 97
 	.  error
-
-	statement  goto 264
-	function_declaration_statement  goto 265
-	namespace_name  goto 102
-	name  goto 98
-	inner_statement  goto 262
-	expr  goto 21
-	variable  goto 34
-	expr_without_variable  goto 35
-	new_expr  goto 52
-	class_name  goto 73
-	simple_variable  goto 70
-	internal_functions_in_yacc  goto 53
-	scalar  goto 63
-	function_call  goto 72
-	variable_class_name  goto 74
-	dereferencable_scalar  goto 75
-	constant  goto 71
-	dereferencable  goto 41
-	callable_expr  goto 99
-	callable_variable  goto 39
-	static_member  goto 40
-	alt_if_stmt  goto 9
-	alt_if_stmt_without_else  goto 33
-	if_stmt  goto 8
-	if_stmt_without_else  goto 32
-	function  goto 30
-
-state 643
-	inner_statement_list:  inner_statement_list.inner_statement 
-	case_list:  case_list T_CASE expr ':' inner_statement_list.    (79)
-
-	T_INCLUDE  shift 79
-	T_INCLUDE_ONCE  shift 80
-	T_EVAL  shift 81
-	T_REQUIRE  shift 82
-	T_REQUIRE_ONCE  shift 83
-	T_PRINT  shift 65
-	T_YIELD  shift 66
-	T_YIELD_FROM  shift 67
-	'+'  shift 47
-	'-'  shift 48
-	'!'  shift 49
-	'~'  shift 50
-	T_INC  shift 45
-	T_DEC  shift 46
-	T_INT_CAST  shift 54
-	T_DOUBLE_CAST  shift 55
-	T_STRING_CAST  shift 56
-	T_ARRAY_CAST  shift 57
-	T_OBJECT_CAST  shift 58
-	T_BOOL_CAST  shift 59
-	T_UNSET_CAST  shift 60
-	'@'  shift 62
-	'['  shift 43
-	T_NEW  shift 76
-	T_CLONE  shift 44
-	T_STATIC  shift 18
-	T_ECHO  shift 19
-	T_LNUMBER  shift 84
-	T_DNUMBER  shift 85
-	T_STRING  shift 29
-	T_VARIABLE  shift 96
-	T_INLINE_HTML  shift 20
-	T_CONSTANT_ENCAPSED_STRING  shift 101
-	T_LINE  shift 86
-	T_FILE  shift 87
-	T_DIR  shift 88
-	T_CLASS_C  shift 93
-	T_TRAIT_C  shift 89
-	T_METHOD_C  shift 90
-	T_FUNC_C  shift 91
-	T_NS_C  shift 92
-	T_EXIT  shift 61
-	T_IF  shift 38
-	T_DO  shift 11
-	T_WHILE  shift 10
-	T_FOR  shift 12
-	T_FOREACH  shift 23
-	T_DECLARE  shift 24
-	T_SWITCH  shift 13
-	T_BREAK  shift 14
-	T_CONTINUE  shift 15
-	T_GOTO  shift 28
-	T_FUNCTION  shift 36
-	T_RETURN  shift 16
-	T_TRY  shift 26
-	T_THROW  shift 27
-	T_GLOBAL  shift 17
-	T_UNSET  shift 22
-	T_ISSET  shift 77
-	T_EMPTY  shift 78
-	T_LIST  shift 42
-	T_ARRAY  shift 100
-	T_START_HEREDOC  shift 94
-	T_NAMESPACE  shift 103
-	T_NS_SEPARATOR  shift 104
-	'{'  shift 7
-	'('  shift 51
-	';'  shift 25
-	'`'  shift 64
-	'"'  shift 95
-	'$'  shift 97
-	.  reduce 79 (src line 561)
-
-	statement  goto 264
-	function_declaration_statement  goto 265
-	namespace_name  goto 102
-	name  goto 98
-	inner_statement  goto 262
-	expr  goto 21
-	variable  goto 34
-	expr_without_variable  goto 35
-	new_expr  goto 52
-	class_name  goto 73
-	simple_variable  goto 70
-	internal_functions_in_yacc  goto 53
-	scalar  goto 63
-	function_call  goto 72
-	variable_class_name  goto 74
-	dereferencable_scalar  goto 75
-	constant  goto 71
-	dereferencable  goto 41
-	callable_expr  goto 99
-	callable_variable  goto 39
-	static_member  goto 40
-	alt_if_stmt  goto 9
-	alt_if_stmt_without_else  goto 33
-	if_stmt  goto 8
-	if_stmt_without_else  goto 32
-	function  goto 30
-
-state 644
-	inner_statement_list:  inner_statement_list.inner_statement 
-	case_list:  case_list T_CASE expr ';' inner_statement_list.    (80)
-
-	T_INCLUDE  shift 79
-	T_INCLUDE_ONCE  shift 80
-	T_EVAL  shift 81
-	T_REQUIRE  shift 82
-	T_REQUIRE_ONCE  shift 83
-	T_PRINT  shift 65
-	T_YIELD  shift 66
-	T_YIELD_FROM  shift 67
-	'+'  shift 47
-	'-'  shift 48
-	'!'  shift 49
-	'~'  shift 50
-	T_INC  shift 45
-	T_DEC  shift 46
-	T_INT_CAST  shift 54
-	T_DOUBLE_CAST  shift 55
-	T_STRING_CAST  shift 56
-	T_ARRAY_CAST  shift 57
-	T_OBJECT_CAST  shift 58
-	T_BOOL_CAST  shift 59
-	T_UNSET_CAST  shift 60
-	'@'  shift 62
-	'['  shift 43
-	T_NEW  shift 76
-	T_CLONE  shift 44
-	T_STATIC  shift 18
-	T_ECHO  shift 19
-	T_LNUMBER  shift 84
-	T_DNUMBER  shift 85
-	T_STRING  shift 29
-	T_VARIABLE  shift 96
-	T_INLINE_HTML  shift 20
-	T_CONSTANT_ENCAPSED_STRING  shift 101
-	T_LINE  shift 86
-	T_FILE  shift 87
-	T_DIR  shift 88
-	T_CLASS_C  shift 93
-	T_TRAIT_C  shift 89
-	T_METHOD_C  shift 90
-	T_FUNC_C  shift 91
-	T_NS_C  shift 92
-	T_EXIT  shift 61
-	T_IF  shift 38
-	T_DO  shift 11
-	T_WHILE  shift 10
-	T_FOR  shift 12
-	T_FOREACH  shift 23
-	T_DECLARE  shift 24
-	T_SWITCH  shift 13
-	T_BREAK  shift 14
-	T_CONTINUE  shift 15
-	T_GOTO  shift 28
-	T_FUNCTION  shift 36
-	T_RETURN  shift 16
-	T_TRY  shift 26
-	T_THROW  shift 27
-	T_GLOBAL  shift 17
-	T_UNSET  shift 22
-	T_ISSET  shift 77
-	T_EMPTY  shift 78
-	T_LIST  shift 42
-	T_ARRAY  shift 100
-	T_START_HEREDOC  shift 94
-	T_NAMESPACE  shift 103
-	T_NS_SEPARATOR  shift 104
-	'{'  shift 7
-	'('  shift 51
-	';'  shift 25
-	'`'  shift 64
-	'"'  shift 95
-	'$'  shift 97
-	.  reduce 80 (src line 563)
 
 	statement  goto 264
 	function_declaration_statement  goto 265
@@ -20627,70 +20437,278 @@ state 644
 	function  goto 30
 
 state 645
-	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags.'{' inner_statement_list '}' backup_fn_flags 
+	inner_statement_list:  inner_statement_list.inner_statement 
+	case_list:  case_list T_CASE expr ':' inner_statement_list.    (80)
 
-	'{'  shift 659
-	.  error
+	T_INCLUDE  shift 79
+	T_INCLUDE_ONCE  shift 80
+	T_EVAL  shift 81
+	T_REQUIRE  shift 82
+	T_REQUIRE_ONCE  shift 83
+	T_PRINT  shift 65
+	T_YIELD  shift 66
+	T_YIELD_FROM  shift 67
+	'+'  shift 47
+	'-'  shift 48
+	'!'  shift 49
+	'~'  shift 50
+	T_INC  shift 45
+	T_DEC  shift 46
+	T_INT_CAST  shift 54
+	T_DOUBLE_CAST  shift 55
+	T_STRING_CAST  shift 56
+	T_ARRAY_CAST  shift 57
+	T_OBJECT_CAST  shift 58
+	T_BOOL_CAST  shift 59
+	T_UNSET_CAST  shift 60
+	'@'  shift 62
+	'['  shift 43
+	T_NEW  shift 76
+	T_CLONE  shift 44
+	T_STATIC  shift 18
+	T_ECHO  shift 19
+	T_LNUMBER  shift 84
+	T_DNUMBER  shift 85
+	T_STRING  shift 29
+	T_VARIABLE  shift 96
+	T_INLINE_HTML  shift 20
+	T_CONSTANT_ENCAPSED_STRING  shift 101
+	T_LINE  shift 86
+	T_FILE  shift 87
+	T_DIR  shift 88
+	T_CLASS_C  shift 93
+	T_TRAIT_C  shift 89
+	T_METHOD_C  shift 90
+	T_FUNC_C  shift 91
+	T_NS_C  shift 92
+	T_EXIT  shift 61
+	T_IF  shift 38
+	T_DO  shift 11
+	T_WHILE  shift 10
+	T_FOR  shift 12
+	T_FOREACH  shift 23
+	T_DECLARE  shift 24
+	T_SWITCH  shift 13
+	T_BREAK  shift 14
+	T_CONTINUE  shift 15
+	T_GOTO  shift 28
+	T_FUNCTION  shift 36
+	T_RETURN  shift 16
+	T_TRY  shift 26
+	T_THROW  shift 27
+	T_GLOBAL  shift 17
+	T_UNSET  shift 22
+	T_ISSET  shift 77
+	T_EMPTY  shift 78
+	T_LIST  shift 42
+	T_ARRAY  shift 100
+	T_START_HEREDOC  shift 94
+	T_NAMESPACE  shift 103
+	T_NS_SEPARATOR  shift 104
+	'{'  shift 7
+	'('  shift 51
+	';'  shift 25
+	'`'  shift 64
+	'"'  shift 95
+	'$'  shift 97
+	.  reduce 80 (src line 561)
 
+	statement  goto 264
+	function_declaration_statement  goto 265
+	namespace_name  goto 102
+	name  goto 98
+	inner_statement  goto 262
+	expr  goto 21
+	variable  goto 34
+	expr_without_variable  goto 35
+	new_expr  goto 52
+	class_name  goto 73
+	simple_variable  goto 70
+	internal_functions_in_yacc  goto 53
+	scalar  goto 63
+	function_call  goto 72
+	variable_class_name  goto 74
+	dereferencable_scalar  goto 75
+	constant  goto 71
+	dereferencable  goto 41
+	callable_expr  goto 99
+	callable_variable  goto 39
+	static_member  goto 40
+	alt_if_stmt  goto 9
+	alt_if_stmt_without_else  goto 33
+	if_stmt  goto 8
+	if_stmt_without_else  goto 32
+	function  goto 30
 
 state 646
-	foreach_statement:  ':' inner_statement_list T_ENDFOREACH ';'.    (71)
+	inner_statement_list:  inner_statement_list.inner_statement 
+	case_list:  case_list T_CASE expr ';' inner_statement_list.    (81)
 
-	.  reduce 71 (src line 544)
+	T_INCLUDE  shift 79
+	T_INCLUDE_ONCE  shift 80
+	T_EVAL  shift 81
+	T_REQUIRE  shift 82
+	T_REQUIRE_ONCE  shift 83
+	T_PRINT  shift 65
+	T_YIELD  shift 66
+	T_YIELD_FROM  shift 67
+	'+'  shift 47
+	'-'  shift 48
+	'!'  shift 49
+	'~'  shift 50
+	T_INC  shift 45
+	T_DEC  shift 46
+	T_INT_CAST  shift 54
+	T_DOUBLE_CAST  shift 55
+	T_STRING_CAST  shift 56
+	T_ARRAY_CAST  shift 57
+	T_OBJECT_CAST  shift 58
+	T_BOOL_CAST  shift 59
+	T_UNSET_CAST  shift 60
+	'@'  shift 62
+	'['  shift 43
+	T_NEW  shift 76
+	T_CLONE  shift 44
+	T_STATIC  shift 18
+	T_ECHO  shift 19
+	T_LNUMBER  shift 84
+	T_DNUMBER  shift 85
+	T_STRING  shift 29
+	T_VARIABLE  shift 96
+	T_INLINE_HTML  shift 20
+	T_CONSTANT_ENCAPSED_STRING  shift 101
+	T_LINE  shift 86
+	T_FILE  shift 87
+	T_DIR  shift 88
+	T_CLASS_C  shift 93
+	T_TRAIT_C  shift 89
+	T_METHOD_C  shift 90
+	T_FUNC_C  shift 91
+	T_NS_C  shift 92
+	T_EXIT  shift 61
+	T_IF  shift 38
+	T_DO  shift 11
+	T_WHILE  shift 10
+	T_FOR  shift 12
+	T_FOREACH  shift 23
+	T_DECLARE  shift 24
+	T_SWITCH  shift 13
+	T_BREAK  shift 14
+	T_CONTINUE  shift 15
+	T_GOTO  shift 28
+	T_FUNCTION  shift 36
+	T_RETURN  shift 16
+	T_TRY  shift 26
+	T_THROW  shift 27
+	T_GLOBAL  shift 17
+	T_UNSET  shift 22
+	T_ISSET  shift 77
+	T_EMPTY  shift 78
+	T_LIST  shift 42
+	T_ARRAY  shift 100
+	T_START_HEREDOC  shift 94
+	T_NAMESPACE  shift 103
+	T_NS_SEPARATOR  shift 104
+	'{'  shift 7
+	'('  shift 51
+	';'  shift 25
+	'`'  shift 64
+	'"'  shift 95
+	'$'  shift 97
+	.  reduce 81 (src line 563)
 
+	statement  goto 264
+	function_declaration_statement  goto 265
+	namespace_name  goto 102
+	name  goto 98
+	inner_statement  goto 262
+	expr  goto 21
+	variable  goto 34
+	expr_without_variable  goto 35
+	new_expr  goto 52
+	class_name  goto 73
+	simple_variable  goto 70
+	internal_functions_in_yacc  goto 53
+	scalar  goto 63
+	function_call  goto 72
+	variable_class_name  goto 74
+	dereferencable_scalar  goto 75
+	constant  goto 71
+	dereferencable  goto 41
+	callable_expr  goto 99
+	callable_variable  goto 39
+	static_member  goto 40
+	alt_if_stmt  goto 9
+	alt_if_stmt_without_else  goto 33
+	if_stmt  goto 8
+	if_stmt_without_else  goto 32
+	function  goto 30
 
 state 647
-	catch_list:  catch_list T_CATCH '(' catch_name_list T_VARIABLE ')'.'{' inner_statement_list '}' 
+	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags.'{' inner_statement_list '}' backup_fn_flags 
 
-	'{'  shift 660
+	'{'  shift 661
 	.  error
 
 
 state 648
+	foreach_statement:  ':' inner_statement_list T_ENDFOREACH ';'.    (72)
+
+	.  reduce 72 (src line 544)
+
+
+state 649
+	catch_list:  catch_list T_CATCH '(' catch_name_list T_VARIABLE ')'.'{' inner_statement_list '}' 
+
+	'{'  shift 662
+	.  error
+
+
+state 650
 	catch_name_list:  catch_name_list '|' name.    (46)
 
 	.  reduce 46 (src line 448)
 
 
-state 649
+state 651
 	function_declaration_statement:  function returns_ref T_STRING backup_doc_comment '(' parameter_list ')' return_type backup_fn_flags '{'.inner_statement_list '}' backup_fn_flags 
 	inner_statement_list: .    (16)
 
 	.  reduce 16 (src line 388)
 
-	inner_statement_list  goto 661
+	inner_statement_list  goto 663
 
-state 650
+state 652
 	expr_without_variable:  function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{'.inner_statement_list '}' backup_fn_flags 
 	inner_statement_list: .    (16)
 
 	.  reduce 16 (src line 388)
 
-	inner_statement_list  goto 662
-
-state 651
-	lexical_vars:  T_USE '(' lexical_var_list ')'.    (221)
-
-	.  reduce 221 (src line 994)
-
-
-state 652
-	lexical_var_list:  lexical_var_list ','.lexical_var 
-
-	'&'  shift 634
-	T_VARIABLE  shift 633
-	.  error
-
-	lexical_var  goto 663
+	inner_statement_list  goto 664
 
 state 653
-	lexical_var:  '&' T_VARIABLE.    (225)
+	lexical_vars:  T_USE '(' lexical_var_list ')'.    (222)
 
-	.  reduce 225 (src line 1004)
+	.  reduce 222 (src line 994)
 
 
 state 654
-	parameter:  optional_type is_reference is_variadic T_VARIABLE '=' expr.    (98)
+	lexical_var_list:  lexical_var_list ','.lexical_var 
+
+	'&'  shift 636
+	T_VARIABLE  shift 635
+	.  error
+
+	lexical_var  goto 665
+
+state 655
+	lexical_var:  '&' T_VARIABLE.    (226)
+
+	.  reduce 226 (src line 1004)
+
+
+state 656
+	parameter:  optional_type is_reference is_variadic T_VARIABLE '=' expr.    (99)
 	expr_without_variable:  expr.T_BOOLEAN_OR expr 
 	expr_without_variable:  expr.T_BOOLEAN_AND expr 
 	expr_without_variable:  expr.T_LOGICAL_OR expr 
@@ -20751,56 +20769,56 @@ state 654
 	'%'  shift 142
 	T_INSTANCEOF  shift 154
 	T_POW  shift 140
-	.  reduce 98 (src line 625)
-
-
-state 655
-	class_statement:  variable_modifiers property_list.';' 
-	property_list:  property_list.',' property 
-
-	','  shift 665
-	';'  shift 664
-	.  error
-
-
-state 656
-	property_list:  property.    (128)
-
-	.  reduce 128 (src line 795)
+	.  reduce 99 (src line 625)
 
 
 state 657
-	property:  T_VARIABLE.backup_doc_comment 
-	backup_doc_comment: .    (216)
+	class_statement:  variable_modifiers property_list.';' 
+	property_list:  property_list.',' property 
 
-	.  reduce 216 (src line 979)
-
-	backup_doc_comment  goto 666
-
-state 658
-	for_statement:  ':' inner_statement_list T_ENDFOR.';' 
-
-	';'  shift 667
+	','  shift 667
+	';'  shift 666
 	.  error
 
 
+state 658
+	property_list:  property.    (129)
+
+	.  reduce 129 (src line 795)
+
+
 state 659
+	property:  T_VARIABLE.backup_doc_comment 
+	backup_doc_comment: .    (217)
+
+	.  reduce 217 (src line 979)
+
+	backup_doc_comment  goto 668
+
+state 660
+	for_statement:  ':' inner_statement_list T_ENDFOR.';' 
+
+	';'  shift 669
+	.  error
+
+
+state 661
 	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{'.inner_statement_list '}' backup_fn_flags 
 	inner_statement_list: .    (16)
 
 	.  reduce 16 (src line 388)
 
-	inner_statement_list  goto 668
+	inner_statement_list  goto 670
 
-state 660
+state 662
 	catch_list:  catch_list T_CATCH '(' catch_name_list T_VARIABLE ')' '{'.inner_statement_list '}' 
 	inner_statement_list: .    (16)
 
 	.  reduce 16 (src line 388)
 
-	inner_statement_list  goto 669
+	inner_statement_list  goto 671
 
-state 661
+state 663
 	inner_statement_list:  inner_statement_list.inner_statement 
 	function_declaration_statement:  function returns_ref T_STRING backup_doc_comment '(' parameter_list ')' return_type backup_fn_flags '{' inner_statement_list.'}' backup_fn_flags 
 
@@ -20870,7 +20888,7 @@ state 661
 	T_NAMESPACE  shift 103
 	T_NS_SEPARATOR  shift 104
 	'{'  shift 7
-	'}'  shift 670
+	'}'  shift 672
 	'('  shift 51
 	';'  shift 25
 	'`'  shift 64
@@ -20904,147 +20922,10 @@ state 661
 	if_stmt  goto 8
 	if_stmt_without_else  goto 32
 	function  goto 30
-
-state 662
-	inner_statement_list:  inner_statement_list.inner_statement 
-	expr_without_variable:  function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list.'}' backup_fn_flags 
-
-	T_INCLUDE  shift 79
-	T_INCLUDE_ONCE  shift 80
-	T_EVAL  shift 81
-	T_REQUIRE  shift 82
-	T_REQUIRE_ONCE  shift 83
-	T_PRINT  shift 65
-	T_YIELD  shift 66
-	T_YIELD_FROM  shift 67
-	'+'  shift 47
-	'-'  shift 48
-	'!'  shift 49
-	'~'  shift 50
-	T_INC  shift 45
-	T_DEC  shift 46
-	T_INT_CAST  shift 54
-	T_DOUBLE_CAST  shift 55
-	T_STRING_CAST  shift 56
-	T_ARRAY_CAST  shift 57
-	T_OBJECT_CAST  shift 58
-	T_BOOL_CAST  shift 59
-	T_UNSET_CAST  shift 60
-	'@'  shift 62
-	'['  shift 43
-	T_NEW  shift 76
-	T_CLONE  shift 44
-	T_STATIC  shift 18
-	T_ECHO  shift 19
-	T_LNUMBER  shift 84
-	T_DNUMBER  shift 85
-	T_STRING  shift 29
-	T_VARIABLE  shift 96
-	T_INLINE_HTML  shift 20
-	T_CONSTANT_ENCAPSED_STRING  shift 101
-	T_LINE  shift 86
-	T_FILE  shift 87
-	T_DIR  shift 88
-	T_CLASS_C  shift 93
-	T_TRAIT_C  shift 89
-	T_METHOD_C  shift 90
-	T_FUNC_C  shift 91
-	T_NS_C  shift 92
-	T_EXIT  shift 61
-	T_IF  shift 38
-	T_DO  shift 11
-	T_WHILE  shift 10
-	T_FOR  shift 12
-	T_FOREACH  shift 23
-	T_DECLARE  shift 24
-	T_SWITCH  shift 13
-	T_BREAK  shift 14
-	T_CONTINUE  shift 15
-	T_GOTO  shift 28
-	T_FUNCTION  shift 36
-	T_RETURN  shift 16
-	T_TRY  shift 26
-	T_THROW  shift 27
-	T_GLOBAL  shift 17
-	T_UNSET  shift 22
-	T_ISSET  shift 77
-	T_EMPTY  shift 78
-	T_LIST  shift 42
-	T_ARRAY  shift 100
-	T_START_HEREDOC  shift 94
-	T_NAMESPACE  shift 103
-	T_NS_SEPARATOR  shift 104
-	'{'  shift 7
-	'}'  shift 671
-	'('  shift 51
-	';'  shift 25
-	'`'  shift 64
-	'"'  shift 95
-	'$'  shift 97
-	.  error
-
-	statement  goto 264
-	function_declaration_statement  goto 265
-	namespace_name  goto 102
-	name  goto 98
-	inner_statement  goto 262
-	expr  goto 21
-	variable  goto 34
-	expr_without_variable  goto 35
-	new_expr  goto 52
-	class_name  goto 73
-	simple_variable  goto 70
-	internal_functions_in_yacc  goto 53
-	scalar  goto 63
-	function_call  goto 72
-	variable_class_name  goto 74
-	dereferencable_scalar  goto 75
-	constant  goto 71
-	dereferencable  goto 41
-	callable_expr  goto 99
-	callable_variable  goto 39
-	static_member  goto 40
-	alt_if_stmt  goto 9
-	alt_if_stmt_without_else  goto 33
-	if_stmt  goto 8
-	if_stmt_without_else  goto 32
-	function  goto 30
-
-state 663
-	lexical_var_list:  lexical_var_list ',' lexical_var.    (222)
-
-	.  reduce 222 (src line 997)
-
 
 state 664
-	class_statement:  variable_modifiers property_list ';'.    (123)
-
-	.  reduce 123 (src line 694)
-
-
-state 665
-	property_list:  property_list ','.property 
-
-	T_VARIABLE  shift 657
-	.  error
-
-	property  goto 672
-
-state 666
-	property:  T_VARIABLE backup_doc_comment.    (129)
-
-	.  reduce 129 (src line 798)
-
-
-state 667
-	for_statement:  ':' inner_statement_list T_ENDFOR ';'.    (69)
-
-	.  reduce 69 (src line 539)
-
-
-state 668
 	inner_statement_list:  inner_statement_list.inner_statement 
-	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list.'}' backup_fn_flags 
+	expr_without_variable:  function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list.'}' backup_fn_flags 
 
 	T_INCLUDE  shift 79
 	T_INCLUDE_ONCE  shift 80
@@ -21147,7 +21028,144 @@ state 668
 	if_stmt_without_else  goto 32
 	function  goto 30
 
+state 665
+	lexical_var_list:  lexical_var_list ',' lexical_var.    (223)
+
+	.  reduce 223 (src line 997)
+
+
+state 666
+	class_statement:  variable_modifiers property_list ';'.    (124)
+
+	.  reduce 124 (src line 694)
+
+
+state 667
+	property_list:  property_list ','.property 
+
+	T_VARIABLE  shift 659
+	.  error
+
+	property  goto 674
+
+state 668
+	property:  T_VARIABLE backup_doc_comment.    (130)
+
+	.  reduce 130 (src line 798)
+
+
 state 669
+	for_statement:  ':' inner_statement_list T_ENDFOR ';'.    (70)
+
+	.  reduce 70 (src line 539)
+
+
+state 670
+	inner_statement_list:  inner_statement_list.inner_statement 
+	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list.'}' backup_fn_flags 
+
+	T_INCLUDE  shift 79
+	T_INCLUDE_ONCE  shift 80
+	T_EVAL  shift 81
+	T_REQUIRE  shift 82
+	T_REQUIRE_ONCE  shift 83
+	T_PRINT  shift 65
+	T_YIELD  shift 66
+	T_YIELD_FROM  shift 67
+	'+'  shift 47
+	'-'  shift 48
+	'!'  shift 49
+	'~'  shift 50
+	T_INC  shift 45
+	T_DEC  shift 46
+	T_INT_CAST  shift 54
+	T_DOUBLE_CAST  shift 55
+	T_STRING_CAST  shift 56
+	T_ARRAY_CAST  shift 57
+	T_OBJECT_CAST  shift 58
+	T_BOOL_CAST  shift 59
+	T_UNSET_CAST  shift 60
+	'@'  shift 62
+	'['  shift 43
+	T_NEW  shift 76
+	T_CLONE  shift 44
+	T_STATIC  shift 18
+	T_ECHO  shift 19
+	T_LNUMBER  shift 84
+	T_DNUMBER  shift 85
+	T_STRING  shift 29
+	T_VARIABLE  shift 96
+	T_INLINE_HTML  shift 20
+	T_CONSTANT_ENCAPSED_STRING  shift 101
+	T_LINE  shift 86
+	T_FILE  shift 87
+	T_DIR  shift 88
+	T_CLASS_C  shift 93
+	T_TRAIT_C  shift 89
+	T_METHOD_C  shift 90
+	T_FUNC_C  shift 91
+	T_NS_C  shift 92
+	T_EXIT  shift 61
+	T_IF  shift 38
+	T_DO  shift 11
+	T_WHILE  shift 10
+	T_FOR  shift 12
+	T_FOREACH  shift 23
+	T_DECLARE  shift 24
+	T_SWITCH  shift 13
+	T_BREAK  shift 14
+	T_CONTINUE  shift 15
+	T_GOTO  shift 28
+	T_FUNCTION  shift 36
+	T_RETURN  shift 16
+	T_TRY  shift 26
+	T_THROW  shift 27
+	T_GLOBAL  shift 17
+	T_UNSET  shift 22
+	T_ISSET  shift 77
+	T_EMPTY  shift 78
+	T_LIST  shift 42
+	T_ARRAY  shift 100
+	T_START_HEREDOC  shift 94
+	T_NAMESPACE  shift 103
+	T_NS_SEPARATOR  shift 104
+	'{'  shift 7
+	'}'  shift 675
+	'('  shift 51
+	';'  shift 25
+	'`'  shift 64
+	'"'  shift 95
+	'$'  shift 97
+	.  error
+
+	statement  goto 264
+	function_declaration_statement  goto 265
+	namespace_name  goto 102
+	name  goto 98
+	inner_statement  goto 262
+	expr  goto 21
+	variable  goto 34
+	expr_without_variable  goto 35
+	new_expr  goto 52
+	class_name  goto 73
+	simple_variable  goto 70
+	internal_functions_in_yacc  goto 53
+	scalar  goto 63
+	function_call  goto 72
+	variable_class_name  goto 74
+	dereferencable_scalar  goto 75
+	constant  goto 71
+	dereferencable  goto 41
+	callable_expr  goto 99
+	callable_variable  goto 39
+	static_member  goto 40
+	alt_if_stmt  goto 9
+	alt_if_stmt_without_else  goto 33
+	if_stmt  goto 8
+	if_stmt_without_else  goto 32
+	function  goto 30
+
+state 671
 	inner_statement_list:  inner_statement_list.inner_statement 
 	catch_list:  catch_list T_CATCH '(' catch_name_list T_VARIABLE ')' '{' inner_statement_list.'}' 
 
@@ -21217,7 +21235,7 @@ state 669
 	T_NAMESPACE  shift 103
 	T_NS_SEPARATOR  shift 104
 	'{'  shift 7
-	'}'  shift 674
+	'}'  shift 676
 	'('  shift 51
 	';'  shift 25
 	'`'  shift 64
@@ -21252,69 +21270,69 @@ state 669
 	if_stmt_without_else  goto 32
 	function  goto 30
 
-state 670
-	function_declaration_statement:  function returns_ref T_STRING backup_doc_comment '(' parameter_list ')' return_type backup_fn_flags '{' inner_statement_list '}'.backup_fn_flags 
-	backup_fn_flags: .    (217)
-
-	.  reduce 217 (src line 983)
-
-	backup_fn_flags  goto 675
-
-state 671
-	expr_without_variable:  function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}'.backup_fn_flags 
-	backup_fn_flags: .    (217)
-
-	.  reduce 217 (src line 983)
-
-	backup_fn_flags  goto 676
-
 state 672
-	property_list:  property_list ',' property.    (127)
+	function_declaration_statement:  function returns_ref T_STRING backup_doc_comment '(' parameter_list ')' return_type backup_fn_flags '{' inner_statement_list '}'.backup_fn_flags 
+	backup_fn_flags: .    (218)
 
-	.  reduce 127 (src line 793)
-
-
-state 673
-	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}'.backup_fn_flags 
-	backup_fn_flags: .    (217)
-
-	.  reduce 217 (src line 983)
+	.  reduce 218 (src line 983)
 
 	backup_fn_flags  goto 677
 
+state 673
+	expr_without_variable:  function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}'.backup_fn_flags 
+	backup_fn_flags: .    (218)
+
+	.  reduce 218 (src line 983)
+
+	backup_fn_flags  goto 678
+
 state 674
+	property_list:  property_list ',' property.    (128)
+
+	.  reduce 128 (src line 793)
+
+
+state 675
+	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}'.backup_fn_flags 
+	backup_fn_flags: .    (218)
+
+	.  reduce 218 (src line 983)
+
+	backup_fn_flags  goto 679
+
+state 676
 	catch_list:  catch_list T_CATCH '(' catch_name_list T_VARIABLE ')' '{' inner_statement_list '}'.    (44)
 
 	.  reduce 44 (src line 442)
 
 
-state 675
+state 677
 	function_declaration_statement:  function returns_ref T_STRING backup_doc_comment '(' parameter_list ')' return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags.    (52)
 
 	.  reduce 52 (src line 465)
 
 
-state 676
-	expr_without_variable:  function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags.    (213)
+state 678
+	expr_without_variable:  function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags.    (214)
 
-	.  reduce 213 (src line 967)
+	.  reduce 214 (src line 967)
 
 
-state 677
-	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags.    (214)
+state 679
+	expr_without_variable:  T_STATIC function returns_ref backup_doc_comment '(' parameter_list ')' lexical_vars return_type backup_fn_flags '{' inner_statement_list '}' backup_fn_flags.    (215)
 
-	.  reduce 214 (src line 970)
+	.  reduce 215 (src line 970)
 
 
 166 terminals, 101 nonterminals
-336 grammar rules, 678/8000 states
+337 grammar rules, 680/8000 states
 0 shift/reduce, 0 reduce/reduce conflicts reported
 200 working sets used
 memory: parser 5608/120000
 492 extra closures
-10594 shift entries, 93 exceptions
-392 goto entries
-2921 entries saved by goto default
-Optimizer space used: output 5635/120000
-5635 table entries, 2172 zero
-maximum spread: 166, maximum offset: 673
+10598 shift entries, 93 exceptions
+393 goto entries
+2922 entries saved by goto default
+Optimizer space used: output 5634/120000
+5634 table entries, 2169 zero
+maximum spread: 166, maximum offset: 675
