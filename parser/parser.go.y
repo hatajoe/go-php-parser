@@ -153,8 +153,8 @@ import (
 %token <tok> T_STATIC
 %token <tok> T_ABSTRACT
 %token <tok> T_FINAL
-%token T_PRIVATE
-%token T_PROTECTED
+%token <tok> T_PRIVATE
+%token <tok> T_PROTECTED
 %token <tok> T_PUBLIC
 %token <tok> T_VAR
 %token <tok> T_UNSET
@@ -781,14 +781,13 @@ non_empty_member_modifiers:
 ;
 
 member_modifier:
-		T_PUBLIC				{ $$ = ast.NewPublicLiteral($1, $1.Literal); }/*
-	|	T_PROTECTED				{ $$ = ZEND_ACC_PROTECTED; }
-	|	T_PRIVATE				{ $$ = ZEND_ACC_PRIVATE; }
-	|	T_STATIC				{ $$ = ZEND_ACC_STATIC; }
-	|	T_ABSTRACT				{ $$ = ZEND_ACC_ABSTRACT; }
-	|	T_FINAL					{ $$ = ZEND_ACC_FINAL; }*/
+		T_PUBLIC				{ $$ = ast.NewPublicLiteral($1, $1.Literal); }
+	|	T_PROTECTED				{ $$ = ast.NewProtectedLiteral($1, $1.Literal);; }
+	|	T_PRIVATE				{ $$ = ast.NewPrivateLiteral($1, $1.Literal);; }
+	|	T_STATIC				{ $$ = ast.NewStaticLiteral($1, $1.Literal);; }
+	|	T_ABSTRACT				{ $$ = ast.NewAbstractLiteral($1, $1.Literal); }
+	|	T_FINAL					{ $$ = ast.NewFinalLiteral($1, $1.Literal); }
 ;
-
 
 property_list:
 		property_list ',' property { $$ = append($1, $3); }

@@ -1975,6 +1975,61 @@ func TestClassDeclarationStatement(t *testing.T) {
 `,
 		},
 		{
+			`<?php abstract class Foo
+{
+    protected $bar, $baz;
+}`,
+			`abstract class Foo
+{
+    protected $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php abstract class Foo
+{
+    private $bar, $baz;
+}`,
+			`abstract class Foo
+{
+    private $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php abstract class Foo
+{
+    static $bar, $baz;
+}`,
+			`abstract class Foo
+{
+    static $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php abstract class Foo
+{
+    abstract $bar, $baz;
+}`,
+			`abstract class Foo
+{
+    abstract $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php abstract class Foo
+{
+    final $bar, $baz;
+}`,
+			`abstract class Foo
+{
+    final $bar, $baz;
+}
+`,
+		},
+		{
 			`<?php final class Foo
 {
     public $bar, $baz;
