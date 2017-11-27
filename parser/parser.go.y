@@ -216,8 +216,8 @@ import (
 %type <exprs> isset_variables backticks_expr echo_expr_list unset_variables catch_name_list parameter_list implements_list property_list
 %type <stmt> if_stmt if_stmt_without_else
 %type <expr> argument_list 
-%type <exprs> const_list static_var_list global_var_list for_exprs non_empty_parameter_list non_empty_argument_list non_empty_for_exprs/*
-%type <ast> class_const_list class_const_decl name_list trait_adaptations method_body */
+%type <exprs> const_list static_var_list global_var_list for_exprs non_empty_parameter_list non_empty_argument_list non_empty_for_exprs name_list /*
+%type <ast> class_const_list class_const_decl trait_adaptations method_body */
 %type <expr> ctor_arguments /*trait_adaptation_list*/ lexical_vars
 %type <exprs> lexical_var_list encaps_list
 %type <exprs> array_pair non_empty_array_pair_list array_pair_list possible_array_pair variable_modifiers non_empty_member_modifiers class_modifiers  
@@ -523,8 +523,8 @@ interface_extends_list:
 */
 
 implements_list:
-		/* empty */				{ $$ = []ast.Expression{}; }/*
-	|	T_IMPLEMENTS name_list	{ $$ = $2; }*/
+		/* empty */				{ $$ = []ast.Expression{}; }
+	|	T_IMPLEMENTS name_list	{ $$ = $2; }
 ;
 
 foreach_variable:
@@ -704,12 +704,12 @@ class_statement:
 				  zend_ast_get_str($4), $7, NULL, $11, $9); CG(extra_fn_flags) = $10; }*/
 ;
 
-/*
 name_list:
-		name { $$ = zend_ast_create_list(1, ZEND_AST_NAME_LIST, $1); }
-	|	name_list ',' name { $$ = zend_ast_list_add($1, $3); }
+		name { $$ = append($$, $1); }/*
+	|	name_list ',' name { $$ = zend_ast_list_add($1, $3); }*/
 ;
 
+/*
 trait_adaptations:
 		';'								{ $$ = NULL; }
 	|	'{' '}'							{ $$ = NULL; }

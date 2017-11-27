@@ -50,7 +50,7 @@ func (cds *ClassDeclarationStatement) String() string {
 		is = append(is, i.String())
 	}
 	if len(is) > 0 {
-		implements = strings.Join(is, ", ")
+		implements = " implements " + strings.Join(is, ", ")
 	}
 
 	statements := ""
