@@ -78,9 +78,9 @@ import (
 %token <tok> T_EVAL
 %token <tok> T_REQUIRE
 %token <tok> T_REQUIRE_ONCE
-%token T_LOGICAL_OR
-%token T_LOGICAL_XOR
-%token T_LOGICAL_AND
+%token <tok> T_LOGICAL_OR
+%token <tok> T_LOGICAL_XOR
+%token <tok> T_LOGICAL_AND
 %token <tok> T_PRINT
 %token <tok> T_YIELD
 %token <tok> T_YIELD_FROM
@@ -106,7 +106,7 @@ import (
 %token T_SPACESHIP
 %token T_SL
 %token T_SR
-%token T_INSTANCEOF
+%token <tok> T_INSTANCEOF
 %token T_INC
 %token T_DEC
 %token <tok> T_INT_CAST
@@ -127,28 +127,28 @@ import (
 %token <tok> T_WHILE
 %token <tok> T_ENDWHILE
 %token <tok> T_FOR
-%token T_ENDFOR
+%token <tok> T_ENDFOR
 %token <tok> T_FOREACH
-%token T_ENDFOREACH
+%token <tok> T_ENDFOREACH
 %token <tok> T_DECLARE
-%token T_ENDDECLARE
-%token T_AS
+%token <tok> T_ENDDECLARE
+%token <tok> T_AS
 %token <tok> T_SWITCH
-%token T_ENDSWITCH
+%token <tok> T_ENDSWITCH
 %token <tok> T_CASE
 %token <tok> T_DEFAULT
 %token <tok> T_BREAK
 %token <tok> T_CONTINUE
 %token <tok> T_GOTO
 %token <tok> T_FUNCTION
-%token T_CONST
+%token <tok> T_CONST
 %token <tok> T_RETURN
 %token <tok> T_TRY
 %token <tok> T_CATCH
 %token <tok> T_FINALLY
 %token <tok> T_THROW
 %token <tok> T_USE
-%token T_INSTEADOF
+%token <tok> T_INSTEADOF
 %token <tok> T_GLOBAL
 %token <tok> T_STATIC
 %token <tok> T_ABSTRACT
@@ -162,10 +162,10 @@ import (
 %token <tok> T_EMPTY
 %token T_HALT_COMPILER
 %token <tok> T_CLASS
-%token T_TRAIT
-%token T_INTERFACE
-%token T_EXTENDS
-%token T_IMPLEMENTS
+%token <tok>T_TRAIT
+%token <tok>T_INTERFACE
+%token <tok> T_EXTENDS
+%token <tok> T_IMPLEMENTS
 %token T_OBJECT_OPERATOR
 %token <tok> T_DOUBLE_ARROW
 %token <tok> T_LIST
@@ -215,19 +215,19 @@ import (
 %type <stmt> foreach_statement for_statement while_statement alt_if_stmt alt_if_stmt_without_else switch_case_list class_statement 
 %type <exprs> isset_variables backticks_expr echo_expr_list unset_variables catch_name_list parameter_list implements_list property_list
 %type <stmt> if_stmt if_stmt_without_else
-%type <expr> argument_list 
-%type <exprs> const_list static_var_list global_var_list for_exprs non_empty_parameter_list non_empty_argument_list non_empty_for_exprs name_list /*
-%type <ast> class_const_list class_const_decl trait_adaptations method_body */
+%type <expr> argument_list class_const_decl 
+%type <exprs> const_list static_var_list global_var_list for_exprs non_empty_parameter_list non_empty_argument_list non_empty_for_exprs name_list
+%type <ast> /* trait_adaptations method_body */
 %type <expr> ctor_arguments /*trait_adaptation_list*/ lexical_vars
-%type <exprs> lexical_var_list encaps_list
+%type <exprs> lexical_var_list encaps_list class_const_list
 %type <exprs> array_pair non_empty_array_pair_list array_pair_list possible_array_pair variable_modifiers non_empty_member_modifiers class_modifiers  
 %type <expr> isset_variable type return_type type_expr member_modifier class_modifier 
 
-%type <expr> identifier
+%type <expr> identifier 
 
-%type <tok> function
-%type <num> returns_ref is_reference is_variadic /*
-%type <num> method_modifiers 
+%type <tok> function reserved_non_modifiers semi_reserved
+%type <num> returns_ref is_reference is_variadic
+%type <exprs> method_modifiers/*
 %type <num> use_type 
 */
 
@@ -244,7 +244,6 @@ start:
     }
 ;
 
-/*
 reserved_non_modifiers:
 	  T_INCLUDE | T_INCLUDE_ONCE | T_EVAL | T_REQUIRE | T_REQUIRE_ONCE | T_LOGICAL_OR | T_LOGICAL_XOR | T_LOGICAL_AND
 	| T_INSTANCEOF | T_NEW | T_CLONE | T_EXIT | T_IF | T_ELSEIF | T_ELSE | T_ENDIF | T_ECHO | T_DO | T_WHILE | T_ENDWHILE
@@ -259,15 +258,10 @@ semi_reserved:
 	  reserved_non_modifiers
 	| T_STATIC | T_ABSTRACT | T_FINAL | T_PRIVATE | T_PROTECTED | T_PUBLIC
 ;
-*/
 
 identifier:
-               T_STRING { $$ = ast.NewStringLiteral($1, $1.Literal); }/*
-       |       semi_reserved  {
-                       zval zv;
-                       zend_lex_tstring(&zv);
-                       $$ = zend_ast_create_zval(&zv);
-               }*/
+               T_STRING { $$ = ast.NewStringLiteral($1, $1.Literal); }
+       |       semi_reserved  { $$ = ast.NewStringLiteral($1, $1.Literal); }
 ;
 
 top_statement_list:
@@ -693,9 +687,9 @@ class_statement_list:
 
 class_statement:
 		variable_modifiers property_list ';'
-			{ $$ = ast.NewClassStatement($1, $2); }/*
+			{ $$ = ast.NewClassStatement($1, $2); }
 	|	method_modifiers T_CONST class_const_list ';'
-			{ $$ = $3; $$->attr = $1; }
+			{ $$ = ast.NewClassStatement(append($1, ast.NewConstantEncapsedStringLiteral($2, $2.Literal)), $3); }/*
 	|	T_USE name_list trait_adaptations
 			{ $$ = zend_ast_create(ZEND_AST_USE_TRAIT, $2, $3); }
 	|	method_modifiers function returns_ref identifier backup_doc_comment '(' parameter_list ')'
@@ -766,13 +760,11 @@ variable_modifiers:
 	|	T_VAR							{ $$ = []ast.Expression{ast.NewVarLiteral($1, $1.Literal)}; }
 ;
 
-/*
 method_modifiers:
-		/* empty *//*						{ $$ = ZEND_ACC_PUBLIC; }
+		/* empty */						{ $$ = []ast.Expression{}; }
 	|	non_empty_member_modifiers
-			{ $$ = $1; if (!($$ & ZEND_ACC_PPP_MASK)) { $$ |= ZEND_ACC_PUBLIC; } }
+			{ $$ = $1 }
 ;
-*/
 
 non_empty_member_modifiers:
 		member_modifier			{ $$ = []ast.Expression{$1}; }
@@ -801,16 +793,14 @@ property:
 			{ $$ = ast.NewAssignExpression(ast.Equal, ast.NewVariableLiteral($1, $1.Literal), $3, false); }
 ;
 
-/*
 class_const_list:
-		class_const_list ',' class_const_decl { $$ = zend_ast_list_add($1, $3); }
-	|	class_const_decl { $$ = zend_ast_create_list(1, ZEND_AST_CLASS_CONST_DECL, $1); }
+		class_const_list ',' class_const_decl { $$ = append($1, $3); }
+	|	class_const_decl { $$ = append($$, $1); }
 ;
 
 class_const_decl:
-	identifier '=' expr backup_doc_comment { $$ = zend_ast_create(ZEND_AST_CONST_ELEM, $1, $3, ($4 ? zend_ast_create_zval_from_str($4) : NULL)); }
+	identifier '=' expr backup_doc_comment { $$ = ast.NewAssignExpression(ast.Equal, $1, $3, false); }
 ;
-*/
 
 const_decl:
 	T_STRING '=' expr backup_doc_comment { $$ = ast.NewAssignExpression(ast.Equal, ast.NewStringLiteral($1, $1.Literal), $3, false); }
