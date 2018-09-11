@@ -1871,6 +1871,24 @@ func TestTryStatement(t *testing.T) {
     echo $e->getMessage();
 }`,
 		},
+		{
+			`<?php try {
+    interface Foo extends Bar, Baz {
+        public const One = 1;
+    }
+} catch (Foo|Bar $e) {
+    echo $e->getMessage();
+}`,
+			`try {
+    interface Foo extends Bar, Baz
+{
+    public const One = 1;
+}
+
+} catch (Foo|Bar $e) {
+    echo $e->getMessage();
+}`,
+		},
 	}
 
 	for idx, test := range tests {
