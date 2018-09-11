@@ -195,7 +195,7 @@ import (
 %type <program> start
 %type <stmt> top_statement statement function_declaration_statement
 %type <expr> namespace_name name
-%type <stmt> class_declaration_statement /*trait_declaration_statement
+%type <stmt> class_declaration_statement trait_declaration_statement/*
 %type <ast> interface_declaration_statement interface_extends_list
 %type <ast> group_use_declaration inline_use_declarations inline_use_declaration
 %type <ast> mixed_group_use_declaration use_declaration unprefixed_use_declaration*/
@@ -284,8 +284,8 @@ name:
 top_statement:
 		statement							{ $$ = $1; }
 	|	function_declaration_statement		{ $$ = $1; }
-	|	class_declaration_statement			{ $$ = $1; }/*
-	|	trait_declaration_statement			{ $$ = $1; }
+	|	class_declaration_statement			{ $$ = $1; }
+	|	trait_declaration_statement			{ $$ = $1; }/*
 	|	interface_declaration_statement		{ $$ = $1; }
 	|	T_HALT_COMPILER '(' ')' ';'
 			{ $$ = zend_ast_create(ZEND_AST_HALT_COMPILER,
@@ -489,13 +489,13 @@ class_modifier:
 	|	T_FINAL 		{ $$ = ast.NewFinalLiteral($1, $1.Literal); }
 ;
 
-/*
+
 trait_declaration_statement:
-		T_TRAIT { $<num>$ = CG(zend_lineno); }
-		T_STRING backup_doc_comment '{' class_statement_list '}'
-			{ $$ = zend_ast_create_decl(ZEND_AST_CLASS, ZEND_ACC_TRAIT, $<num>2, $4, zend_ast_get_str($3), NULL, NULL, $6, NULL); }
+		T_TRAIT T_STRING backup_doc_comment '{' class_statement_list '}'
+			{ $$ = ast.NewTraitDeclarationStatement($1, $2, $5); }
 ;
 
+/*
 interface_declaration_statement:
 		T_INTERFACE { $<num>$ = CG(zend_lineno); }
 		T_STRING interface_extends_list backup_doc_comment '{' class_statement_list '}'

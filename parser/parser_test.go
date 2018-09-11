@@ -2189,3 +2189,163 @@ func TestClassDeclarationStatement(t *testing.T) {
 		}
 	}
 }
+
+func TestTraitDeclarationStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php trait Foo
+{
+}`,
+			`trait Foo
+{
+
+}
+`,
+		},
+		{
+			`<?php trait Foo
+{
+    public $bar;
+    public $baz;
+}`,
+			`trait Foo
+{
+    public $bar;
+    public $baz;
+}
+`,
+		},
+		{
+			`<?php trait Foo
+{
+    public $bar, $baz;
+}`,
+			`trait Foo
+{
+    public $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php trait Foo
+{
+    protected $bar, $baz;
+}`,
+			`trait Foo
+{
+    protected $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php trait Foo
+{
+    private $bar, $baz;
+}`,
+			`trait Foo
+{
+    private $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php trait Foo
+{
+    static $bar, $baz;
+}`,
+			`trait Foo
+{
+    static $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php trait Foo
+{
+    abstract $bar, $baz;
+}`,
+			`trait Foo
+{
+    abstract $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php trait Foo
+{
+    final $bar, $baz;
+}`,
+			`trait Foo
+{
+    final $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php trait Foo
+{
+    var $bar, $baz;
+}`,
+			`trait Foo
+{
+    var $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php trait Foo
+{
+    public $bar = 1;
+}`,
+			`trait Foo
+{
+    public $bar = 1;
+}
+`,
+		},
+		{
+			`<?php trait Foo
+{
+    public const Bar = 1;
+}`,
+			`trait Foo
+{
+    public const Bar = 1;
+}
+`,
+		},
+		{
+			`<?php trait Foo
+{
+    public const Bar = 1, Baz = 2;
+}`,
+			`trait Foo
+{
+    public const Bar = 1, Baz = 2;
+}
+`,
+		},
+		{
+			`<?php trait Foo
+{
+}`,
+			`trait Foo
+{
+
+}
+`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}
