@@ -2139,6 +2139,27 @@ func TestClassDeclarationStatement(t *testing.T) {
 }
 `,
 		},
+		{
+			`<?php class Foo
+{
+}`,
+			`class Foo
+{
+
+}
+`,
+		},
+		{
+			`<?php class Foo extends Bar implements Baz,Poo
+{
+    public $bar, $baz;
+}`,
+			`class Foo extends Bar implements Baz, Poo
+{
+    public $bar, $baz;
+}
+`,
+		},
 	}
 
 	for idx, test := range tests {

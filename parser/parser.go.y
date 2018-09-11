@@ -474,10 +474,9 @@ is_variadic:
 
 class_declaration_statement:
 		class_modifiers T_CLASS T_STRING extends_from implements_list backup_doc_comment '{' class_statement_list '}'
-			{ $$ = ast.NewClassDeclarationStatement($1, $2, $3, $4, $5, $8); }/*
-	|	T_CLASS { $<num>$ = CG(zend_lineno); }
-		T_STRING extends_from implements_list backup_doc_comment '{' class_statement_list '}'
-			{ $$ = zend_ast_create_decl(ZEND_AST_CLASS, 0, $<num>2, $6, zend_ast_get_str($3), $4, $5, $8, NULL); }*/
+			{ $$ = ast.NewClassDeclarationStatement($1, $2, $3, $4, $5, $8); }
+	|	T_CLASS T_STRING extends_from implements_list backup_doc_comment '{' class_statement_list '}'
+			{ $$ = ast.NewClassDeclarationStatement([]ast.Expression{}, $1, $2, $3, $4, $7); }
 ;
 
 class_modifiers:
