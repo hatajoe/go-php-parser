@@ -12,11 +12,14 @@ import (
 )
 
 type Lexer struct {
+	src    string
 	tokens token.Tokens
 	offset int
 }
 
 func (s *Lexer) Init(src string) {
+
+	s.src = src
 
 	_, filename, _, ok := runtime.Caller(0)
 	if !ok {
@@ -33,11 +36,21 @@ func (s *Lexer) Init(src string) {
 	var out bytes.Buffer
 	php.Stdout = &out
 
-	echo.Start()
-	php.Start()
-	echo.Wait()
-	w.Close()
-	php.Wait()
+	if err := echo.Start(); err != nil {
+		panic(err)
+	}
+	if err := php.Start(); err != nil {
+		panic(err)
+	}
+	if err := echo.Wait(); err != nil {
+		panic(err)
+	}
+	if err := w.Close(); err != nil {
+		panic(err)
+	}
+	if err := php.Wait(); err != nil {
+		panic(err)
+	}
 
 	tokens := token.Tokens{}
 	if err := json.Unmarshal(out.Bytes(), &tokens); err != nil {
@@ -53,4 +66,8 @@ func (l *Lexer) Scan() *token.Token {
 	token := l.tokens[l.offset]
 	l.offset++
 	return token
+}
+
+func (l *Lexer) Src() string {
+	return l.src
 }

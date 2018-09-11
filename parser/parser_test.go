@@ -2367,3 +2367,153 @@ func TestTraitDeclarationStatement(t *testing.T) {
 		}
 	}
 }
+
+func TestInterfaceDeclarationStatement(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{
+			`<?php interface Foo
+{
+}`,
+			`interface Foo
+{
+
+}
+`,
+		},
+		{
+			`<?php interface Foo
+{
+    public $bar;
+    public $baz;
+}`,
+			`interface Foo
+{
+    public $bar;
+    public $baz;
+}
+`,
+		},
+		{
+			`<?php interface Foo
+{
+    public $bar, $baz;
+}`,
+			`interface Foo
+{
+    public $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php interface Foo
+{
+    protected $bar, $baz;
+}`,
+			`interface Foo
+{
+    protected $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php interface Foo
+{
+    private $bar, $baz;
+}`,
+			`interface Foo
+{
+    private $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php interface Foo
+{
+    static $bar, $baz;
+}`,
+			`interface Foo
+{
+    static $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php interface Foo
+{
+    abstract $bar, $baz;
+}`,
+			`interface Foo
+{
+    abstract $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php interface Foo
+{
+    final $bar, $baz;
+}`,
+			`interface Foo
+{
+    final $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php interface Foo
+{
+    var $bar, $baz;
+}`,
+			`interface Foo
+{
+    var $bar, $baz;
+}
+`,
+		},
+		{
+			`<?php interface Foo
+{
+    public $bar = 1;
+}`,
+			`interface Foo
+{
+    public $bar = 1;
+}
+`,
+		},
+		{
+			`<?php interface Foo extends Bar
+{
+    public const Bar = 1;
+}`,
+			`interface Foo extends Bar
+{
+    public const Bar = 1;
+}
+`,
+		},
+		{
+			`<?php interface Foo extends Bar, Baz
+{
+    public const Bar = 1, Baz = 2;
+}`,
+			`interface Foo extends Bar, Baz
+{
+    public const Bar = 1, Baz = 2;
+}
+`,
+		},
+	}
+
+	for idx, test := range tests {
+		l := &lexer.Lexer{}
+		l.Init(test.input)
+		program := Parse(l)
+		if program.String() != test.expected {
+			t.Errorf("test %d failed. expected=`%s`, got=`%s`", idx, test.expected, program.String())
+		}
+	}
+}

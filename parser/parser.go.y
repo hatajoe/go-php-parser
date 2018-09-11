@@ -195,8 +195,8 @@ import (
 %type <program> start
 %type <stmt> top_statement statement function_declaration_statement
 %type <expr> namespace_name name
-%type <stmt> class_declaration_statement trait_declaration_statement/*
-%type <ast> interface_declaration_statement interface_extends_list
+%type <stmt> class_declaration_statement trait_declaration_statement interface_declaration_statement
+%type <exprs> interface_extends_list /*
 %type <ast> group_use_declaration inline_use_declarations inline_use_declaration
 %type <ast> mixed_group_use_declaration use_declaration unprefixed_use_declaration*/
 %type <stmt> /*unprefixed_use_declarations */ inner_statement declare_statement finally_statement 
@@ -285,8 +285,8 @@ top_statement:
 		statement							{ $$ = $1; }
 	|	function_declaration_statement		{ $$ = $1; }
 	|	class_declaration_statement			{ $$ = $1; }
-	|	trait_declaration_statement			{ $$ = $1; }/*
-	|	interface_declaration_statement		{ $$ = $1; }
+	|	trait_declaration_statement			{ $$ = $1; }
+	|	interface_declaration_statement		{ $$ = $1; }/*
 	|	T_HALT_COMPILER '(' ')' ';'
 			{ $$ = zend_ast_create(ZEND_AST_HALT_COMPILER,
 			      zend_ast_create_zval_from_long(zend_get_scanned_file_offset()));
@@ -388,8 +388,8 @@ inner_statement:
 	|	function_declaration_statement 		{ $$ = $1; }
 	|	class_declaration_statement 		{ $$ = $1; }
 
-	|	trait_declaration_statement			{ $$ = $1; }/*
-	|	interface_declaration_statement		{ $$ = $1; }
+	|	trait_declaration_statement			{ $$ = $1; }
+	|	interface_declaration_statement		{ $$ = $1; }/*
 	|	T_HALT_COMPILER '(' ')' ';'
 			{ $$ = NULL; zend_error_noreturn(E_COMPILE_ERROR,
 			      "__HALT_COMPILER() can only be used from the outermost scope"); }*/
@@ -495,25 +495,20 @@ trait_declaration_statement:
 			{ $$ = ast.NewTraitDeclarationStatement($1, $2, $5); }
 ;
 
-/*
 interface_declaration_statement:
-		T_INTERFACE { $<num>$ = CG(zend_lineno); }
-		T_STRING interface_extends_list backup_doc_comment '{' class_statement_list '}'
-			{ $$ = zend_ast_create_decl(ZEND_AST_CLASS, ZEND_ACC_INTERFACE, $<num>2, $5, zend_ast_get_str($3), NULL, $4, $7, NULL); }
+		T_INTERFACE T_STRING interface_extends_list backup_doc_comment '{' class_statement_list '}'
+			{ $$ = ast.NewInterfaceDeclarationStatement($1, $2, $3, $6); }
 ;
-*/
 
 extends_from:
 		/* empty */		{ $$ = nil; }
 	|	T_EXTENDS name	{ $$ = $2; }
 ;
 
-/*
 interface_extends_list:
-		/* empty *//*			{ $$ = NULL; }
+		/* empty */			{ $$ = []ast.Expression{}; }
 	|	T_EXTENDS name_list	{ $$ = $2; }
 ;
-*/
 
 implements_list:
 		/* empty */				{ $$ = []ast.Expression{}; }
@@ -1265,7 +1260,7 @@ func (l *LexerWrapper) Lex(lval *yySymType) int {
 }
 
 func (l *LexerWrapper) Error(e string) {
-	log.Fatalf("Line %d, Column %d: %q %s", l.recentPos.Line, l.recentPos.Column, l.recentLit, e)
+	log.Fatalf("Line %d, Column %d: %q %s\n%s", l.recentPos.Line, l.recentPos.Column, l.recentLit, e, l.l.Src())
 }
 
 func Parse(l *lexer.Lexer) *ast.Program {
