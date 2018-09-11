@@ -385,8 +385,8 @@ inner_statement_list:
 
 inner_statement:
 		statement { $$ = $1; }
-	|	function_declaration_statement 		{ $$ = $1; }/*
-	|	class_declaration_statement 		{ $$ = $1; }
+	|	function_declaration_statement 		{ $$ = $1; }
+	|	class_declaration_statement 		{ $$ = $1; }/*
 
 	|	trait_declaration_statement			{ $$ = $1; }
 	|	interface_declaration_statement		{ $$ = $1; }

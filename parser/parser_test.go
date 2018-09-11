@@ -1835,6 +1835,24 @@ func TestTryStatement(t *testing.T) {
     $h = 8;
 }`,
 		},
+		{
+			`<?php try {
+    class Foo extends Bar implements Baz {
+        public const One = 1;
+    }
+} catch (Foo|Bar $e) {
+    echo $e->getMessage();
+}`,
+			`try {
+    class Foo extends Bar implements Baz
+{
+    public const One = 1;
+}
+
+} catch (Foo|Bar $e) {
+    echo $e->getMessage();
+}`,
+		},
 	}
 
 	for idx, test := range tests {
