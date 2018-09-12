@@ -301,11 +301,20 @@ type (
 	}
 )
 
+func (t *Token) Indent() string {
+	indent := ""
+	for i := 0; i < len(indent); i++ {
+		indent += " "
+	}
+	return indent
+}
+
 func (t *Token) UnmarshalJSON(data []byte) error {
 	aux := struct {
-		Tok string `json:"tok"`
-		Lit string `json:"lit"`
-		Pos int    `json:"pos"`
+		Tok  string `json:"tok"`
+		Lit  string `json:"lit"`
+		Line int    `json:"line"`
+		Col  int    `json:"col"`
 	}{}
 	if err := json.Unmarshal(data, &aux); err != nil {
 		return err
@@ -318,8 +327,8 @@ func (t *Token) UnmarshalJSON(data []byte) error {
 	t.Type = TokenType(tok)
 	t.Literal = aux.Lit
 	t.Position = Position{
-		Line:   aux.Pos,
-		Column: 0, // TODO
+		Line:   aux.Line,
+		Column: aux.Col,
 	}
 	return nil
 }
